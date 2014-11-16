@@ -1,0 +1,28 @@
+{
+  "name": "angular-color-picker",
+  "main": "angular-color-picker.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/ruhley/angular-color-picker",
+  "authors": [
+    "ruhley <timothy.ruhle@gmail.com>"
+  ],
+  "description": "Color Picker Directive For AngularJS",
+  "keywords": [
+    "Color",
+    "Color Picker",
+    "Directive",
+    "Angular",
+    "AngularJS"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "examples"
+  ],
+  "dependencies": {
+    "tinycolor": "~1.1.0",
+    "bootstrap": "~3.3.1"
+  }
+}
