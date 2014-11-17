@@ -7,18 +7,26 @@
     <meta name="description" content="Angular-color-picker : AngularJS Colour Picker Directive">
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/angularjs-color-picker.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
 
-    <title>Angular-color-picker</title>
+    <script src="bower_components/angularjs/angular.min.js"></script>
+    <script src="bower_components/tinycolor/tinycolor.js"></script>
+
+    <script src="javascripts/app.js"></script>
+    <script src="javascripts/angularjs-color-picker.js"></script>
+
+    <title>AngularJS Color Picker</title>
   </head>
 
-  <body>
+  <body ng-app="app" ng-controller="AppCtrl">
 
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
         <header class="inner">
           <a id="forkme_banner" href="https://github.com/ruhley/angular-color-picker">View on GitHub</a>
 
-          <h1 id="project_title">Angular-color-picker</h1>
+          <h1 id="project_title">AngularJS Color Picker</h1>
           <h2 id="project_tagline">AngularJS Colour Picker Directive</h2>
 
             <section id="downloads">
@@ -32,9 +40,53 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
         <h1>
-<a id="angularjs-color-picker" class="anchor" href="#angularjs-color-picker" aria-hidden="true"><span class="octicon octicon-link"></span></a>angularjs-color-picker</h1>
+<a id="angularjs-color-picker" class="anchor" href="#angularjs-color-picker" aria-hidden="true"><span class="octicon octicon-link"></span></a>Angularjs Color Picker</h1>
 
 <p>AngularJS Color Picker Directive</p>
+
+<h1>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h1>
+<form class="col-sm-12">
+<div class="row">
+  <label class="control-label">Color</label>
+  <input type="text" class="form-control" ng-model="color" color-picker format="format" alpha="alpha" swatch="swatch" swatch-pos="swatchPos" pos="pos" case="case">
+</div>
+
+<div class="row">
+  Two Way Binding - {{color}}
+</div>
+
+<div class="row">
+  <label class="control-label">Format (format)</label>
+  <select ng-model="format" class="form-control" ng-options="option.value as option.label for option in formatOptions"></select>
+</div>
+
+<div class="row">
+  <label class="control-label">Alpha (alpha) - whether or not to display the alpha control</label>
+  <select ng-model="alpha" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+</div>
+
+<div class="row">
+  <label class="control-label">Swatch (swatch) - whether or not to display the swatch inside the input field</label>
+  <select ng-model="swatch" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+</div>
+
+<div class="row">
+  <label class="control-label">Swatch Position (swatch-pos) - the position of the swatch in the input field - 'left' or 'right'</label>
+  <select ng-model="swatchPos" class="form-control" ng-options="option.value as option.label for option in swatchPosOptions"></select>
+</div>
+
+<div class="row">
+  <label class="control-label">Position (pos) - the position of the picker control in relation to the input field - 'bottom left', 'bottom right', 'top left', 'top right'</label>
+  <select ng-model="pos" class="form-control" ng-options="option.value as option.label for option in posOptions"></select>
+</div>
+
+<div class="row">
+  <label class="control-label">Case (case) - The case of hex colors - 'upper', 'lower'</label>
+  <select ng-model="case" class="form-control" ng-options="option.value as option.label for option in caseOptions"></select>
+</div>
+
+</form>
 
 <h1>
 <a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h1>
@@ -92,7 +144,7 @@ pos<span class="pl-ko">=</span><span class="pl-s1"><span class="pl-pds">"</span>
       </footer>
     </div>
 
-    
+
 
   </body>
 </html>
