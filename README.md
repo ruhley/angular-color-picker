@@ -1,12 +1,12 @@
-angular-colour-picker
+angular-color-picker
 =====================
 
-AngularJS Colour Picker Directive
+AngularJS Color Picker Directive
 
 Requirements
 =====
-* tinycolor.js - looking at removing in future versions
 NO requirement for jQuery!
+* tinycolor.js - looking at removing in future versions if requested enough (33kb not minified)
 
 Installation
 =====

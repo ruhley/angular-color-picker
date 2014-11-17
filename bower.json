@@ -1,6 +1,9 @@
 {
   "name": "angular-color-picker",
-  "main": "angular-color-picker.js",
+  "main": [
+    "angular-color-picker.js",
+    "angular-color-picker.css"
+  ],
   "version": "0.0.1",
   "homepage": "https://github.com/ruhley/angular-color-picker",
   "authors": [
@@ -23,6 +26,9 @@
   ],
   "dependencies": {
     "tinycolor": "~1.1.0",
+    "angularjs": "~1.3.2"
+  },
+  "devDependencies": {
     "bootstrap": "~3.3.1"
   }
 }

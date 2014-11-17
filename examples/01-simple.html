@@ -6,8 +6,8 @@
 
 		<link rel="stylesheet" href="../angular-color-picker.css" />
 
-		<script src="../bower_components/jquery/dist/jquery.min.js"></script>
-		<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<!-- <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
 		<script src="../bower_components/angularjs/angular.min.js"></script>
 		<script src="../bower_components/tinycolor/tinycolor.js"></script>
 
@@ -15,30 +15,44 @@
 		<script src="../angular-color-picker.js"></script>
 	</head>
 	<body ng-app="app" ng-controller="AppCtrl">
-		{{title}}
-
 		<div class="col-sm-12">
-			<div class="row">
-				<label class="control-label">Format</label>
-				<select ng-model="format" class="form-control">
-					<option value="hsl">HSL</option>
-					<option value="rgb">RGB</option>
-					<option value="hex">HEX</option>
-				</select>
-			</div>
+			<form class="col-sm-12">
+				<div class="row">
+					<label class="control-label">Format</label>
+					<select ng-model="format" class="form-control">
+						<option value="hsl">HSL</option>
+						<option value="hsv">HSV</option>
+						<option value="rgb">RGB</option>
+						<option value="hex">HEX</option>
+					</select>
+				</div>
 
-			<div class="row">
-				<label class="control-label">Alpha</label>
-				<select ng-model="alpha" class="form-control">
-					<option value="true">Yes</option>
-					<option value="false">No</option>
-				</select>
-			</div>
+				<div class="row">
+					<label class="control-label">Alpha</label>
+					<select ng-model="alpha" class="form-control">
+						<option value="Yes">Yes</option>
+						<option value="">No</option>
+					</select>
+				</div>
 
-			<div class="row">
-				<label class="control-label">Color</label>
-				<input type="text" class="form-control" color-picker format="format" alpha="alpha">
-			</div>
+				<div class="row">
+					<label class="control-label">Swatch</label>
+					<select ng-model="swatch" class="form-control">
+						<option value="Yes">Yes</option>
+						<option value="">No</option>
+					</select>
+				</div>
+
+				<div class="row">
+					<label class="control-label">Color</label>
+					<input type="text" class="form-control" ng-model="color" color-picker format="format" alpha="alpha" swatch="swatch">
+				</div>
+
+				<div class="row">
+					Two Way Binding
+					{{color}}
+				</div>
+			</form>
 		</div>
 	</body>
 </html>

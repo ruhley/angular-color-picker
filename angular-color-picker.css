@@ -2,7 +2,7 @@
 	position: relative;
 }
 
-.color-picker-input {
+.color-picker-input-swatch {
 	padding-left: 44px;
 }
 
@@ -42,11 +42,7 @@
 	box-shadow: 0 0 20px rgba(0, 0, 0, .2);
 	z-index: 99999;
 	box-sizing: content-box;
-	display: none;
-}
-
-.color-picker-focus .color-picker-panel {
-	display: block;
+	/*display: none;*/
 }
 
 .color-picker-opacity {
