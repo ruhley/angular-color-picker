@@ -2,7 +2,7 @@
 	position: relative;
 }
 
-.color-picker-input-swatch {
+.color-picker-wrapper .color-picker-input.color-picker-input-swatch {
 	padding-left: 36px;
 }
 
