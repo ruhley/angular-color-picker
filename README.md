@@ -1,4 +1,4 @@
-angular-color-picker
+angularjs-color-picker
 =====================
 
 AngularJS Color Picker Directive
@@ -10,18 +10,28 @@ NO requirement for jQuery!
 
 Installation
 =====
-* Include tinycolor.js, angular-color-picker.js and angular-color-picker.css
+* Include tinycolor.js, angularjs-color-picker.js and angularjs-color-picker.css
 * Add the module line
 ```javascript
-angular.module('app', [
-        'color-picker'
-    ]);
+angular.module('app', ['color-picker']);
 ```
 * Include in your view
 ```javascript
-<color-picker ng-model="myColor"></color-picker>
+<input type="text" ng-model="myColor" color-picker>
 ```
 
+Options
+=====
+If a list is given then choose one of the items. The first item in the list will be the default.
+```javascript
+ng-model=""
+format="hsl, hsv, rgb, hex"
+alpha="true, false"
+swatch="true, false"
+swatch-pos="left, right"
+pos="bottom left, bottom right, top left, top right"
+case="upper, lower"
+```
 
 Inspiration and code taken from projects like
 * http://kaihenzler.github.io/angular-minicolors/

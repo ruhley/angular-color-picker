@@ -4,7 +4,7 @@
     "angular-color-picker.js",
     "angular-color-picker.css"
   ],
-  "version": "0.0.1",
+  "version": "0.1.0",
   "homepage": "https://github.com/ruhley/angular-color-picker",
   "authors": [
     "ruhley <timothy.ruhle@gmail.com>"
