@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('color-picker', [])
-    .directive('colorPicker', ['$compile', '$document', function ($compile, $document) {
+    .directive('colorPicker', ['$compile', '$document', '$timeout', function ($compile, $document, $timeout) {
         return {
             restrict: 'A',
             scope: {
@@ -16,10 +16,6 @@ angular.module('color-picker', [])
             link: function ($scope, element) {
                 $scope.init = function () {
                     $scope.createInput();
-                    $scope.hue = 0;
-                    $scope.saturation = 50;
-                    $scope.lightness = 50;
-                    $scope.opacity = 100;
                     $scope.alpha = $scope.alpha === undefined ? true : $scope.alpha;
                     $scope.swatch = $scope.swatch === undefined ? true : $scope.swatch;
                     $scope.format = $scope.format === undefined ? 'hsl' : $scope.format;
@@ -79,10 +75,13 @@ angular.module('color-picker', [])
                     $scope.colorMouse = false;
                 };
 
-                $scope.hide = function () {
+                $scope.hide = function (apply) {
                     $scope.log('Color Picker: Hide Event');
                     $scope.visible = false;
-                    $scope.$apply();
+
+                    if (apply !== false) {
+                        $scope.$apply();
+                    }
                 };
 
                 $scope.update = function () {
@@ -153,15 +152,35 @@ angular.module('color-picker', [])
 
                         if (color.isValid()) {
                             var hsl = color.toHsl();
-                            $scope.hue = hsl.h;
-                            $scope.saturation = hsl.s * 100;
-                            $scope.lightness = hsl.l * 100;
 
-                            if ($scope.alpha) {
-                                $scope.opacity = hsl.a * 100;
+                            if (!$scope.isValid) {
+                                $scope.show();
+
+                                $timeout(function() {
+                                    $scope.hue = hsl.h;
+                                    $scope.saturation = hsl.s * 100;
+                                    $scope.lightness = hsl.l * 100;
+
+                                    if ($scope.alpha) {
+                                        $scope.opacity = hsl.a * 100;
+                                    }
+
+                                    $scope.hide();
+                                });
+                            } else {
+                                $scope.hue = hsl.h;
+                                $scope.saturation = hsl.s * 100;
+                                $scope.lightness = hsl.l * 100;
+
+                                if ($scope.alpha) {
+                                    $scope.opacity = hsl.a * 100;
+                                }
                             }
+
+                            $scope.isValid = true;
                         } else {
-                            alert('Invalid Color Format!');
+                            $scope.isValid = false;
+                            // TODO: Set Validity when invalid color given
                         }
                     }
                 });
@@ -308,7 +327,7 @@ angular.module('color-picker', [])
                 // HELPER FUNCTIONS
                 //---------------------------
                 $scope.log = function () {
-                    console.log.apply(console, arguments);
+                    //console.log.apply(console, arguments);
                 };
 
                 // taken and modified from jQuery's find
