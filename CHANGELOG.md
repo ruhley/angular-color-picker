@@ -1,3 +1,7 @@
+v0.1.2 - On render
+======
+* Fixing slider positions on render
+
 v0.1.1 - Encapsulating css
 ======
 * All css rules are now encapsulated in .color-picker-wrapper
