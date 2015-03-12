@@ -6,22 +6,31 @@ angular.module('color-picker', [])
             restrict: 'A',
             scope: {
                 ngModel: '=',
-                format: '=',
                 alpha: '=',
-                swatch: '=',
-                swatchPos: '=',
+                case: '=',
+                format: '=',
                 pos: '=',
-                case: '='
+                swatch: '=',
+                swatchOnly: '=',
+                swatchPos: '=',
             },
             link: function ($scope, element) {
                 $scope.init = function () {
-                    $scope.createInput();
                     $scope.alpha = $scope.alpha === undefined ? true : $scope.alpha;
-                    $scope.swatch = $scope.swatch === undefined ? true : $scope.swatch;
-                    $scope.format = $scope.format === undefined ? 'hsl' : $scope.format;
-                    $scope.swatchPos = $scope.swatchPos === undefined ? 'left' : $scope.swatchPos;
-                    $scope.pos = $scope.pos === undefined ? 'bottom left' : $scope.pos;
                     $scope.case = $scope.case === undefined ? 'upper' : $scope.case;
+                    $scope.format = $scope.format === undefined ? 'hsl' : $scope.format;
+                    $scope.pos = $scope.pos === undefined ? 'bottom left' : $scope.pos;
+                    $scope.swatch = $scope.swatch === undefined ? true : $scope.swatch;
+                    $scope.swatchOnly = $scope.swatchOnly === undefined ? false : $scope.swatchOnly;
+                    $scope.swatchPos = $scope.swatchPos === undefined ? 'left' : $scope.swatchPos;
+
+                    if ($scope.ngModel === undefined) {
+                        $scope.hue = 0;
+                        $scope.saturation = 100;
+                        $scope.lightness = 50;
+                    }
+
+                    $scope.createInput();
 
                     $document.on('click', function (evt) {
                         if ($scope.find(evt.target).length === 0) {
@@ -37,7 +46,7 @@ angular.module('color-picker', [])
                     if (!$scope.wrapper) {
                         element.wrap($compile(angular.element('<div class="color-picker-wrapper"></div>'))($scope));
 
-                        html = '<input class="color-picker-input form-control" type="text" ng-model="ngModel" size="7" ng-focus="show()" ng-class="inputPadding">' +
+                        html = '<input class="color-picker-input form-control" type="text" ng-model="ngModel" size="7" ng-focus="show()" ng-class="inputClasses">' +
                                 '<span class="color-picker-swatch" ng-click="focus()" ng-show="swatch" ng-class="swatchClass">' +
                                     '<span class="color-picker-swatch-color" style="background-color: {{swatchColor}};"></span>' +
                                 '</span>' +
@@ -64,7 +73,7 @@ angular.module('color-picker', [])
 
                 $scope.focus = function () {
                     $scope.log('Color Picker: Focus Event');
-                    $scope.find('.color-picker-input').focus();
+                    $scope.find('.color-picker-input')[0].focus()
                 };
 
                 $scope.show = function () {
@@ -124,7 +133,12 @@ angular.module('color-picker', [])
 
                 $scope.updateClasses = function () {
                     $scope.swatchClass = $scope.swatchPos === 'right' ? 'color-picker-swatch-right' : 'color-picker-swatch-left';
-                    $scope.inputPadding = $scope.swatch && $scope.swatchPos === 'left' ? 'color-picker-input-swatch' : '';
+
+                    if ($scope.swatchOnly) {
+                        $scope.inputClasses = 'color-picker-input-swatch-only';
+                    } else if ($scope.swatch && $scope.swatchPos === 'left') {
+                        $scope.inputClasses = 'color-picker-input-swatch';
+                    }
 
                     switch ($scope.pos) {
                         case 'bottom right':
@@ -202,6 +216,12 @@ angular.module('color-picker', [])
                 });
 
                 $scope.$watch('swatchPos', function (newValue, oldValue) {
+                    if (newValue !== undefined) {
+                        $scope.updateClasses();
+                    }
+                });
+
+                $scope.$watch('swatchOnly', function (newValue, oldValue) {
                     if (newValue !== undefined) {
                         $scope.updateClasses();
                     }
