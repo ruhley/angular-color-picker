@@ -29,6 +29,7 @@ format="hsl, hsv, rgb, hex"
 alpha="true, false"
 swatch="true, false"
 swatch-pos="left, right"
+swatch-only="true, false"
 pos="bottom left, bottom right, top left, top right"
 case="upper, lower"
 ```
