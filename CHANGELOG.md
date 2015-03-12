@@ -1,3 +1,7 @@
+v0.2.0 - Adding in more options
+======
+* Added in Swatch Only
+
 v0.1.2 - On render
 ======
 * Fixing slider positions on render
