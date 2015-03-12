@@ -71,6 +71,11 @@
 </div>
 
 <div class="row">
+  <label class="control-label">Swatch Only (swatch-only) - whether or not to display only the swatch</label>
+  <select ng-model="swatchPos" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+</div>
+
+<div class="row">
   <label class="control-label">Swatch Position (swatch-pos) - the position of the swatch in the input field - 'left' or 'right'</label>
   <select ng-model="swatchPos" class="form-control" ng-options="option.value as option.label for option in swatchPosOptions"></select>
 </div>
