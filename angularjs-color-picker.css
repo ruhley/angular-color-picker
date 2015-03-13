@@ -6,7 +6,11 @@
     padding-left: 36px;
 }
 
-.color-picker-wrapper .color-picker-input-swatch-only {
+.color-picker-wrapper.color-picker-swatch-only {
+    width: 35px;
+}
+
+.color-picker-wrapper.color-picker-swatch-only .color-picker-input {
     width: 35px;
 }
 
@@ -23,6 +27,7 @@
     padding: 0;
     margin: 0;
     display: inline-block;
+    cursor: pointer;
 }
 
 .color-picker-wrapper .color-picker-swatch-left {
