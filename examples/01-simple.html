@@ -54,12 +54,35 @@
 
                 <div class="row">
                     <label class="control-label">Color</label>
-                    <input type="text" class="form-control" ng-model="color" color-picker format="format" alpha="alpha" swatch="swatch" swatch-pos="swatchPos" pos="pos" case="case" swatch-only="swatchOnly">
+                    <input
+                        type="text"
+                        class="form-control"
+                        ng-model="color"
+                        color-picker
+                        color-picker-format="format"
+                        color-picker-alpha="alpha"
+                        color-picker-swatch="swatch"
+                        color-picker-swatch-pos="swatchPos"
+                        color-picker-pos="pos"
+                        color-picker-case="case"
+                        color-picker-swatch-only="swatchOnly"
+                    >
                 </div>
 
                 <div class="row">
                     Two Way Binding
                     {{color}}
+                </div>
+
+                <div class="row">
+                    <h2>No Options</h2>
+                    <label class="control-label">Color</label>
+                    <input type="text" class="form-control" ng-model="color2" color-picker>
+                </div>
+
+                <div class="row">
+                    Two Way Binding
+                    {{color2}}
                 </div>
             </form>
         </div>
