@@ -4,7 +4,7 @@
  *
  * Copyright 2015 ruhley
  *
- * 2015-03-18 11:57:39
+ * 2015-03-18 12:24:10
  *
  */
 (function() {
@@ -31,7 +31,7 @@
                 colorPickerSwatchPos: '=',
             },
             templateUrl: 'template/color-picker/directive.html',
-            link: function ($scope, element) {
+            link: function ($scope, element, attrs, control) {
                 $scope.init = function () {
                     if ($scope.ngModel === undefined) {
                         $scope.hue = 0;
@@ -165,6 +165,8 @@
                         } else {
                             $scope.isValid = false;
                         }
+
+                        control[0].$setValidity(attrs.name, $scope.isValid);
                     }
                 });
 
