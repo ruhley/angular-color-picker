@@ -11,8 +11,8 @@
     "ruhley <timothy.ruhle@gmail.com>"
   ],
   "main": [
-    "angular-color-picker.js",
-    "angular-color-picker.css"
+    "angular-color-picker.min.js",
+    "angular-color-picker.min.css"
   ],
   "moduleType": [
     "globals"
@@ -28,7 +28,10 @@
   "ignore": [
     "*",
     "!angularjs-color-picker.css",
-    "!angularjs-color-picker.js"
+    "!angularjs-color-picker.js",
+    "!angularjs-color-picker.min.css",
+    "!angularjs-color-picker.min.js",
+    "!angularjs-color-picker.min.map"
   ],
   "dependencies": {
     "tinycolor": "~1.1.0",

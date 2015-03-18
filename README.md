@@ -6,6 +6,8 @@ AngularJS Color Picker Directive
 Requirements
 =====
 NO requirement for jQuery!
+* angularjs
+* bootstrap
 * tinycolor.js - looking at removing in future versions if requested enough (33kb not minified)
 
 Installation
