@@ -7,7 +7,7 @@ The build steps to releasing a new version. Before you can do this you need to t
   * Make sure all tests pass - ``` grunt test ```
   * Commit and push all changes with a meaningful message
   * Update version in bower.json and package.json
-  * Build the dist folder -  ``` grunt build ```
+  * Build the dist files -  ``` grunt build ```
   * Commit and push with the message "Bumping to v\*.\*.\*"
   * [Create a new release](https://github.com/ruhley/angular-color-picker/releases/new)
     * Tag version is v\*.\*.\*
