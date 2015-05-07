@@ -1,4 +1,4 @@
-// TinyColor v1.1.0
+// TinyColor v1.1.2
 // https://github.com/bgrins/TinyColor
 // Brian Grinstead, MIT License
 
@@ -13,7 +13,7 @@ var trimLeft = /^[\s,#]+/,
     mathMax = math.max,
     mathRandom = math.random;
 
-var tinycolor = function tinycolor (color, opts) {
+function tinycolor (color, opts) {
 
     color = (color) ? color : '';
     opts = opts || { };
@@ -47,7 +47,7 @@ var tinycolor = function tinycolor (color, opts) {
 
     this._ok = rgb.ok;
     this._tc_id = tinyCounter++;
-};
+}
 
 tinycolor.prototype = {
     isDark: function() {
@@ -69,8 +69,22 @@ tinycolor.prototype = {
         return this._a;
     },
     getBrightness: function() {
+        //http://www.w3.org/TR/AERT#color-contrast
         var rgb = this.toRgb();
         return (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
+    },
+    getLuminance: function() {
+        //http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef
+        var rgb = this.toRgb();
+        var RsRGB, GsRGB, BsRGB, R, G, B;
+        RsRGB = rgb.r/255;
+        GsRGB = rgb.g/255;
+        BsRGB = rgb.b/255;
+
+        if (RsRGB <= 0.03928) {R = RsRGB / 12.92;} else {R = Math.pow(((RsRGB + 0.055) / 1.055), 2.4);}
+        if (GsRGB <= 0.03928) {G = GsRGB / 12.92;} else {G = Math.pow(((GsRGB + 0.055) / 1.055), 2.4);}
+        if (BsRGB <= 0.03928) {B = BsRGB / 12.92;} else {B = Math.pow(((BsRGB + 0.055) / 1.055), 2.4);}
+        return (0.2126 * R) + (0.7152 * G) + (0.0722 * B);
     },
     setAlpha: function(value) {
         this._a = boundAlpha(value);
@@ -489,21 +503,22 @@ function rgbToHex(r, g, b, allow3Char) {
 
     return hex.join("");
 }
-    // `rgbaToHex`
-    // Converts an RGBA color plus alpha transparency to hex
-    // Assumes r, g, b and a are contained in the set [0, 255]
-    // Returns an 8 character hex
-    function rgbaToHex(r, g, b, a) {
 
-        var hex = [
-            pad2(convertDecimalToHex(a)),
-            pad2(mathRound(r).toString(16)),
-            pad2(mathRound(g).toString(16)),
-            pad2(mathRound(b).toString(16))
-        ];
+// `rgbaToHex`
+// Converts an RGBA color plus alpha transparency to hex
+// Assumes r, g, b and a are contained in the set [0, 255]
+// Returns an 8 character hex
+function rgbaToHex(r, g, b, a) {
 
-        return hex.join("");
-    }
+    var hex = [
+        pad2(convertDecimalToHex(a)),
+        pad2(mathRound(r).toString(16)),
+        pad2(mathRound(g).toString(16)),
+        pad2(mathRound(b).toString(16))
+    ];
+
+    return hex.join("");
+}
 
 // `equals`
 // Can be called with any tinycolor input
@@ -511,6 +526,7 @@ tinycolor.equals = function (color1, color2) {
     if (!color1 || !color2) { return false; }
     return tinycolor(color1).toRgbString() == tinycolor(color2).toRgbString();
 };
+
 tinycolor.random = function() {
     return tinycolor.fromRatio({
         r: mathRandom(),
@@ -689,68 +705,83 @@ tinycolor.mix = function(color1, color2, amount) {
 
 // Readability Functions
 // ---------------------
-// <http://www.w3.org/TR/AERT#color-contrast>
+// <http://www.w3.org/TR/2008/REC-WCAG20-20081211/#contrast-ratiodef (WCAG Version 2)
 
-// `readability`
-// Analyze the 2 colors and returns an object with the following properties:
-//    `brightness`: difference in brightness between the two colors
-//    `color`: difference in color/hue between the two colors
+// `contrast`
+// Analyze the 2 colors and returns the color contrast defined by (WCAG Version 2)
 tinycolor.readability = function(color1, color2) {
     var c1 = tinycolor(color1);
     var c2 = tinycolor(color2);
-    var rgb1 = c1.toRgb();
-    var rgb2 = c2.toRgb();
-    var brightnessA = c1.getBrightness();
-    var brightnessB = c2.getBrightness();
-    var colorDiff = (
-        Math.max(rgb1.r, rgb2.r) - Math.min(rgb1.r, rgb2.r) +
-        Math.max(rgb1.g, rgb2.g) - Math.min(rgb1.g, rgb2.g) +
-        Math.max(rgb1.b, rgb2.b) - Math.min(rgb1.b, rgb2.b)
-    );
-
-    return {
-        brightness: Math.abs(brightnessA - brightnessB),
-        color: colorDiff
-    };
+    return (Math.max(c1.getLuminance(),c2.getLuminance())+0.05) / (Math.min(c1.getLuminance(),c2.getLuminance())+0.05);
 };
 
-// `readable`
-// http://www.w3.org/TR/AERT#color-contrast
-// Ensure that foreground and background color combinations provide sufficient contrast.
+// `isReadable`
+// Ensure that foreground and background color combinations meet WCAG2 guidelines.
+// The third argument is an optional Object.
+//      the 'level' property states 'AA' or 'AAA' - if missing or invalid, it defaults to 'AA';
+//      the 'size' property states 'large' or 'small' - if missing or invalid, it defaults to 'small'.
+// If the entire object is absent, isReadable defaults to {level:"AA",size:"small"}.
+
 // *Example*
 //    tinycolor.isReadable("#000", "#111") => false
-tinycolor.isReadable = function(color1, color2) {
+//    tinycolor.isReadable("#000", "#111",{level:"AA",size:"large"}) => false
+tinycolor.isReadable = function(color1, color2, wcag2) {
     var readability = tinycolor.readability(color1, color2);
-    return readability.brightness > 125 && readability.color > 500;
+    var wcag2Parms, out;
+
+    out = false;
+
+    wcag2Parms = validateWCAG2Parms(wcag2);
+    switch (wcag2Parms.level + wcag2Parms.size) {
+        case "AAsmall":
+        case "AAAlarge":
+            out = readability >= 4.5;
+            break;
+        case "AAlarge":
+            out = readability >= 3;
+            break;
+        case "AAAsmall":
+            out = readability >= 7;
+            break;
+    }
+    return out;
+
 };
 
 // `mostReadable`
 // Given a base color and a list of possible foreground or background
 // colors for that base, returns the most readable color.
+// Optionally returns Black or White if the most readable color is unreadable.
 // *Example*
-//    tinycolor.mostReadable("#123", ["#fff", "#000"]) => "#000"
-tinycolor.mostReadable = function(baseColor, colorList) {
+//    tinycolor.mostReadable(tinycolor.mostReadable("#123", ["#124", "#125"],{includeFallbackColors:false}).toHexString(); // "#112255"
+//    tinycolor.mostReadable(tinycolor.mostReadable("#123", ["#124", "#125"],{includeFallbackColors:true}).toHexString();  // "#ffffff"
+//    tinycolor.mostReadable("#a8015a", ["#faf3f3"],{includeFallbackColors:true,level:"AAA",size:"large"}).toHexString(); // "#faf3f3"
+//    tinycolor.mostReadable("#a8015a", ["#faf3f3"],{includeFallbackColors:true,level:"AAA",size:"small"}).toHexString(); // "#ffffff"
+tinycolor.mostReadable = function(baseColor, colorList, args) {
     var bestColor = null;
     var bestScore = 0;
-    var bestIsReadable = false;
-    for (var i=0; i < colorList.length; i++) {
+    var readability;
+    var includeFallbackColors, level, size ;
+    args = args || {};
+    includeFallbackColors = args.includeFallbackColors ;
+    level = args.level;
+    size = args.size;
 
-        // We normalize both around the "acceptable" breaking point,
-        // but rank brightness constrast higher than hue.
-
-        var readability = tinycolor.readability(baseColor, colorList[i]);
-        var readable = readability.brightness > 125 && readability.color > 500;
-        var score = 3 * (readability.brightness / 125) + (readability.color / 500);
-
-        if ((readable && ! bestIsReadable) ||
-            (readable && bestIsReadable && score > bestScore) ||
-            ((! readable) && (! bestIsReadable) && score > bestScore)) {
-            bestIsReadable = readable;
-            bestScore = score;
+    for (var i= 0; i < colorList.length ; i++) {
+        readability = tinycolor.readability(baseColor, colorList[i]);
+        if (readability > bestScore) {
+            bestScore = readability;
             bestColor = tinycolor(colorList[i]);
         }
     }
-    return bestColor;
+
+    if (tinycolor.isReadable(baseColor, bestColor, {"level":level,"size":size}) || !includeFallbackColors) {
+        return bestColor;
+    }
+    else {
+        args.includeFallbackColors=false;
+        return tinycolor.mostReadable(baseColor,["#fff", "#000"],args);
+    }
 };
 
 
@@ -878,6 +909,7 @@ var names = tinycolor.names = {
     plum: "dda0dd",
     powderblue: "b0e0e6",
     purple: "800080",
+    rebeccapurple: "663399",
     red: "f00",
     rosybrown: "bc8f8f",
     royalblue: "4169e1",
@@ -1025,6 +1057,7 @@ var matchers = (function() {
         hsl: new RegExp("hsl" + PERMISSIVE_MATCH3),
         hsla: new RegExp("hsla" + PERMISSIVE_MATCH4),
         hsv: new RegExp("hsv" + PERMISSIVE_MATCH3),
+        hsva: new RegExp("hsva" + PERMISSIVE_MATCH4),
         hex3: /^([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
         hex6: /^([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/,
         hex8: /^([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/
@@ -1066,6 +1099,9 @@ function stringInputToObject(color) {
     if ((match = matchers.hsv.exec(color))) {
         return { h: match[1], s: match[2], v: match[3] };
     }
+    if ((match = matchers.hsva.exec(color))) {
+        return { h: match[1], s: match[2], v: match[3], a: match[4] };
+    }
     if ((match = matchers.hex8.exec(color))) {
         return {
             a: convertHexToDecimal(match[1]),
@@ -1093,6 +1129,22 @@ function stringInputToObject(color) {
     }
 
     return false;
+}
+
+function validateWCAG2Parms(parms) {
+    // return valid WCAG2 parms for isReadable.
+    // If input parms are invalid, return {"level":"AA", "size":"small"}
+    var level, size;
+    parms = parms || {"level":"AA", "size":"small"};
+    level = (parms.level || "AA").toUpperCase();
+    size = (parms.size || "small").toLowerCase();
+    if (level !== "AA" && level !== "AAA") {
+        level = "AA";
+    }
+    if (size !== "small" && size !== "large") {
+        size = "small";
+    }
+    return {"level":level, "size":size};
 }
 
 // Node: Export function
