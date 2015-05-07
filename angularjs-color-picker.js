@@ -1,10 +1,10 @@
 /*!
- * angular-cakephp v0.3.0
+ * angular-color-picker v0.3.1
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2015 ruhley
  *
- * 2015-03-18 12:28:53
+ * 2015-05-08 08:59:26
  *
  */
 (function() {
@@ -41,10 +41,10 @@
                         var color = tinycolor($scope.ngModel);
 
                         if (color.isValid()) {
-                            var hsl = color.toHsl();
+                            var hsl = color.toHsv();
                             $scope.hue = hsl.h;
                             $scope.saturation = hsl.s * 100;
-                            $scope.lightness = hsl.l * 100;
+                            $scope.lightness = hsl.v * 100;
                         }
                     }
                     $scope.initConfig();
@@ -92,7 +92,7 @@
                 };
 
                 $scope.update = function () {
-                    var color = tinycolor({h: $scope.hue, s: $scope.saturation, l: $scope.lightness}),
+                    var color = tinycolor({h: $scope.hue, s: $scope.saturation, v: $scope.lightness}),
                         colorString;
 
                     if ($scope.config.alpha) {
@@ -135,7 +135,7 @@
                         var color = tinycolor(newValue);
 
                         if (color.isValid()) {
-                            var hsl = color.toHsl();
+                            var hsl = color.toHsv();
 
                             if (!$scope.isValid) {
                                 $scope.show();
@@ -143,7 +143,7 @@
                                 $timeout(function() {
                                     $scope.hue = hsl.h;
                                     $scope.saturation = hsl.s * 100;
-                                    $scope.lightness = hsl.l * 100;
+                                    $scope.lightness = hsl.v * 100;
 
                                     if ($scope.config.alpha) {
                                         $scope.opacity = hsl.a * 100;
@@ -154,7 +154,7 @@
                             } else {
                                 $scope.hue = hsl.h;
                                 $scope.saturation = hsl.s * 100;
-                                $scope.lightness = hsl.l * 100;
+                                $scope.lightness = hsl.v * 100;
 
                                 if ($scope.config.alpha) {
                                     $scope.opacity = hsl.a * 100;
@@ -225,7 +225,14 @@
                     if (newValue !== undefined) {
                         $scope.log('Color Picker: HUE - CHANGED');
                         $scope.huePos = (1 - (newValue / 360)) * 100;
-                        $scope.grid = tinycolor({h: newValue, s: 50, l: 50}).toHslString();
+                        $scope.grid = tinycolor({h: newValue, s: 100, v: 1}).toHslString();
+
+                        if ($scope.huePos < 0) {
+                            $scope.huePos = 0;
+                        } else if ($scope.huePos > 100) {
+                            $scope.huePos = 100;
+                        }
+
                         $scope.update();
                     }
                 });
@@ -255,6 +262,13 @@
                     if (newValue !== undefined) {
                         $scope.log('Color Picker: OPACITY - CHANGED');
                         $scope.opacityPos = (1 - (newValue / 100)) * 100;
+
+                        if ($scope.opacityPos < 0) {
+                            $scope.opacityPos = 0;
+                        } else if ($scope.opacityPos > 100) {
+                            $scope.opacityPos = 100;
+                        }
+
                         $scope.update();
                     }
                 });
@@ -285,6 +299,13 @@
                     if (newValue !== undefined && newValue !== oldValue) {
                         $scope.log('Color Picker: SATURATION - CHANGED');
                         $scope.saturationPos = (newValue / 100) * 100;
+
+                        if ($scope.saturationPos < 0) {
+                            $scope.saturationPos = 0;
+                        } else if ($scope.saturationPos > 100) {
+                            $scope.saturationPos = 100;
+                        }
+
                         $scope.update();
                     }
                 });
@@ -293,6 +314,13 @@
                     if (newValue !== undefined && newValue !== oldValue) {
                         $scope.log('Color Picker: LIGHTNESS - CHANGED');
                         $scope.lightnessPos = (1 - (newValue / 100)) * 100;
+
+                        if ($scope.lightnessPos < 0) {
+                            $scope.lightnessPos = 0;
+                        } else if ($scope.lightnessPos > 100) {
+                            $scope.lightnessPos = 100;
+                        }
+
                         $scope.update();
                     }
                 });
