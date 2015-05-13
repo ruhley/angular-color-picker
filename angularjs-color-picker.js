@@ -1,10 +1,10 @@
 /*!
- * angular-color-picker v0.3.1
+ * angular-color-picker v0.3.2
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2015 ruhley
  *
- * 2015-05-08 08:59:26
+ * 2015-05-13 13:36:32
  *
  */
 (function() {
@@ -92,7 +92,7 @@
                 };
 
                 $scope.update = function () {
-                    var color = tinycolor({h: $scope.hue, s: $scope.saturation, v: $scope.lightness}),
+                    var color = tinycolor({h: $scope.hue, s: $scope.saturation / 100, v: $scope.lightness / 100}),
                         colorString;
 
                     if ($scope.config.alpha) {
