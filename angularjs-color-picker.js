@@ -1,10 +1,10 @@
 /*!
- * angular-color-picker v0.3.2
+ * angular-color-picker v0.3.3
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2015 ruhley
  *
- * 2015-05-13 13:36:32
+ * 2015-05-19 08:16:34
  *
  */
 (function() {
