@@ -11,8 +11,8 @@
     "ruhley <timothy.ruhle@gmail.com>"
   ],
   "main": [
-    "angular-color-picker.js",
-    "angular-color-picker.css"
+    "angularjs-color-picker.js",
+    "angularjs-color-picker.css"
   ],
   "moduleType": [
     "globals"
