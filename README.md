@@ -35,7 +35,7 @@ If a list is given then choose one of the items. The first item in the list will
 ```html
 <color-picker
     ng-model="" <!-- only required field -->
-    color-picker-format="hsl, hsv, rgb, hex"
+    color-picker-format="hsl, hsv, rgb, hex, hex8"
     color-picker-alpha="true, false"
     color-picker-swatch="true, false"
     color-picker-swatch-pos="left, right"
