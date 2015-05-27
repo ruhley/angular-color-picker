@@ -4,7 +4,7 @@
  *
  * Copyright 2015 ruhley
  *
- * 2015-05-21 10:14:29
+ * 2015-05-27 19:06:53
  *
  */
 (function() {
@@ -110,6 +110,15 @@
 
                         case 'hex':
                             colorString = color.toHexString();
+                            if ($scope.config.case === 'lower') {
+                                colorString = colorString.toLowerCase();
+                            } else {
+                                colorString = colorString.toUpperCase();
+                            }
+                            break;
+
+                        case 'hex8':
+                            colorString = color.toHex8String();
                             if ($scope.config.case === 'lower') {
                                 colorString = colorString.toLowerCase();
                             } else {
