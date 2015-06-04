@@ -47,6 +47,11 @@
                 </div>
 
                 <div class="row">
+                    <label class="control-label">Swatch Bootstrap Add On (swatch-bootstrap) - whether or not the swatch should appear as a bootstrap add on</label>
+                    <select ng-model="swatchBootstrap" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
                     <label class="control-label">Position (pos) - the position of the picker control in relation to the input field - 'bottom left', 'bottom right', 'top left', 'top right'</label>
                     <select ng-model="pos" class="form-control" ng-options="option.value as option.label for option in posOptions"></select>
                 </div>
@@ -64,6 +69,7 @@
                         color-picker-alpha="alpha"
                         color-picker-swatch="swatch"
                         color-picker-swatch-pos="swatchPos"
+                        color-picker-swatch-bootstrap="swatchBootstrap"
                         color-picker-pos="pos"
                         color-picker-case="case"
                         color-picker-swatch-only="swatchOnly">
@@ -72,7 +78,7 @@
 
                 <div class="row">
                     Two Way Binding
-                    <color-picker ng-model="color"></color-picker>
+                    <!-- <color-picker ng-model="color"></color-picker> -->
                     {{color}}
                 </div>
 
