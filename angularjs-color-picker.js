@@ -1,10 +1,10 @@
 /*!
- * angular-color-picker v0.6.0
+ * angular-color-picker v0.6.1
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2015 ruhley
  *
- * 2015-06-15 15:07:39
+ * 2015-06-25 14:06:20
  *
  */
 (function() {
@@ -160,7 +160,9 @@
                                         $scope.opacity = hsl.a * 100;
                                     }
 
-                                    $scope.hide();
+                                    if (oldValue === undefined) {
+                                        $scope.hide();
+                                    }
                                 });
                             } else {
                                 $scope.hue = hsl.h;
