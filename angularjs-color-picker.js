@@ -1,10 +1,10 @@
 /*!
- * angular-color-picker v0.6.1
+ * angular-color-picker v0.6.2
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2015 ruhley
  *
- * 2015-06-25 14:06:20
+ * 2015-06-26 11:33:27
  *
  */
 (function() {
@@ -82,6 +82,10 @@
                     $scope.hueMouse = false;
                     $scope.opacityMouse = false;
                     $scope.colorMouse = false;
+
+                    // force the grid selection circle to redraw and fix its position
+                    $scope.saturationUpdate();
+                    $scope.lightnessUpdate();
                 };
 
                 $scope.hide = function (apply) {
@@ -94,77 +98,63 @@
                 };
 
                 $scope.update = function () {
-                    var color = tinycolor({h: $scope.hue, s: $scope.saturation / 100, v: $scope.lightness / 100}),
-                        colorString;
+                    if ($scope.hue !== undefined && $scope.saturation !== undefined && $scope.lightness !== undefined) {
+                        var color = tinycolor({h: $scope.hue, s: $scope.saturation / 100, v: $scope.lightness / 100}),
+                            colorString;
 
-                    if ($scope.config.alpha) {
-                        color.setAlpha($scope.opacity / 100);
+                        if ($scope.config.alpha) {
+                            color.setAlpha($scope.opacity / 100);
+                        }
+
+                        $scope.log('Color Picker: COLOR CHANGED TO ', color, $scope.hue, $scope.saturation, $scope.lightness, $scope.opacity);
+
+                        $scope.swatchColor = color.toHslString();
+
+                        switch ($scope.config.format) {
+                            case 'rgb':
+                                colorString = color.toRgbString();
+                                break;
+
+                            case 'hex':
+                                colorString = color.toHexString();
+                                if ($scope.config.case === 'lower') {
+                                    colorString = colorString.toLowerCase();
+                                } else {
+                                    colorString = colorString.toUpperCase();
+                                }
+                                break;
+
+                            case 'hex8':
+                                colorString = color.toHex8String();
+                                if ($scope.config.case === 'lower') {
+                                    colorString = colorString.toLowerCase();
+                                } else {
+                                    colorString = colorString.toUpperCase();
+                                }
+                                break;
+
+                            case 'hsv':
+                                colorString = color.toHsvString();
+                                break;
+
+                            default:
+                                colorString = color.toHslString();
+                                break;
+                        }
+
+                        $scope.ngModel = colorString;
                     }
-
-                    $scope.log('Color Picker: COLOR CHANGED TO ', color, $scope.hue, $scope.saturation, $scope.lightness, $scope.opacity);
-
-                    $scope.swatchColor = color.toHslString();
-
-                    switch ($scope.config.format) {
-                        case 'rgb':
-                            colorString = color.toRgbString();
-                            break;
-
-                        case 'hex':
-                            colorString = color.toHexString();
-                            if ($scope.config.case === 'lower') {
-                                colorString = colorString.toLowerCase();
-                            } else {
-                                colorString = colorString.toUpperCase();
-                            }
-                            break;
-
-                        case 'hex8':
-                            colorString = color.toHex8String();
-                            if ($scope.config.case === 'lower') {
-                                colorString = colorString.toLowerCase();
-                            } else {
-                                colorString = colorString.toUpperCase();
-                            }
-                            break;
-
-                        case 'hsv':
-                            colorString = color.toHsvString();
-                            break;
-
-                        default:
-                            colorString = color.toHslString();
-                            break;
-                    }
-
-                    $scope.ngModel = colorString;
                 };
 
                 $scope.$watch('ngModel', function (newValue, oldValue) {
-                    if (newValue !== undefined && newValue !== oldValue) {
+                    if (newValue !== undefined && newValue !== oldValue && newValue.length > 4) {
                         $scope.log('Color Picker: MODEL - CHANGED', newValue);
                         var color = tinycolor(newValue);
 
                         if (color.isValid()) {
                             var hsl = color.toHsv();
 
-                            if (!$scope.isValid) {
-                                $scope.show();
-
-                                $timeout(function() {
-                                    $scope.hue = hsl.h;
-                                    $scope.saturation = hsl.s * 100;
-                                    $scope.lightness = hsl.v * 100;
-
-                                    if ($scope.config.alpha) {
-                                        $scope.opacity = hsl.a * 100;
-                                    }
-
-                                    if (oldValue === undefined) {
-                                        $scope.hide();
-                                    }
-                                });
-                            } else {
+                            if ($scope.isValid) {
                                 $scope.hue = hsl.h;
                                 $scope.saturation = hsl.s * 100;
                                 $scope.lightness = hsl.v * 100;
@@ -238,11 +228,11 @@
                     }
                 };
 
-                $scope.$watch('hue', function (newValue, oldValue) {
-                    if (newValue !== undefined) {
+                $scope.hueUpdate = function() {
+                    if ($scope.hue !== undefined) {
                         $scope.log('Color Picker: HUE - CHANGED');
-                        $scope.huePos = (1 - (newValue / 360)) * 100;
-                        $scope.grid = tinycolor({h: newValue, s: 100, v: 1}).toHslString();
+                        $scope.huePos = (1 - ($scope.hue / 360)) * 100;
+                        $scope.grid = tinycolor({h: $scope.hue, s: 100, v: 1}).toHslString();
 
                         if ($scope.huePos < 0) {
                             $scope.huePos = 0;
@@ -252,6 +242,10 @@
 
                         $scope.update();
                     }
+                };
+
+                $scope.$watch('hue', function (newValue, oldValue) {
+                    $scope.hueUpdate();
                 });
 
                 //---------------------------
@@ -275,10 +269,10 @@
                     }
                 };
 
-                $scope.$watch('opacity', function (newValue, oldValue) {
-                    if (newValue !== undefined) {
+                $scope.opacityUpdate = function() {
+                    if ($scope.opacity !== undefined) {
                         $scope.log('Color Picker: OPACITY - CHANGED');
-                        $scope.opacityPos = (1 - (newValue / 100)) * 100;
+                        $scope.opacityPos = (1 - ($scope.opacity / 100)) * 100;
 
                         if ($scope.opacityPos < 0) {
                             $scope.opacityPos = 0;
@@ -288,6 +282,10 @@
 
                         $scope.update();
                     }
+                };
+
+                $scope.$watch('opacity', function (newValue, oldValue) {
+                    $scope.opacityUpdate();
                 });
 
                 //---------------------------
@@ -312,10 +310,10 @@
                     }
                 };
 
-                $scope.$watch('saturation', function (newValue, oldValue) {
-                    if (newValue !== undefined && newValue !== oldValue) {
+                $scope.saturationUpdate = function(oldValue) {
+                    if ($scope.saturation !== undefined && $scope.saturation !== oldValue) {
                         $scope.log('Color Picker: SATURATION - CHANGED');
-                        $scope.saturationPos = (newValue / 100) * 100;
+                        $scope.saturationPos = ($scope.saturation / 100) * 100;
 
                         if ($scope.saturationPos < 0) {
                             $scope.saturationPos = 0;
@@ -325,12 +323,16 @@
 
                         $scope.update();
                     }
+                };
+
+                $scope.$watch('saturation', function (newValue, oldValue) {
+                    $scope.saturationUpdate(oldValue);
                 });
 
-                $scope.$watch('lightness', function (newValue, oldValue) {
-                    if (newValue !== undefined && newValue !== oldValue) {
+                $scope.lightnessUpdate = function(oldValue) {
+                    if ($scope.lightness !== undefined && $scope.lightness !== oldValue) {
                         $scope.log('Color Picker: LIGHTNESS - CHANGED');
-                        $scope.lightnessPos = (1 - (newValue / 100)) * 100;
+                        $scope.lightnessPos = (1 - ($scope.lightness / 100)) * 100;
 
                         if ($scope.lightnessPos < 0) {
                             $scope.lightnessPos = 0;
@@ -340,6 +342,10 @@
 
                         $scope.update();
                     }
+                };
+
+                $scope.$watch('lightness', function (newValue, oldValue) {
+                    $scope.lightnessUpdate(oldValue);
                 });
 
 
