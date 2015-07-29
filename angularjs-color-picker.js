@@ -1,10 +1,10 @@
 /*!
- * angular-color-picker v0.6.3
+ * angular-color-picker v0.6.4
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2015 ruhley
  *
- * 2015-07-24 09:07:56
+ * 2015-07-29 13:11:21
  *
  */
 (function() {
@@ -155,14 +155,12 @@
                         if (color.isValid()) {
                             var hsl = color.toHsv();
 
-                            if ($scope.isValid) {
-                                $scope.hue = hsl.h;
-                                $scope.saturation = hsl.s * 100;
-                                $scope.lightness = hsl.v * 100;
+                            $scope.hue = hsl.h;
+                            $scope.saturation = hsl.s * 100;
+                            $scope.lightness = hsl.v * 100;
 
-                                if ($scope.config.alpha) {
-                                    $scope.opacity = hsl.a * 100;
-                                }
+                            if ($scope.config.alpha) {
+                                $scope.opacity = hsl.a * 100;
                             }
 
                             $scope.isValid = true;
