@@ -1,10 +1,10 @@
 /*!
- * angular-color-picker v0.6.5
+ * angular-color-picker v0.6.6
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2015 ruhley
  *
- * 2015-08-03 08:20:09
+ * 2015-09-08 08:57:12
  *
  */
 .color-picker-wrapper {
@@ -43,16 +43,7 @@
 }
 .color-picker-wrapper .color-picker-swatch.input-group-addon {
   display: table-cell;
-  position: relative;
   width: 28px;
-}
-.color-picker-wrapper .color-picker-swatch .color-picker-swatch-color {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: inherit;
 }
 .color-picker-wrapper .color-picker-panel {
   position: absolute;
