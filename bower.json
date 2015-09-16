@@ -1,0 +1,35 @@
+{
+  "name": "angular-color-picker",
+  "description": "Color Picker Directive For AngularJS",
+  "version": "0.6.7",
+  "homepage": "https://github.com/ruhley/angular-color-picker",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ruhle/angular-color-picker.git"
+  },
+  "authors": [
+    "ruhley <timothy.ruhle@gmail.com>"
+  ],
+  "contributors": [
+    "Benjamin Orozco <benoror@gmail.com>"
+  ],
+  "main": [
+    "angularjs-color-picker.js",
+    "angularjs-color-picker.css"
+  ],
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "Color",
+    "Color Picker",
+    "Directive",
+    "Angular",
+    "AngularJS"
+  ],
+  "license": "MIT",
+  "ignore": [],
+  "dependencies": {
+    "angular-color-picker": "angularjs-color-picker#~0.6.7"
+  },
+}

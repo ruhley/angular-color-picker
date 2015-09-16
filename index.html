@@ -7,12 +7,12 @@
     <meta name="description" content="Angular-color-picker : AngularJS Colour Picker Directive">
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/angularjs-color-picker.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="bower_components/angular-color-picker/angularjs-color-picker.min.css">
 
-    <script src="javascripts/tinycolor.js"></script>
-    <script src="javascripts/angular.min.js"></script>
-    <script src="javascripts/angularjs-color-picker.min.js"></script>
+    <script src="bower_components/tinycolor/dist/tinycolor-min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-color-picker/angularjs-color-picker.min.js"></script>
     <script src="javascripts/app.js"></script>
 
     <title>Angular-color-picker</title>
@@ -54,10 +54,11 @@
     color-picker-alpha="alpha"
     color-picker-swatch="swatch"
     color-picker-swatch-pos="swatchPos"
+    color-picker-swatch-bootstrap="swatchBootstrap"
+    color-picker-swatch-only="swatchOnly"
     color-picker-pos="pos"
     color-picker-case="case"
-    color-picker-swatch-only="swatchOnly">
-  </color-picker>
+  ></color-picker>
 </div>
 
 <div class="row">
@@ -82,6 +83,11 @@
 <div class="row">
   <label class="control-label">Swatch Only (swatch-only) - whether or not to display only the swatch</label>
   <select ng-model="swatchOnly" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+</div>
+
+<div class="row">
+    <label class="control-label">Swatch Bootstrap Add On (swatch-bootstrap) - whether or not the swatch should appear as a bootstrap add on</label>
+    <select ng-model="swatchBootstrap" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
 </div>
 
 <div class="row">
