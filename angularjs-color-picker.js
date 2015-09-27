@@ -1,10 +1,10 @@
 /*!
- * angular-color-picker v0.6.7
+ * angular-color-picker v0.6.8
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2015 ruhley
  *
- * 2015-09-17 08:24:38
+ * 2015-09-28 08:53:52
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -57,7 +57,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
                     $document.on('click', function (evt) {
                         if ($scope.find(evt.target).length === 0) {
-                            $scope.log('Color Picker: Document Hide Event');
+                            $scope.log('Color Picker: Document Click Event');
                             $scope.hide();
                         }
                     });
@@ -93,11 +93,11 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     $scope.lightnessUpdate();
                 };
 
-                $scope.hide = function (apply) {
+                $scope.hide = function () {
                     $scope.log('Color Picker: Hide Event');
-                    $scope.visible = false;
 
-                    if (apply !== false) {
+                    if ($scope.visible) {
+                        $scope.visible = false;
                         $scope.$apply();
                     }
                 };
@@ -227,7 +227,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     if ($scope.hueMouse || forceRun) {
                         $scope.log('Color Picker: HUE - MOUSE CHANGE');
                         var el = $scope.find('.color-picker-hue');
-                        $scope.hue = (1 - ((evt.pageY - $scope.offset(el, 'top')) / el.prop('offsetHeight'))) * 360;
+                        $scope.hue = (1 - ((evt.pageY - $scope.offset(el).top) / el.prop('offsetHeight'))) * 360;
                     }
                 };
 
@@ -268,7 +268,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     if ($scope.opacityMouse || forceRun) {
                         $scope.log('Color Picker: OPACITY - MOUSE CHANGE');
                         var el = $scope.find('.color-picker-opacity');
-                        $scope.opacity = (1 - ((evt.pageY - $scope.offset(el, 'top')) / el.prop('offsetHeight'))) * 100;
+                        $scope.opacity = (1 - ((evt.pageY - $scope.offset(el).top) / el.prop('offsetHeight'))) * 100;
                     }
                 };
 
@@ -308,8 +308,10 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     if ($scope.colorMouse || forceRun) {
                         $scope.log('Color Picker: COLOR - MOUSE CHANGE');
                         var el = $scope.find('.color-picker-grid-inner');
-                        $scope.saturation = ((evt.pageX - $scope.offset(el, 'left')) / el.prop('offsetWidth')) * 100;
-                        $scope.lightness = (1 - ((evt.pageY - $scope.offset(el, 'top')) / el.prop('offsetHeight'))) * 100;
+                        var offset = $scope.offset(el);
+
+                        $scope.saturation = ((evt.pageX - offset.left) / el.prop('offsetWidth')) * 100;
+                        $scope.lightness = (1 - ((evt.pageY - offset.top) / el.prop('offsetHeight'))) * 100;
                     }
                 };
 
@@ -356,7 +358,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 // HELPER FUNCTIONS
                 //---------------------------
                 $scope.log = function () {
-                    //console.log.apply(console, arguments);
+                    // console.log.apply(console, arguments);
                 };
 
                 // taken and modified from jQuery's find
@@ -380,7 +382,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                         results = context.querySelectorAll(selector);
 
                     } else {
-                        if ($scope.contains(context, selector)) {
+                        if (context.contains(selector)) {
                             results.push(selector);
                         }
                     }
@@ -388,42 +390,53 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     return angular.element(results);
                 };
 
-                $scope.contains = function (a, b) {
-                    if (b) {
-                        while ((b = b.parentNode)) {
-                            if (b === a) {
-                                return true;
-                            }
+                // taken and modified from jQuery's offset
+                $scope.offset = function (el) {
+            		var docElem, win, rect, doc, elem = el[0];
+
+            		if (!elem) {
+            			return;
+            		}
+
+            		// Support: IE<=11+
+            		// Running getBoundingClientRect on a
+            		// disconnected node in IE throws an error
+            		if (!elem.getClientRects().length) {
+            			return {top: 0, left: 0};
+            		}
+
+            		rect = elem.getBoundingClientRect();
+
+            		// Make sure element is not hidden (display: none)
+            		if ( rect.width || rect.height ) {
+            			doc = elem.ownerDocument;
+            			win = doc !== null && doc === doc.window ? doc : doc.nodeType === 9 && doc.defaultView;
+            			docElem = doc.documentElement;
+
+                        // hack for small chrome screens not position the clicks properly when the page is scrolled
+                        if (window.chrome && screen.width <= 768) {
+                            return {
+                				top: rect.top - docElem.clientTop,
+                				left: rect.left - docElem.clientLeft
+                			};
                         }
-                    }
 
-                    return false;
-                };
+            			return {
+            				top: rect.top + win.pageYOffset - docElem.clientTop,
+            				left: rect.left + win.pageXOffset - docElem.clientLeft
+            			};
+            		}
 
-                $scope.offset = function (el, type) {
-                    var offset,
-                        x = 0,
-                        y = 0,
-                        body = document.documentElement || document.body;
 
-                    if (el.length === 0) {
-                        return null;
-                    }
-
-                    x = el[0].getBoundingClientRect().left + (window.pageXOffset || body.scrollLeft);
-                    y = el[0].getBoundingClientRect().top + (window.pageYOffset || body.scrollTop);
-
-                    offset = {left: x, top:y};
-
-                    if (type !== undefined) {
-                        return offset[type];
-                    }
-
-                    return offset;
+            		return rect;
                 };
 
 
                 $scope.init();
+
+                $scope.$on('$destroy', function() {
+                    $document.off('click');
+                });
             }
         };
     };
