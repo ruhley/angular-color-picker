@@ -4,7 +4,7 @@
  *
  * Copyright 2015 ruhley
  *
- * 2015-09-28 08:53:52
+ * 2015-10-15 10:30:38
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -152,7 +152,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 };
 
                 $scope.$watch('ngModel', function (newValue, oldValue) {
-                    if (newValue !== undefined && newValue !== oldValue && newValue.length > 4) {
+                    if (typeof newValue === 'string' && newValue !== oldValue && newValue.length > 4) {
                         $scope.log('Color Picker: MODEL - CHANGED', newValue);
                         var color = tinycolor(newValue);
 
@@ -177,6 +177,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                         if (oldValue !== undefined) {
                             control[0].$setDirty();
                         }
+                    } else {
+                        $scope.swatchColor = '';
                     }
                 });
 
