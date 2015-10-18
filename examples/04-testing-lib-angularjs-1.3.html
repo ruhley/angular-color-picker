@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <title>Example 2 - Testing Lib With AngularJS v1.3</title>
+
+        <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />
+
+        <link rel="stylesheet/less" href="../lib/styles/angularjs-color-picker.less" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.4.0/less.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular.min.js"></script>
+        <script src="../bower_components/tinycolor/tinycolor.js"></script>
+
+        <script src="../lib/scripts/module.js"></script>
+        <script src="../lib/scripts/directive.js"></script>
+        <script src="../lib/scripts/template.js"></script>
+
+        <script src="app.js"></script>
+    </head>
+    <body ng-app="app" ng-controller="AppCtrl">
+        <div class="col-sm-12">
+            <h1>AngularJS Color Picker</h1>
+            <p>An AngularJS directive for a color picker. No requirement on jQuery.</p>
+            <form class="col-sm-12">
+                <div class="row">
+                    <label class="control-label">Format (format)</label>
+                    <select ng-model="format" class="form-control" ng-options="option.value as option.label for option in formatOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Alpha (alpha) - whether or not to display the alpha control</label>
+                    <select ng-model="alpha" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Swatch (swatch) - whether or not to display the swatch inside the input field</label>
+                    <select ng-model="swatch" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Swatch Only (swatch-only) - whether or not to display the input field</label>
+                    <select ng-model="swatchOnly" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Swatch Position (swatch-pos) - the position of the swatch in the input field - 'left' or 'right'</label>
+                    <select ng-model="swatchPos" class="form-control" ng-options="option.value as option.label for option in swatchPosOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Swatch Bootstrap Add On (swatch-bootstrap) - whether or not the swatch should appear as a bootstrap add on</label>
+                    <select ng-model="swatchBootstrap" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Position (pos) - the position of the picker control in relation to the input field - 'bottom left', 'bottom right', 'top left', 'top right'</label>
+                    <select ng-model="pos" class="form-control" ng-options="option.value as option.label for option in posOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Case (case) - The case of hex colors - 'upper', 'lower'</label>
+                    <select ng-model="case" class="form-control" ng-options="option.value as option.label for option in caseOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Color</label>
+                    <color-picker
+                        ng-model="color"
+                        color-picker-format="format"
+                        color-picker-alpha="alpha"
+                        color-picker-swatch="swatch"
+                        color-picker-swatch-pos="swatchPos"
+                        color-picker-swatch-bootstrap="swatchBootstrap"
+                        color-picker-pos="pos"
+                        color-picker-case="case"
+                        color-picker-swatch-only="swatchOnly">
+                    </color-picker>
+
+                    <button class="btn btn-primary" ng-click="color = null;">Clear</button>
+                </div>
+
+                <div class="row">
+                    Two Way Binding
+                    <!-- <color-picker ng-model="color"></color-picker> -->
+                    {{color}}
+                </div>
+
+                <div class="row">
+                    <h2>No Options</h2>
+                    <label class="control-label">Color</label>
+                    <color-picker ng-model="color2"></color-picker>
+                </div>
+
+                <div class="row">
+                    Two Way Binding
+                    {{color2}}
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
