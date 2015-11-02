@@ -1,14 +1,22 @@
-angularjs-color-picker
-=====================
+# angularjs-color-picker
+
 
 AngularJS Color Picker Directive
 
-Installation
-=====
-* Get through bower
+## Installation
+
+#### Bower
+
 ```shell
 bower install angularjs-color-picker --save-dev
 ```
+
+#### Npm
+```shell
+npm install angularjs-color-picker --save-dev
+```
+
+#### Usage
 
 * Include tinycolor.js, angularjs-color-picker.js and angularjs-color-picker.css
 ```html
@@ -29,8 +37,8 @@ angular.module('app', ['color.picker']);
 <color-picker ng-model="myColor"></color-picker>
 ```
 
-Options
-=====
+## Options
+
 If a list is given then choose one of the items. The first item in the list will be the default.
 ```html
 <color-picker
@@ -46,16 +54,16 @@ If a list is given then choose one of the items. The first item in the list will
 ></color-picker>
 ```
 
-Requirements
-=====
+## Requirements
+
 * angularjs
 * bootstrap - looking at removing in future versions if requested enough (currently only used for styling the input text box)
 * tinycolor.js - looking at removing in future versions if requested enough (33kb not minified)
 
 NO requirement for jQuery!
 
-Inspiration
-=====
+## Inspiration
+
 Inspiration and code taken from projects like
 * http://kaihenzler.github.io/angular-minicolors/
 * http://mjolnic.github.io/bootstrap-colorpicker/
