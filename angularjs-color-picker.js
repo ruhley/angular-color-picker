@@ -1,10 +1,10 @@
 /*!
- * angular-color-picker v0.6.9
+ * angularjs-color-picker v0.6.10
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2015 ruhley
  *
- * 2015-10-19 08:20:21
+ * 2015-11-10 08:35:04
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -55,12 +55,14 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     }
                     $scope.initConfig();
 
-                    $document.on('click', function (evt) {
-                        if ($scope.find(evt.target).length === 0) {
-                            $scope.log('Color Picker: Document Click Event');
-                            $scope.hide();
-                        }
-                    });
+                    $document.on('click', $scope.onClick);
+                };
+
+                $scope.onClick = function(event) {
+                    if ($scope.find(event.target).length === 0) {
+                        $scope.log('Color Picker: Document Click Event');
+                        $scope.hide();
+                    }
                 };
 
                 $scope.initConfig = function() {
@@ -437,7 +439,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 $scope.init();
 
                 $scope.$on('$destroy', function() {
-                    $document.off('click');
+                    $document.off('click', $scope.onClick);
                 });
             }
         };
