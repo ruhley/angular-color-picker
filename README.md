@@ -8,12 +8,12 @@ AngularJS Color Picker Directive
 #### Bower
 
 ```shell
-bower install angularjs-color-picker --save-dev
+bower install angularjs-color-picker --save
 ```
 
 #### Npm
 ```shell
-npm install angularjs-color-picker --save-dev
+npm install angularjs-color-picker --save
 ```
 
 #### Usage
