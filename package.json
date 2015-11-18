@@ -1,7 +1,7 @@
 {
   "name": "angularjs-color-picker",
   "description": "Color Picker Directive For AngularJS",
-  "version": "0.6.10",
+  "version": "0.6.11",
   "main": [
     "angularjs-color-picker.js",
     "angularjs-color-picker.css"
@@ -18,9 +18,9 @@
     "Benjamin Orozco <benoror@gmail.com>"
   ],
   "devDependencies": {
-    "glob": "~5.0.0",
+    "glob": "~6.0.0",
     "grunt": "~0.4.5",
-    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-clean": "~0.7.0",
     "grunt-contrib-concat": "~0.5.1",
     "grunt-contrib-cssmin": "~0.14.0",
     "grunt-contrib-jshint": "~0.11.0",

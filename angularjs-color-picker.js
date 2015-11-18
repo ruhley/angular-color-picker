@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v0.6.10
+ * angularjs-color-picker v0.6.11
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2015 ruhley
  *
- * 2015-11-10 08:35:04
+ * 2015-11-19 08:25:57
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -96,9 +96,9 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 };
 
                 $scope.hide = function () {
-                    $scope.log('Color Picker: Hide Event');
+                    if ($scope.visible || element[0].querySelector('.color-picker-panel').offsetParent !== null) {
+                        $scope.log('Color Picker: Hide Event');
 
-                    if ($scope.visible) {
                         $scope.visible = false;
                         $scope.$apply();
                     }
