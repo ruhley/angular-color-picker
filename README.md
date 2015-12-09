@@ -58,7 +58,7 @@ If a list is given then choose one of the items. The first item in the list will
 
 * angularjs
 * bootstrap - looking at removing in future versions if requested enough (currently only used for styling the input text box)
-* tinycolor.js - looking at removing in future versions if requested enough (33kb not minified)
+* tinycolor.js (18.8 KB minified)
 
 NO requirement for jQuery!
 
