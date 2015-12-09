@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v0.6.11
+ * angularjs-color-picker v0.7.0
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2015 ruhley
  *
- * 2015-11-19 08:25:57
+ * 2015-12-10 09:23:22
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -53,17 +53,74 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                             $scope.opacity = hsl.a * 100;
                         }
                     }
+
                     $scope.initConfig();
 
-                    $document.on('click', $scope.onClick);
+                    $document.on('mousedown', $scope.onMouseDown);
+                    $document.on('mouseup', $scope.onMouseUp);
+                    $document.on('mousemove', $scope.onMouseMove);
                 };
 
-                $scope.onClick = function(event) {
+                $scope.onMouseDown = function(event) {
+                    // not an element in this picker
                     if ($scope.find(event.target).length === 0) {
-                        $scope.log('Color Picker: Document Click Event');
-                        $scope.hide();
+                        return false;
+                    }
+
+                    if (event.target.classList.contains('color-picker-grid-inner') || event.target.classList.contains('color-picker-picker') || event.target.parentNode.classList.contains('color-picker-picker')) {
+                        $scope.colorDown(event);
+                        $scope.$apply();
+                    } else if (event.target.classList.contains('color-picker-hue') || event.target.parentNode.classList.contains('color-picker-hue')) {
+                        $scope.hueDown(event);
+                        $scope.$apply();
+                    } else if (event.target.classList.contains('color-picker-opacity') || event.target.parentNode.classList.contains('color-picker-opacity')) {
+                        $scope.opacityDown(event);
+                        $scope.$apply();
                     }
                 };
+
+                $scope.onMouseUp = function(event) {
+                    if (!$scope.colorMouse && !$scope.hueMouse && !$scope.opacityMouse) {
+                        if ($scope.find(event.target).length === 0) {
+                            $scope.log('Color Picker: Document Click Event');
+                            $scope.hide();
+                            $scope.$apply();
+                        }
+                    }
+
+                    if ($scope.colorMouse) {
+                        $scope.colorUp(event);
+                        $scope.$apply();
+                    }
+
+                    if ($scope.hueMouse) {
+                        $scope.hueUp(event);
+                        $scope.$apply();
+                    }
+
+                    if ($scope.opacityMouse) {
+                        $scope.opacityUp(event);
+                        $scope.$apply();
+                    }
+                };
+
+                $scope.onMouseMove = function(event) {
+                    if ($scope.colorMouse) {
+                        $scope.colorChange(event);
+                        $scope.$apply();
+                    }
+
+                    if ($scope.hueMouse) {
+                        $scope.hueChange(event);
+                        $scope.$apply();
+                    }
+
+                    if ($scope.opacityMouse) {
+                        $scope.opacityChange(event);
+                        $scope.$apply();
+                    }
+                };
+
 
                 $scope.initConfig = function() {
                     $scope.config = {};
@@ -214,24 +271,34 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     }
                 );
 
-                //---------------------------
-                // HUE
-                //---------------------------
-                $scope.hueDown = function () {
+                $scope.hueDown = function (event) {
+                    event.stopPropagation();
+                    event.preventDefault();
+
                     $scope.log('Color Picker: HUE - MOUSE DOWN');
                     $scope.hueMouse = true;
                 };
 
-                $scope.hueUp = function () {
+                $scope.hueUp = function (event) {
+                    event.stopPropagation();
+                    event.preventDefault();
+
                     $scope.log('Color Picker: HUE - MOUSE UP');
                     $scope.hueMouse = false;
                 };
 
-                $scope.hueChange = function (evt, forceRun) {
-                    if ($scope.hueMouse || forceRun) {
-                        $scope.log('Color Picker: HUE - MOUSE CHANGE');
-                        var el = $scope.find('.color-picker-hue');
-                        $scope.hue = (1 - ((evt.pageY - $scope.offset(el).top) / el.prop('offsetHeight'))) * 360;
+                $scope.hueChange = function (event) {
+                    event.stopPropagation();
+                    event.preventDefault();
+
+                    $scope.log('Color Picker: HUE - MOUSE CHANGE');
+                    var el = $scope.find('.color-picker-hue');
+                    $scope.hue = (1 - ((event.pageY - $scope.offset(el).top) / el.prop('offsetHeight'))) * 360;
+
+                    if ($scope.hue > 360) {
+                        $scope.hue = 360;
+                    } else if ($scope.hue < 0) {
+                        $scope.hue = 0;
                     }
                 };
 
@@ -258,21 +325,34 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 //---------------------------
                 // OPACITY
                 //---------------------------
-                $scope.opacityDown = function () {
+                $scope.opacityDown = function (event) {
+                    event.stopPropagation();
+                    event.preventDefault();
+
                     $scope.log('Color Picker: OPACITY - MOUSE DOWN');
                     $scope.opacityMouse = true;
                 };
 
-                $scope.opacityUp = function () {
+                $scope.opacityUp = function (event) {
+                    event.stopPropagation();
+                    event.preventDefault();
+
                     $scope.log('Color Picker: OPACITY - MOUSE UP');
                     $scope.opacityMouse = false;
                 };
 
-                $scope.opacityChange = function (evt, forceRun) {
-                    if ($scope.opacityMouse || forceRun) {
-                        $scope.log('Color Picker: OPACITY - MOUSE CHANGE');
-                        var el = $scope.find('.color-picker-opacity');
-                        $scope.opacity = (1 - ((evt.pageY - $scope.offset(el).top) / el.prop('offsetHeight'))) * 100;
+                $scope.opacityChange = function (event) {
+                    event.stopPropagation();
+                    event.preventDefault();
+
+                    $scope.log('Color Picker: OPACITY - MOUSE CHANGE');
+                    var el = $scope.find('.color-picker-opacity');
+                    $scope.opacity = (1 - ((event.pageY - $scope.offset(el).top) / el.prop('offsetHeight'))) * 100;
+
+                    if ($scope.opacity > 100) {
+                        $scope.opacity = 100;
+                    } else if ($scope.opacity < 0) {
+                        $scope.opacity = 0;
                     }
                 };
 
@@ -298,24 +378,43 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 //---------------------------
                 // COLOR
                 //---------------------------
-                $scope.colorDown = function () {
+                $scope.colorDown = function (event) {
+                    event.stopPropagation();
+                    event.preventDefault();
+
                     $scope.log('Color Picker: COLOR - MOUSE DOWN');
                     $scope.colorMouse = true;
                 };
 
-                $scope.colorUp = function () {
+                $scope.colorUp = function (event) {
+                    event.stopPropagation();
+                    event.preventDefault();
+
                     $scope.log('Color Picker: COLOR - MOUSE UP');
                     $scope.colorMouse = false;
                 };
 
-                $scope.colorChange = function (evt, forceRun) {
-                    if ($scope.colorMouse || forceRun) {
-                        $scope.log('Color Picker: COLOR - MOUSE CHANGE');
-                        var el = $scope.find('.color-picker-grid-inner');
-                        var offset = $scope.offset(el);
+                $scope.colorChange = function (event) {
+                    event.stopPropagation();
+                    event.preventDefault();
 
-                        $scope.saturation = ((evt.pageX - offset.left) / el.prop('offsetWidth')) * 100;
-                        $scope.lightness = (1 - ((evt.pageY - offset.top) / el.prop('offsetHeight'))) * 100;
+                    $scope.log('Color Picker: COLOR - MOUSE CHANGE');
+                    var el = $scope.find('.color-picker-grid-inner');
+                    var offset = $scope.offset(el);
+
+                    $scope.saturation = ((event.pageX - offset.left) / el.prop('offsetWidth')) * 100;
+                    $scope.lightness = (1 - ((event.pageY - offset.top) / el.prop('offsetHeight'))) * 100;
+
+                    if ($scope.saturation > 100) {
+                        $scope.saturation = 100;
+                    } else if ($scope.saturation < 0) {
+                        $scope.saturation = 0;
+                    }
+
+                    if ($scope.lightness > 100) {
+                        $scope.lightness = 100;
+                    } else if ($scope.lightness < 0) {
+                        $scope.lightness = 0;
                     }
                 };
 
@@ -439,7 +538,9 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 $scope.init();
 
                 $scope.$on('$destroy', function() {
-                    $document.off('click', $scope.onClick);
+                    $document.off('mousedown', $scope.onMouseDown);
+                    $document.off('mouseup', $scope.onMouseUp);
+                    $document.off('mousemove', $scope.onMouseMove);
                 });
             }
         };
@@ -464,13 +565,13 @@ angular.module('color.picker').run(['$templateCache', function($templateCache) {
         '       \'color-picker-panel-bottom color-picker-panel-right\': config.pos === \'bottom right\',\n' +
         '       \'color-picker-panel-bottom color-picker-panel-left\': config.pos === \'bottom left\',\n' +
         '   }">\n' +
-        '       <div class="color-picker-hue color-picker-sprite" ng-click="hueChange($event, true)" ng-mousemove="hueChange($event, false)" ng-mousedown="hueDown()" ng-mouseup="hueUp()">\n' +
+        '       <div class="color-picker-hue color-picker-sprite" ng-click="hueChange($event)">\n' +
         '           <div class="color-picker-slider" ng-attr-style="top: {{huePos}}%;"></div>\n' +
         '       </div>\n' +
-        '       <div class="color-picker-opacity color-picker-sprite" ng-show="config.alpha" ng-click="opacityChange($event, true)" ng-mousemove="opacityChange($event, false)" ng-mousedown="opacityDown()" ng-mouseup="opacityUp()">\n' +
+        '       <div class="color-picker-opacity color-picker-sprite" ng-show="config.alpha" ng-click="opacityChange($event)">\n' +
         '           <div class="color-picker-slider" ng-attr-style="top: {{opacityPos}}%;"></div>\n' +
         '           </div>\n' +
-        '       <div class="color-picker-grid color-picker-sprite" ng-attr-style="background-color: {{grid}};" ng-click="colorChange($event, true)" ng-mousemove="colorChange($event, false)" ng-mousedown="colorDown()" ng-mouseup="colorUp()">\n' +
+        '       <div class="color-picker-grid color-picker-sprite" ng-attr-style="background-color: {{grid}};" ng-click="colorChange($event)">\n' +
         '           <div class="color-picker-grid-inner"></div>\n' +
         '           <div class="color-picker-picker" ng-attr-style="top: {{lightnessPos}}%; left: {{saturationPos}}%;">\n' +
         '               <div></div>\n' +
