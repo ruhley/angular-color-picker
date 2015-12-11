@@ -1,7 +1,7 @@
 {
   "name": "angular-color-picker",
   "description": "Color Picker Directive For AngularJS",
-  "version": "0.6.7",
+  "version": "0.7.0",
   "homepage": "https://github.com/ruhley/angular-color-picker",
   "repository": {
     "type": "git",
@@ -30,6 +30,6 @@
   "license": "MIT",
   "ignore": [],
   "dependencies": {
-    "angular-color-picker": "angularjs-color-picker#~0.6.7"
-  },
+    "angular-color-picker": "angularjs-color-picker#~0.7.0"
+  }
 }
