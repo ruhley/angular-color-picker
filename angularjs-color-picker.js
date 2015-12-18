@@ -4,7 +4,7 @@
  *
  * Copyright 2015 ruhley
  *
- * 2015-09-08 08:57:12
+ * 2015-12-18 09:11:00
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -152,7 +152,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 };
 
                 $scope.$watch('ngModel', function (newValue, oldValue) {
-                    if (newValue !== undefined && newValue !== oldValue && newValue.length > 4) {
+                    if (newValue !== undefined && newValue !== null && newValue !== oldValue && newValue.length > 4) {
                         $scope.log('Color Picker: MODEL - CHANGED', newValue);
                         var color = tinycolor(newValue);
 
