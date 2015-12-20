@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v0.7.1
+ * angularjs-color-picker v0.7.2
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2015 ruhley
  *
- * 2015-12-14 08:26:03
+ * 2015-12-18 09:39:34
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -210,7 +210,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 };
 
                 $scope.$watch('ngModel', function (newValue, oldValue) {
-                    if (typeof newValue === 'string' && newValue !== oldValue && newValue.length > 4) {
+                    if (newValue !== undefined && newValue !== null && newValue !== oldValue && newValue.length > 4) {
                         $scope.log('Color Picker: MODEL - CHANGED', newValue);
                         var color = tinycolor(newValue);
 
