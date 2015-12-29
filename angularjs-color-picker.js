@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v0.7.2
+ * angularjs-color-picker v0.8.0
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2015 ruhley
  *
- * 2015-12-18 09:39:34
+ * 2015-12-30 09:16:44
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -33,10 +33,13 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 colorPickerSwatch: '=',
                 colorPickerSwatchOnly: '=',
                 colorPickerSwatchPos: '=',
-                colorPickerSwatchBootstrap: '='
+                colorPickerSwatchBootstrap: '=',
+                colorPickerOnChange: '&',
             },
             templateUrl: 'template/color-picker/directive.html',
             link: function ($scope, element, attrs, control) {
+                $scope.onChangeValue = null;
+
                 $scope.init = function () {
                     // if no color provided
                     if ($scope.ngModel === undefined) {
@@ -93,14 +96,17 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     } else if ($scope.colorMouse) {
                         $scope.colorUp(event);
                         $scope.$apply();
+                        $scope.onChange(event);
                     // mouse event on hue slider
                     } else if ($scope.hueMouse) {
                         $scope.hueUp(event);
                         $scope.$apply();
+                        $scope.onChange(event);
                     // mouse event on opacity slider
                     } else if ($scope.opacityMouse) {
                         $scope.opacityUp(event);
                         $scope.$apply();
+                        $scope.onChange(event);
                     }
                 };
 
@@ -117,6 +123,13 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     } else if ($scope.opacityMouse) {
                         $scope.opacityChange(event);
                         $scope.$apply();
+                    }
+                };
+
+                $scope.onChange = function(event) {
+                    if ($scope.ngModel !== $scope.onChangeValue) {
+                        $scope.onChangeValue = $scope.ngModel;
+                        $scope.colorPickerOnChange({$event: event, color: $scope.ngModel});
                     }
                 };
 
@@ -555,7 +568,7 @@ angular.module('color.picker').run(['$templateCache', function($templateCache) {
         '<div class="color-picker-wrapper" ng-class="{\'color-picker-swatch-only\': config.swatchOnly}">\n' +
         '   <div ng-class="{\'input-group\': config.swatchBootstrap && config.swatch}">\n' +
         '       <span ng-if="config.swatchPos === \'left\'" ng-attr-style="background-color: {{swatchColor}};" class="color-picker-swatch" ng-click="focus()" ng-show="config.swatch" ng-class="{\'color-picker-swatch-left\': config.swatchPos !== \'right\', \'color-picker-swatch-right\': config.swatchPos === \'right\', \'input-group-addon\': config.swatchBootstrap}"></span>\n' +
-        '       <input class="color-picker-input form-control" type="text" ng-model="ngModel" size="7" ng-focus="show()" ng-class="{\'color-picker-input-swatch\': config.swatch && !config.swatchOnly && config.swatchPos === \'left\'}">\n' +
+        '       <input class="color-picker-input form-control" type="text" ng-model="ngModel" ng-change="onChange($event)" size="7" ng-focus="show()" ng-class="{\'color-picker-input-swatch\': config.swatch && !config.swatchOnly && config.swatchPos === \'left\'}">\n' +
         '       <span ng-if="config.swatchPos === \'right\'" ng-attr-style="background-color: {{swatchColor}};" class="color-picker-swatch" ng-click="focus()" ng-show="config.swatch" ng-class="{\'color-picker-swatch-left\': config.swatchPos !== \'right\', \'color-picker-swatch-right\': config.swatchPos === \'right\', \'input-group-addon\': config.swatchBootstrap}"></span>\n' +
         '   </div>\n' +
         '   <div class="color-picker-panel" ng-show="visible" ng-class="{\n' +
