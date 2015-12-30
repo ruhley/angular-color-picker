@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v0.7.0
+ * angularjs-color-picker v0.8.0
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2015 ruhley
  *
- * 2015-12-10 09:23:22
+ * 2015-12-30 09:16:44
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -33,11 +33,15 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 colorPickerSwatch: '=',
                 colorPickerSwatchOnly: '=',
                 colorPickerSwatchPos: '=',
-                colorPickerSwatchBootstrap: '='
+                colorPickerSwatchBootstrap: '=',
+                colorPickerOnChange: '&',
             },
             templateUrl: 'template/color-picker/directive.html',
             link: function ($scope, element, attrs, control) {
+                $scope.onChangeValue = null;
+
                 $scope.init = function () {
+                    // if no color provided
                     if ($scope.ngModel === undefined) {
                         $scope.hue = 0;
                         $scope.saturation = 0;
@@ -54,70 +58,78 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                         }
                     }
 
+                    // set default config settings
                     $scope.initConfig();
 
+                    // setup mouse events
                     $document.on('mousedown', $scope.onMouseDown);
                     $document.on('mouseup', $scope.onMouseUp);
                     $document.on('mousemove', $scope.onMouseMove);
                 };
 
                 $scope.onMouseDown = function(event) {
-                    // not an element in this picker
-                    if ($scope.find(event.target).length === 0) {
-                        return false;
-                    }
-
-                    if (event.target.classList.contains('color-picker-grid-inner') || event.target.classList.contains('color-picker-picker') || event.target.parentNode.classList.contains('color-picker-picker')) {
-                        $scope.colorDown(event);
-                        $scope.$apply();
-                    } else if (event.target.classList.contains('color-picker-hue') || event.target.parentNode.classList.contains('color-picker-hue')) {
-                        $scope.hueDown(event);
-                        $scope.$apply();
-                    } else if (event.target.classList.contains('color-picker-opacity') || event.target.parentNode.classList.contains('color-picker-opacity')) {
-                        $scope.opacityDown(event);
-                        $scope.$apply();
+                    // an element in this picker
+                    if ($scope.find(event.target).length > 0) {
+                        // mouse event on color grid
+                        if (event.target.classList.contains('color-picker-grid-inner') || event.target.classList.contains('color-picker-picker') || event.target.parentNode.classList.contains('color-picker-picker')) {
+                            $scope.colorDown(event);
+                            $scope.$apply();
+                        // mouse event on hue slider
+                        } else if (event.target.classList.contains('color-picker-hue') || event.target.parentNode.classList.contains('color-picker-hue')) {
+                            $scope.hueDown(event);
+                            $scope.$apply();
+                        // mouse event on opacity slider
+                        } else if (event.target.classList.contains('color-picker-opacity') || event.target.parentNode.classList.contains('color-picker-opacity')) {
+                            $scope.opacityDown(event);
+                            $scope.$apply();
+                        }
                     }
                 };
 
                 $scope.onMouseUp = function(event) {
-                    if (!$scope.colorMouse && !$scope.hueMouse && !$scope.opacityMouse) {
-                        if ($scope.find(event.target).length === 0) {
-                            $scope.log('Color Picker: Document Click Event');
-                            $scope.hide();
-                            $scope.$apply();
-                        }
-                    }
-
-                    if ($scope.colorMouse) {
+                    // no current mouse events and not an element in the picker
+                    if (!$scope.colorMouse && !$scope.hueMouse && !$scope.opacityMouse && $scope.find(event.target).length === 0) {
+                        $scope.log('Color Picker: Document Click Event');
+                        $scope.hide();
+                        $scope.$apply();
+                    // mouse event on color grid
+                    } else if ($scope.colorMouse) {
                         $scope.colorUp(event);
                         $scope.$apply();
-                    }
-
-                    if ($scope.hueMouse) {
+                        $scope.onChange(event);
+                    // mouse event on hue slider
+                    } else if ($scope.hueMouse) {
                         $scope.hueUp(event);
                         $scope.$apply();
-                    }
-
-                    if ($scope.opacityMouse) {
+                        $scope.onChange(event);
+                    // mouse event on opacity slider
+                    } else if ($scope.opacityMouse) {
                         $scope.opacityUp(event);
                         $scope.$apply();
+                        $scope.onChange(event);
                     }
                 };
 
                 $scope.onMouseMove = function(event) {
+                    // mouse event on color grid
                     if ($scope.colorMouse) {
                         $scope.colorChange(event);
                         $scope.$apply();
-                    }
-
-                    if ($scope.hueMouse) {
+                    // mouse event on hue slider
+                    } else if ($scope.hueMouse) {
                         $scope.hueChange(event);
                         $scope.$apply();
-                    }
-
-                    if ($scope.opacityMouse) {
+                    // mouse event on opacity slider
+                    } else if ($scope.opacityMouse) {
                         $scope.opacityChange(event);
                         $scope.$apply();
+                    }
+                };
+
+                $scope.onChange = function(event) {
+                    if ($scope.ngModel !== $scope.onChangeValue) {
+                        $scope.onChangeValue = $scope.ngModel;
+                        $scope.colorPickerOnChange({$event: event, color: $scope.ngModel});
                     }
                 };
 
@@ -211,7 +223,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 };
 
                 $scope.$watch('ngModel', function (newValue, oldValue) {
-                    if (typeof newValue === 'string' && newValue !== oldValue && newValue.length > 4) {
+                    if (newValue !== undefined && newValue !== null && newValue !== oldValue && newValue.length > 4) {
                         $scope.log('Color Picker: MODEL - CHANGED', newValue);
                         var color = tinycolor(newValue);
 
@@ -556,7 +568,7 @@ angular.module('color.picker').run(['$templateCache', function($templateCache) {
         '<div class="color-picker-wrapper" ng-class="{\'color-picker-swatch-only\': config.swatchOnly}">\n' +
         '   <div ng-class="{\'input-group\': config.swatchBootstrap && config.swatch}">\n' +
         '       <span ng-if="config.swatchPos === \'left\'" ng-attr-style="background-color: {{swatchColor}};" class="color-picker-swatch" ng-click="focus()" ng-show="config.swatch" ng-class="{\'color-picker-swatch-left\': config.swatchPos !== \'right\', \'color-picker-swatch-right\': config.swatchPos === \'right\', \'input-group-addon\': config.swatchBootstrap}"></span>\n' +
-        '       <input class="color-picker-input form-control" type="text" ng-model="ngModel" size="7" ng-focus="show()" ng-class="{\'color-picker-input-swatch\': config.swatch && !config.swatchOnly && config.swatchPos === \'left\'}">\n' +
+        '       <input class="color-picker-input form-control" type="text" ng-model="ngModel" ng-change="onChange($event)" size="7" ng-focus="show()" ng-class="{\'color-picker-input-swatch\': config.swatch && !config.swatchOnly && config.swatchPos === \'left\'}">\n' +
         '       <span ng-if="config.swatchPos === \'right\'" ng-attr-style="background-color: {{swatchColor}};" class="color-picker-swatch" ng-click="focus()" ng-show="config.swatch" ng-class="{\'color-picker-swatch-left\': config.swatchPos !== \'right\', \'color-picker-swatch-right\': config.swatchPos === \'right\', \'input-group-addon\': config.swatchBootstrap}"></span>\n' +
         '   </div>\n' +
         '   <div class="color-picker-panel" ng-show="visible" ng-class="{\n' +

@@ -58,6 +58,7 @@
     color-picker-swatch-only="swatchOnly"
     color-picker-pos="pos"
     color-picker-case="case"
+    color-picker-on-change="onChange($event, color)"
   ></color-picker>
 </div>
 
@@ -103,6 +104,10 @@
 <div class="row">
   <label class="control-label">Case (case) - The case of hex colors - 'upper', 'lower'</label>
   <select ng-model="case" class="form-control" ng-options="option.value as option.label for option in caseOptions"></select>
+</div>
+<div class="row">
+  <label class="control-label">On Change (on-change)</label> -
+  A custom function to run after the user has changed the color. Open the console to view the changes.
 </div>
 
 </form>
@@ -157,6 +162,7 @@
     color-picker-swatch-only="true, false"
     color-picker-pos="'bottom left', 'bottom right', 'top left', 'top right'"
     color-picker-case="'upper', 'lower'"
+    color-picker-on-change="onChange($event, color)"
 &gt;&lt;/<span class="pl-ent">color</span><span class="pl-e">-picker</span>&gt;</pre></div>
 
 <h1>

@@ -30,6 +30,6 @@
   "license": "MIT",
   "ignore": [],
   "dependencies": {
-    "angular-color-picker": "angularjs-color-picker#~0.7.0"
+    "angular-color-picker": "angularjs-color-picker#~0.8.0"
   }
 }

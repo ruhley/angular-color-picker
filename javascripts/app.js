@@ -7,7 +7,7 @@ angular
 		$scope.posOptions = [{label: 'Bottom Left', value: 'bottom left'}, {label: 'Top Left', value: 'top left'}, {label: 'Bottom Right', value: 'bottom right'}, {label: 'Top Right', value: 'top right'}];
 		$scope.caseOptions = [{label: 'Upper Case', value: 'upper'}, {label: 'Lower Case', value: 'lower'}];
 
-        $scope.$watch('color', function() {
-            console.log($scope.color);
-        });
+		$scope.onChange = function($event, color) {
+			console.log(color);
+		};
     });
