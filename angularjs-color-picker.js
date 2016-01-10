@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v0.8.0
+ * angularjs-color-picker v0.8.1
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2015 ruhley
  *
- * 2015-12-30 09:16:44
+ * 2016-01-11 08:39:01
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -20,7 +20,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 (function() {
     'use strict';
 
-    var colorPicker = function ($document, $timeout) {
+    var colorPicker = function ($document) {
         return {
             restrict: 'E',
             require: ['^ngModel'],
@@ -65,6 +65,10 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     $document.on('mousedown', $scope.onMouseDown);
                     $document.on('mouseup', $scope.onMouseUp);
                     $document.on('mousemove', $scope.onMouseMove);
+
+                    $scope.find('.color-picker-grid').on('click', $scope.onColorClick);
+                    $scope.find('.color-picker-hue').on('click', $scope.onHueClick);
+                    $scope.find('.color-picker-opacity').on('click', $scope.onOpacityClick);
                 };
 
                 $scope.onMouseDown = function(event) {
@@ -124,6 +128,24 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                         $scope.opacityChange(event);
                         $scope.$apply();
                     }
+                };
+
+                $scope.onColorClick = function(event) {
+                    $scope.colorChange(event);
+                    $scope.$apply();
+                    $scope.onChange(event);
+                };
+
+                $scope.onHueClick = function(event) {
+                    $scope.hueChange(event);
+                    $scope.$apply();
+                    $scope.onChange(event);
+                };
+
+                $scope.onOpacityClick = function(event) {
+                    $scope.opacityChange(event);
+                    $scope.$apply();
+                    $scope.onChange(event);
                 };
 
                 $scope.onChange = function(event) {
@@ -558,7 +580,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         };
     };
 
-    colorPicker.$inject = ['$document', '$timeout'];
+    colorPicker.$inject = ['$document'];
 
     angular.module('color.picker').directive('colorPicker', colorPicker);
 })();
@@ -577,13 +599,13 @@ angular.module('color.picker').run(['$templateCache', function($templateCache) {
         '       \'color-picker-panel-bottom color-picker-panel-right\': config.pos === \'bottom right\',\n' +
         '       \'color-picker-panel-bottom color-picker-panel-left\': config.pos === \'bottom left\',\n' +
         '   }">\n' +
-        '       <div class="color-picker-hue color-picker-sprite" ng-click="hueChange($event)">\n' +
+        '       <div class="color-picker-hue color-picker-sprite">\n' +
         '           <div class="color-picker-slider" ng-attr-style="top: {{huePos}}%;"></div>\n' +
         '       </div>\n' +
-        '       <div class="color-picker-opacity color-picker-sprite" ng-show="config.alpha" ng-click="opacityChange($event)">\n' +
+        '       <div class="color-picker-opacity color-picker-sprite" ng-show="config.alpha">\n' +
         '           <div class="color-picker-slider" ng-attr-style="top: {{opacityPos}}%;"></div>\n' +
         '           </div>\n' +
-        '       <div class="color-picker-grid color-picker-sprite" ng-attr-style="background-color: {{grid}};" ng-click="colorChange($event)">\n' +
+        '       <div class="color-picker-grid color-picker-sprite" ng-attr-style="background-color: {{grid}};">\n' +
         '           <div class="color-picker-grid-inner"></div>\n' +
         '           <div class="color-picker-picker" ng-attr-style="top: {{lightnessPos}}%; left: {{saturationPos}}%;">\n' +
         '               <div></div>\n' +
