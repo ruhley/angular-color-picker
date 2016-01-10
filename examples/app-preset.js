@@ -6,8 +6,14 @@ angular
         $scope.swatchPosOptions = [{label: 'Left', value: 'left'}, {label: 'Right', value: 'right'}];
         $scope.posOptions = [{label: 'Bottom Left', value: 'bottom left'}, {label: 'Top Left', value: 'top left'}, {label: 'Bottom Right', value: 'bottom right'}, {label: 'Top Right', value: 'top right'}];
         $scope.caseOptions = [{label: 'Upper Case', value: 'upper'}, {label: 'Lower Case', value: 'lower'}];
+
         $scope.color = 'rgba(50, 75, 150, 0.4)';
+
         $scope.$watch('color', function(newValue, oldValue) {
-            console.log(newValue, oldValue);
+            // console.log(newValue, oldValue);
         });
+
+        $scope.onColorChange = function($event, color) {
+            console.log($event, color);
+        }
     });

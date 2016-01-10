@@ -8,10 +8,10 @@ angular
         $scope.caseOptions = [{label: 'Upper Case', value: 'upper'}, {label: 'Lower Case', value: 'lower'}];
 
         $scope.$watch('color', function(newValue, oldValue) {
-            console.log(newValue, oldValue);
+            // console.log(newValue, oldValue);
         });
 
         $scope.onColorChange = function($event, color) {
-            console.log(arguments);
+            console.log($event, color);
         }
     });
