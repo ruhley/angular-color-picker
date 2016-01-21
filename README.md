@@ -20,7 +20,7 @@ npm install angularjs-color-picker --save
 
 * Include tinycolor.js, angularjs-color-picker.js and angularjs-color-picker.css
 ```html
-    <link rel="stylesheet" href="bower_components/angularjs-color-picker/angularjs-color-picker.min.css" />
+    <link rel="stylesheet" href="bower_components/angular-color-picker/angularjs-color-picker.min.css" />
 
     <script src="bower_components/tinycolor/dist/tinycolor-min.js"></script>
     <script src="bower_components/angular-color-picker/angularjs-color-picker.min.js"></script>
