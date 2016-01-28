@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v0.8.1
+ * angularjs-color-picker v0.8.2
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2015 ruhley
  *
- * 2016-01-11 08:39:01
+ * 2016-01-28 08:06:38
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -95,7 +95,6 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     if (!$scope.colorMouse && !$scope.hueMouse && !$scope.opacityMouse && $scope.find(event.target).length === 0) {
                         $scope.log('Color Picker: Document Click Event');
                         $scope.hide();
-                        $scope.$apply();
                     // mouse event on color grid
                     } else if ($scope.colorMouse) {
                         $scope.colorUp(event);
