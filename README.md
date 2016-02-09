@@ -20,10 +20,11 @@ npm install angularjs-color-picker --save
 
 * Include tinycolor.js, angularjs-color-picker.js and angularjs-color-picker.css
 ```html
-    <link rel="stylesheet" href="bower_components/angular-color-picker/angularjs-color-picker.min.css" />
-
-    <script src="bower_components/tinycolor/dist/tinycolor-min.js"></script>
-    <script src="bower_components/angular-color-picker/angularjs-color-picker.min.js"></script>
+<link rel="stylesheet" href="bower_components/angular-color-picker/dist/angularjs-color-picker.min.css" />
+<!-- only include if you use bootstrap -->
+<link rel="stylesheet" href="bower_components/angular-color-picker/dist/themes/angularjs-color-picker-bootstrap.min.css" />
+<script src="bower_components/tinycolor/dist/tinycolor-min.js"></script>
+<script src="bower_components/angular-color-picker/dist/angularjs-color-picker.min.js"></script>
 ```
 
 
@@ -57,8 +58,7 @@ If a list is given then choose one of the items. The first item in the list will
 
 ## Requirements
 
-* angularjs
-* bootstrap - looking at removing in future versions if requested enough (currently only used for styling the input text box)
+* angularjs (v1.3 and higher)
 * tinycolor.js (18.8 KB minified)
 
 NO requirement for jQuery!

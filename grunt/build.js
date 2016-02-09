@@ -2,7 +2,7 @@ module.exports = function(grunt) {
     grunt.registerTask('build', [
         'notify:build',
         'jshint:lib',
-        'jshint:tests',
+        // 'jshint:tests',
         'jshint:grunt',
         //'karma:build',
         'clean:build',

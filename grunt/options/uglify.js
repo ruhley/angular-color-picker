@@ -1,7 +1,7 @@
 module.exports = {
     build: {
         options: {
-            sourceMap: true,
+            sourceMap: false,
             sourceMapName: '<%= config.dist %>/<%= config.filename %>.min.map',
             preserveComments: 'some',
             screwIE8: true

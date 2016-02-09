@@ -8,9 +8,11 @@ module.exports = function() {
         },
         build: {
             files: [{
-                expand: false,
-                src: '<%= config.lib %>/<%= config.styles %>/**/*.less',
-                dest: '<%= config.dist %>/<%= config.filename %>.css'
+                expand: true,
+                cwd: '<%= config.lib %>/<%= config.styles %>',
+                src: ['**/*.less'],
+                dest: '<%= config.dist %>',
+                ext: '.css'
             }]
         }
     };

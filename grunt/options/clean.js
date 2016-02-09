@@ -4,6 +4,7 @@ module.exports = {
             dot: true,
             src: [
                 '.tmp',
+                'dist',
             ]
         }]
     }
