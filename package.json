@@ -2,7 +2,7 @@
   "name": "angularjs-color-picker",
   "description": "Color Picker Directive For AngularJS",
   "version": "1.0.0",
-  "main": "angularjs-color-picker.js",
+  "main": "dist/angularjs-color-picker.min.js",
   "dependencies": {
     "angular": "^1.4.0",
     "tinycolor2": "^1.3.0"
