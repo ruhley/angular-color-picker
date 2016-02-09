@@ -2,12 +2,12 @@ module.exports = {
     build: {
         options: {
             sourceMap: true,
-            sourceMapName: '<%= config.filename %>.min.map',
+            sourceMapName: '<%= config.dist %>/<%= config.filename %>.min.map',
             preserveComments: 'some',
             screwIE8: true
         },
         files: {
-            '<%= config.filename %>.min.js': '<%= config.filename %>.js'
+            '<%= config.dist %>/<%= config.filename %>.min.js': '<%= config.dist %>/<%= config.filename %>.js'
         }
     }
 };

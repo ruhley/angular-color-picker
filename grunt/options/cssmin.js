@@ -4,8 +4,8 @@ module.exports = {
     },
     build: {
         files: [{
-            src: ['<%= config.filename %>.css'],
-            dest: '<%= config.filename %>.min.css',
+            src: ['<%= config.dist %>/<%= config.filename %>.css'],
+            dest: '<%= config.dist %>/<%= config.filename %>.min.css',
         }]
     }
 };

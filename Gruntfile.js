@@ -12,6 +12,7 @@
             var gruntConfig = {config: {
                 // folders
                 lib: 'lib',
+                dist: 'dist',
                 tests: 'tests',
                 grunt: 'grunt',
                 scripts: 'scripts',
