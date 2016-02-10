@@ -14,8 +14,8 @@
     "Benjamin Orozco <benoror@gmail.com>"
   ],
   "main": [
-    "dist/angularjs-color-picker.min.js",
-    "dist/angularjs-color-picker.min.css"
+    "dist/angularjs-color-picker.js",
+    "dist/angularjs-color-picker.css"
   ],
   "moduleType": [
     "globals"
