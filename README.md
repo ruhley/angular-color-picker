@@ -18,14 +18,29 @@ npm install angularjs-color-picker --save
 
 #### Usage
 
-* Include tinycolor.js, angularjs-color-picker.js and angularjs-color-picker.css
-```html
-<link rel="stylesheet" href="bower_components/angular-color-picker/dist/angularjs-color-picker.min.css" />
-<!-- only include if you use bootstrap -->
-<link rel="stylesheet" href="bower_components/angular-color-picker/dist/themes/angularjs-color-picker-bootstrap.min.css" />
-<script src="bower_components/tinycolor/dist/tinycolor-min.js"></script>
-<script src="bower_components/angular-color-picker/dist/angularjs-color-picker.min.js"></script>
-```
+* Include files
+
+    * Bower
+
+    ```html
+    <link rel="stylesheet" href="bower_components/angular-color-picker/dist/angularjs-color-picker.min.css" />
+    <!-- only include if you use bootstrap -->
+    <link rel="stylesheet" href="bower_components/angular-color-picker/dist/themes/angularjs-color-picker-bootstrap.min.css" />
+
+    <script src="bower_components/tinycolor/dist/tinycolor-min.js"></script>
+    <script src="bower_components/angular-color-picker/dist/angularjs-color-picker.min.js"></script>
+    ```
+
+    * Node
+
+    ```html
+    <link rel="stylesheet" href="node_modules/angular-color-picker/dist/angularjs-color-picker.min.css" />
+    <!-- only include if you use bootstrap -->
+    <link rel="stylesheet" href="node_modules/angular-color-picker/dist/themes/angularjs-color-picker-bootstrap.min.css" />
+
+    <script src="node_modules/tinycolor2/dist/tinycolor2-min.js"></script>
+    <script src="node_modules/angular-color-picker/dist/angularjs-color-picker.min.js"></script>
+    ```
 
 
 * Add the module to your app
@@ -40,10 +55,10 @@ angular.module('app', ['color.picker']);
 
 ## Options
 
-If a list is given then choose one of the items. The first item in the list will be the default.
+If a list is given then choose one of the items. The first item in the list will be the default. Only ```ng-model``` is required.
 ```html
 <color-picker
-    ng-model="" <!-- only required field -->
+    ng-model=""
     color-picker-format="'hsl', 'hsv', 'rgb', 'hex', 'hex8'"
     color-picker-alpha="true, false"
     color-picker-swatch="true, false"
