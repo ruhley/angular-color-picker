@@ -4,7 +4,7 @@
  *
  * Copyright 2016 ruhley
  *
- * 2016-02-11 09:43:17
+ * 2016-03-23 08:35:46
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -20,7 +20,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 (function() {
     'use strict';
 
-    var colorPicker = function ($document) {
+    var colorPicker = function ($document, $timeout) {
         return {
             restrict: 'E',
             require: ['^ngModel'],
@@ -39,6 +39,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             templateUrl: 'template/color-picker/directive.html',
             link: function ($scope, element, attrs, control) {
                 $scope.onChangeValue = null;
+                $scope.updateModel = true;
 
                 $scope.init = function () {
                     // if no color provided
@@ -239,7 +240,9 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                                 break;
                         }
 
-                        $scope.ngModel = colorString;
+                        if ($scope.updateModel) {
+                            $scope.ngModel = colorString;
+                        }
                     }
                 };
 
@@ -251,6 +254,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                         if (color.isValid()) {
                             var hsl = color.toHsv();
 
+                            $scope.updateModel = false;
+
                             $scope.hue = hsl.h;
                             $scope.saturation = hsl.s * 100;
                             $scope.lightness = hsl.v * 100;
@@ -258,6 +263,10 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                             if ($scope.config.alpha) {
                                 $scope.opacity = hsl.a * 100;
                             }
+
+                            $timeout(function() {
+                                $scope.updateModel = true;
+                            });
 
                             $scope.isValid = true;
                         } else {
@@ -627,7 +636,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         };
     };
 
-    colorPicker.$inject = ['$document'];
+    colorPicker.$inject = ['$document', '$timeout'];
 
     angular.module('color.picker').directive('colorPicker', colorPicker);
 })();
