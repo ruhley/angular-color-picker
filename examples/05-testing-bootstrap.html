@@ -23,6 +23,11 @@
             <p>An AngularJS directive for a color picker. No requirement on jQuery.</p>
             <form class="col-sm-12">
                 <div class="row">
+                    <label class="control-label">Disabled (disabled)</label>
+                    <select ng-model="disabled" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+                
+                <div class="row">
                     <label class="control-label">Format (format)</label>
                     <select ng-model="format" class="form-control" ng-options="option.value as option.label for option in formatOptions"></select>
                 </div>
@@ -66,6 +71,7 @@
                     <label class="control-label">Color</label>
                     <color-picker
                         ng-model="color"
+                        color-picker-disabled="disabled"
                         color-picker-format="format"
                         color-picker-alpha="alpha"
                         color-picker-swatch="swatch"
