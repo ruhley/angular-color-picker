@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v1.0.1
+ * angularjs-color-picker v1.0.3
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-03-23 08:35:46
+ * 2016-04-08 09:35:35
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -26,6 +26,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             require: ['^ngModel'],
             scope: {
                 ngModel: '=',
+                colorPickerDisabled: '=',
                 colorPickerAlpha: '=',
                 colorPickerCase: '=',
                 colorPickerFormat: '=',
@@ -44,9 +45,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 $scope.init = function () {
                     // if no color provided
                     if ($scope.ngModel === undefined) {
-                        $scope.hue = 0;
-                        $scope.saturation = 0;
-                        $scope.lightness = 100;
+                        $scope.setDefaults();
                     } else {
                         var color = tinycolor($scope.ngModel);
 
@@ -155,9 +154,14 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     }
                 };
 
+                $scope.onBlur = function() {
+                    $scope.updateModel = true;
+                    $scope.update();
+                };
 
                 $scope.initConfig = function() {
                     $scope.config = {};
+                    $scope.config.disabled = $scope.colorPickerDisabled === undefined ? false : $scope.colorPickerDisabled;
                     $scope.config.alpha = $scope.colorPickerAlpha === undefined ? true : $scope.colorPickerAlpha;
                     $scope.config.case = $scope.colorPickerCase === undefined ? 'upper' : $scope.colorPickerCase;
                     $scope.config.format = $scope.colorPickerFormat === undefined ? 'hsl' : $scope.colorPickerFormat;
@@ -195,54 +199,76 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     }
                 };
 
+                $scope.setDefaults = function() {
+                    if ($scope.hue === undefined) {
+                        $scope.hue = 0;
+                    }
+
+                    if ($scope.saturation === undefined) {
+                        $scope.saturation = 0;
+                    }
+
+                    if ($scope.lightness === undefined) {
+                        $scope.lightness = 100;
+                    }
+
+                    if ($scope.opacity === undefined) {
+                        $scope.opacity = 100;
+                    }
+                };
+
                 $scope.update = function () {
-                    if ($scope.hue !== undefined && $scope.saturation !== undefined && $scope.lightness !== undefined) {
-                        var color = tinycolor({h: $scope.hue, s: $scope.saturation / 100, v: $scope.lightness / 100}),
-                            colorString;
+                    if ($scope.hue === undefined && $scope.saturation === undefined && $scope.lightness === undefined) {
+                        return false;
+                    }
 
-                        if ($scope.config.alpha) {
-                            color.setAlpha($scope.opacity / 100);
-                        }
+                    $scope.setDefaults();
 
-                        $scope.log('Color Picker: COLOR CHANGED TO ', color, $scope.hue, $scope.saturation, $scope.lightness, $scope.opacity);
+                    var color = tinycolor({h: $scope.hue, s: $scope.saturation / 100, v: $scope.lightness / 100}),
+                        colorString;
 
-                        $scope.swatchColor = color.toHslString();
+                    if ($scope.config.alpha) {
+                        color.setAlpha($scope.opacity / 100);
+                    }
 
-                        switch ($scope.config.format) {
-                            case 'rgb':
-                                colorString = color.toRgbString();
-                                break;
+                    $scope.log('Color Picker: COLOR CHANGED TO ', color, $scope.hue, $scope.saturation, $scope.lightness, $scope.opacity);
 
-                            case 'hex':
-                                colorString = color.toHexString();
-                                if ($scope.config.case === 'lower') {
-                                    colorString = colorString.toLowerCase();
-                                } else {
-                                    colorString = colorString.toUpperCase();
-                                }
-                                break;
+                    $scope.swatchColor = color.toHslString();
 
-                            case 'hex8':
-                                colorString = color.toHex8String();
-                                if ($scope.config.case === 'lower') {
-                                    colorString = colorString.toLowerCase();
-                                } else {
-                                    colorString = colorString.toUpperCase();
-                                }
-                                break;
+                    switch ($scope.config.format) {
+                        case 'rgb':
+                            colorString = color.toRgbString();
+                            break;
 
-                            case 'hsv':
-                                colorString = color.toHsvString();
-                                break;
+                        case 'hex':
+                            colorString = color.toHexString();
+                            if ($scope.config.case === 'lower') {
+                                colorString = colorString.toLowerCase();
+                            } else {
+                                colorString = colorString.toUpperCase();
+                            }
+                            break;
 
-                            default:
-                                colorString = color.toHslString();
-                                break;
-                        }
+                        case 'hex8':
+                            colorString = color.toHex8String();
+                            if ($scope.config.case === 'lower') {
+                                colorString = colorString.toLowerCase();
+                            } else {
+                                colorString = colorString.toUpperCase();
+                            }
+                            break;
 
-                        if ($scope.updateModel) {
-                            $scope.ngModel = colorString;
-                        }
+                        case 'hsv':
+                            colorString = color.toHsvString();
+                            break;
+
+                        default:
+                            colorString = color.toHslString();
+                            break;
+                    }
+
+                    if ($scope.updateModel) {
+                        $scope.ngModel = colorString;
                     }
                 };
 
@@ -279,6 +305,13 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                             control[0].$setDirty();
                         }
                     } else {
+                        if (newValue === null) {
+                            $scope.hue = undefined;
+                            $scope.saturation = undefined;
+                            $scope.lightness = undefined;
+                            $scope.opacity = undefined;
+                        }
+
                         $scope.swatchColor = '';
                     }
                 });
@@ -305,7 +338,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 );
 
                 $scope.$watchGroup(
-                    ['colorPickerSwatchPos', 'colorPickerSwatchBootstrap', 'colorPickerSwatchOnly', 'colorPickerSwatch', 'colorPickerPos'],
+                    ['colorPickerDisabled', 'colorPickerSwatchPos', 'colorPickerSwatchBootstrap', 'colorPickerSwatchOnly', 'colorPickerSwatch', 'colorPickerPos'],
                     function (newValue, oldValue) {
                         if (newValue !== undefined) {
                             $scope.initConfig();
@@ -646,7 +679,7 @@ angular.module('color.picker').run(['$templateCache', function($templateCache) {
         '<div class="color-picker-wrapper" ng-class="{\'color-picker-swatch-only\': config.swatchOnly}">\n' +
         '   <div class="color-picker-input-wrapper" ng-class="{\'input-group\': config.swatchBootstrap && config.swatch}">\n' +
         '       <span ng-if="config.swatchPos === \'left\'" class="color-picker-swatch" ng-click="focus()" ng-show="config.swatch" ng-class="{\'color-picker-swatch-left\': config.swatchPos !== \'right\', \'color-picker-swatch-right\': config.swatchPos === \'right\', \'input-group-addon\': config.swatchBootstrap}"></span>\n' +
-        '       <input class="color-picker-input form-control" type="text" ng-model="ngModel" ng-change="onChange($event)" size="7" ng-focus="show()" ng-class="{\'color-picker-input-swatch\': config.swatch && !config.swatchOnly && config.swatchPos === \'left\'}">\n' +
+        '       <input class="color-picker-input form-control" type="text" ng-model="ngModel" ng-disabled="config.disabled" ng-blur="onBlur()" ng-change="onChange($event)" size="7" ng-focus="show()" ng-class="{\'color-picker-input-swatch\': config.swatch && !config.swatchOnly && config.swatchPos === \'left\'}">\n' +
         '       <span ng-if="config.swatchPos === \'right\'" class="color-picker-swatch" ng-click="focus()" ng-show="config.swatch" ng-class="{\'color-picker-swatch-left\': config.swatchPos !== \'right\', \'color-picker-swatch-right\': config.swatchPos === \'right\', \'input-group-addon\': config.swatchBootstrap}"></span>\n' +
         '   </div>\n' +
         '   <div class="color-picker-panel" ng-show="visible" ng-class="{\n' +
