@@ -59,6 +59,7 @@ If a list is given then choose one of the items. The first item in the list will
 ```html
 <color-picker
     ng-model=""
+    color-picker-disabled="false, true"
     color-picker-format="'hsl', 'hsv', 'rgb', 'hex', 'hex8'"
     color-picker-alpha="true, false"
     color-picker-swatch="true, false"
