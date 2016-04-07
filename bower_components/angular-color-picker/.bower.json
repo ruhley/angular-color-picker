@@ -1,7 +1,6 @@
 {
   "name": "angular-color-picker",
   "description": "Color Picker Directive For AngularJS",
-  "version": "0.8.0",
   "homepage": "https://github.com/ruhley/angular-color-picker",
   "repository": {
     "type": "git",
@@ -14,8 +13,8 @@
     "Benjamin Orozco <benoror@gmail.com>"
   ],
   "main": [
-    "angularjs-color-picker.js",
-    "angularjs-color-picker.css"
+    "dist/angularjs-color-picker.js",
+    "dist/angularjs-color-picker.css"
   ],
   "moduleType": [
     "globals"
@@ -30,24 +29,22 @@
   "license": "MIT",
   "ignore": [
     "*",
-    "!angularjs-color-picker.css",
-    "!angularjs-color-picker.js",
-    "!angularjs-color-picker.min.css",
-    "!angularjs-color-picker.min.js",
-    "!angularjs-color-picker.min.map"
+    "!dist/",
+    "!dist/*",
+    "!dist/themes/",
+    "!dist/themes/*"
   ],
   "dependencies": {
     "tinycolor": "^1.3.0",
-    "angular": "^1.3.0",
-    "bootstrap": "~3.3.0"
+    "angular": "^1.3.0"
   },
-  "_release": "0.8.0",
+  "_release": "04a8610ad6",
   "_resolution": {
-    "type": "version",
-    "tag": "v0.8.0",
-    "commit": "f30590386a2c7371457346f4ca8da4b4d7bca3b2"
+    "type": "branch",
+    "branch": "master",
+    "commit": "04a8610ad6f8722d8f73b5f0dc7cbc01f88eab53"
   },
-  "_source": "git://github.com/ruhley/angular-color-picker.git",
-  "_target": "~0.8.0",
+  "_source": "https://github.com/ruhley/angular-color-picker.git",
+  "_target": "master",
   "_originalSource": "angularjs-color-picker"
 }
