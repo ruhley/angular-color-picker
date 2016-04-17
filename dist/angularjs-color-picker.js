@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v1.0.4
+ * angularjs-color-picker v1.0.5
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-04-14 15:51:36
+ * 2016-04-18 08:12:21
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
