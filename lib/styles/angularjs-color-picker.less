@@ -217,8 +217,13 @@
 
             .color-picker-input {
                 padding: 0;
-                width: 0;
-                border: none;
+                width: 1px;
+                opacity: 0;
+                cursor: pointer;
+
+                &:focus {
+                    outline: none;
+                }
             }
         }
     }
