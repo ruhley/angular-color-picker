@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v1.0.5
+ * angularjs-color-picker v1.0.6
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-04-18 08:12:21
+ * 2016-04-27 13:11:08
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -27,7 +27,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             scope: {
                 ngModel: '=',
                 colorPickerDisabled: '=',
-                colorPickerAlpha: '=',
+                colorPickerAlpha: '=?',
                 colorPickerCase: '=',
                 colorPickerFormat: '=',
                 colorPickerPos: '=',
