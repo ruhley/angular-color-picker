@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v1.0.6
+ * angularjs-color-picker v1.0.7
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-04-27 13:11:08
+ * 2016-04-29 08:36:22
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -27,7 +27,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             scope: {
                 ngModel: '=',
                 colorPickerDisabled: '=',
-                colorPickerAlpha: '=?',
+                colorPickerAlpha: '=',
                 colorPickerCase: '=',
                 colorPickerFormat: '=',
                 colorPickerPos: '=',
@@ -316,19 +316,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     }
                 });
 
-                $scope.$watch('colorPickerFormat', function (newValue, oldValue) {
-                    if (newValue !== undefined && newValue !== oldValue) {
-                        if (newValue === 'hex') {
-                            $scope.colorPickerAlpha = false;
-                        }
-
-                        $scope.initConfig();
-                        $scope.update();
-                    }
-                });
-
                 $scope.$watchGroup(
-                    ['colorPickerAlpha', 'colorPickerCase'],
+                    ['colorPickerFormat', 'colorPickerAlpha', 'colorPickerCase'],
                     function (newValue, oldValue) {
                         if (newValue !== undefined) {
                             $scope.initConfig();
@@ -688,17 +677,17 @@ angular.module('color.picker').run(['$templateCache', function($templateCache) {
         '       \'color-picker-panel-bottom color-picker-panel-right\': config.pos === \'bottom right\',\n' +
         '       \'color-picker-panel-bottom color-picker-panel-left\': config.pos === \'bottom left\',\n' +
         '   }">\n' +
-        '       <div class="color-picker-hue color-picker-sprite">\n' +
-        '           <div class="color-picker-slider"></div>\n' +
-        '       </div>\n' +
-        '       <div class="color-picker-opacity color-picker-sprite" ng-show="config.alpha">\n' +
-        '           <div class="color-picker-slider"></div>\n' +
-        '           </div>\n' +
         '       <div class="color-picker-grid color-picker-sprite">\n' +
         '           <div class="color-picker-grid-inner"></div>\n' +
         '           <div class="color-picker-picker">\n' +
         '               <div></div>\n' +
         '           </div>\n' +
+        '       </div>\n' +
+        '       <div class="color-picker-hue color-picker-sprite">\n' +
+        '           <div class="color-picker-slider"></div>\n' +
+        '       </div>\n' +
+        '       <div class="color-picker-opacity color-picker-sprite" ng-show="config.alpha && config.format !== \'hex\'">\n' +
+        '           <div class="color-picker-slider"></div>\n' +
         '       </div>\n' +
         '   </div>\n' +
         '</div>'
