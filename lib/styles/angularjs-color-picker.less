@@ -80,31 +80,29 @@
 
     .color-picker-panel {
         position: absolute;
-        width: 173px;
-        height: 152px;
         background: white;
         border: solid 1px #CCC;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        padding: 1px;
         z-index: 99999;
         box-sizing: content-box;
 
         .color-picker-hue,
         .color-picker-opacity {
-            position: absolute;
-            top: 1px;
+            position: relative;
             width: 20px;
             height: 150px;
             background-color: white;
             cursor: row-resize;
+            float: left;
+            margin-left: 1px;
         }
 
         .color-picker-hue {
-            left: 152px;
             background-position: 0 0;
         }
 
         .color-picker-opacity {
-            left: 173px;
             background-position: -40px 0;
         }
 
@@ -121,18 +119,14 @@
         }
 
         .color-picker-grid {
-            position: absolute;
-            top: 1px;
-            left: 1px;
+            position: relative;
+            float: left;
             width: 150px;
             height: 150px;
             background-position: -120px 0;
             cursor: crosshair;
 
             .color-picker-grid-inner {
-                position: absolute;
-                top: 0;
-                left: 0;
                 width: 150px;
                 height: 150px;
             }
