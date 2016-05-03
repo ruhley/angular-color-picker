@@ -4,7 +4,7 @@
  *
  * Copyright 2016 ruhley
  *
- * 2016-04-29 08:36:22
+ * 2016-05-04 09:00:28
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -272,6 +272,13 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     }
                 };
 
+                $scope.updateSwatchBackground = function () {
+                    var el = angular.element(element[0].querySelector('.color-picker-swatch'));
+                    el.css({
+                        'background-color': $scope.swatchColor,
+                    });
+                };
+
                 $scope.$watch('ngModel', function (newValue, oldValue) {
                     if (newValue !== undefined && newValue !== null && newValue !== oldValue && newValue.length > 4) {
                         $scope.log('Color Picker: MODEL - CHANGED', newValue);
@@ -327,7 +334,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 );
 
                 $scope.$watchGroup(
-                    ['colorPickerDisabled', 'colorPickerSwatchPos', 'colorPickerSwatchBootstrap', 'colorPickerSwatchOnly', 'colorPickerSwatch', 'colorPickerPos'],
+                    ['colorPickerDisabled', 'colorPickerSwatchBootstrap', 'colorPickerSwatchOnly', 'colorPickerSwatch', 'colorPickerPos'],
                     function (newValue, oldValue) {
                         if (newValue !== undefined) {
                             $scope.initConfig();
@@ -335,14 +342,23 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     }
                 );
 
+                $scope.$watch('colorPickerSwatchPos', function (newValue, oldValue) {
+                    if (newValue !== undefined) {
+                        $scope.initConfig();
+
+                        $timeout(function() {
+                            $scope.updateSwatchBackground();
+                        });
+                    }
+                });
+
+
+
                 //---------------------------
                 // Update Positions And Colors On Elements
                 //---------------------------
-                $scope.$watch('swatchColor', function(newValue) {
-                    var el = angular.element(element[0].querySelector('.color-picker-swatch'));
-                    el.css({
-                        'background-color': newValue,
-                    });
+                $scope.$watch('swatchColor', function() {
+                    $scope.updateSwatchBackground();
                 });
 
                 $scope.$watch('huePos', function(newValue) {
@@ -676,6 +692,7 @@ angular.module('color.picker').run(['$templateCache', function($templateCache) {
         '       \'color-picker-panel-top color-picker-panel-left\': config.pos === \'top left\',\n' +
         '       \'color-picker-panel-bottom color-picker-panel-right\': config.pos === \'bottom right\',\n' +
         '       \'color-picker-panel-bottom color-picker-panel-left\': config.pos === \'bottom left\',\n' +
+        '       \'color-picker-show-alpha\': config.alpha && config.format !== \'hex\',\n' +
         '   }">\n' +
         '       <div class="color-picker-grid color-picker-sprite">\n' +
         '           <div class="color-picker-grid-inner"></div>\n' +
