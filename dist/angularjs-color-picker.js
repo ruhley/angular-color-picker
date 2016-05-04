@@ -4,7 +4,7 @@
  *
  * Copyright 2016 ruhley
  *
- * 2016-05-04 13:06:29
+ * 2016-05-05 09:17:16
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -706,17 +706,19 @@ angular.module('color.picker').run(['$templateCache', function($templateCache) {
         '       \'color-picker-show-alpha\': config.alpha && config.format !== \'hex\',\n' +
         '       \'color-picker-show-inline\': config.inline,\n' +
         '   }">\n' +
-        '       <div class="color-picker-grid color-picker-sprite">\n' +
-        '           <div class="color-picker-grid-inner"></div>\n' +
-        '           <div class="color-picker-picker">\n' +
-        '               <div></div>\n' +
+        '       <div class="color-picker-row">\n' +
+        '           <div class="color-picker-grid color-picker-sprite">\n' +
+        '               <div class="color-picker-grid-inner"></div>\n' +
+        '               <div class="color-picker-picker">\n' +
+        '                   <div></div>\n' +
+        '               </div>\n' +
         '           </div>\n' +
-        '       </div>\n' +
-        '       <div class="color-picker-hue color-picker-sprite">\n' +
-        '           <div class="color-picker-slider"></div>\n' +
-        '       </div>\n' +
-        '       <div class="color-picker-opacity color-picker-sprite" ng-show="config.alpha && config.format !== \'hex\'">\n' +
-        '           <div class="color-picker-slider"></div>\n' +
+        '           <div class="color-picker-hue color-picker-sprite">\n' +
+        '               <div class="color-picker-slider"></div>\n' +
+        '           </div>\n' +
+        '           <div class="color-picker-opacity color-picker-sprite" ng-show="config.alpha && config.format !== \'hex\'">\n' +
+        '               <div class="color-picker-slider"></div>\n' +
+        '           </div>\n' +
         '       </div>\n' +
         '   </div>\n' +
         '</div>'
