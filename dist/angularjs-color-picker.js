@@ -4,7 +4,7 @@
  *
  * Copyright 2016 ruhley
  *
- * 2016-05-04 09:00:28
+ * 2016-05-04 13:06:29
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -35,6 +35,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 colorPickerSwatchOnly: '=',
                 colorPickerSwatchPos: '=',
                 colorPickerSwatchBootstrap: '=',
+                colorPickerInline: '=',
                 colorPickerOnChange: '&',
             },
             templateUrl: 'template/color-picker/directive.html',
@@ -73,7 +74,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
                 $scope.onMouseDown = function(event) {
                     // an element in this picker
-                    if ($scope.find(event.target).length > 0) {
+                    if (!$scope.config.disabled && $scope.find(event.target).length > 0) {
                         // mouse event on color grid
                         if (event.target.classList.contains('color-picker-grid-inner') || event.target.classList.contains('color-picker-picker') || event.target.parentNode.classList.contains('color-picker-picker')) {
                             $scope.colorDown(event);
@@ -130,21 +131,27 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 };
 
                 $scope.onColorClick = function(event) {
-                    $scope.colorChange(event);
-                    $scope.$apply();
-                    $scope.onChange(event);
+                    if (!$scope.config.disabled) {
+                        $scope.colorChange(event);
+                        $scope.$apply();
+                        $scope.onChange(event);
+                    }
                 };
 
                 $scope.onHueClick = function(event) {
-                    $scope.hueChange(event);
-                    $scope.$apply();
-                    $scope.onChange(event);
+                    if (!$scope.config.disabled) {
+                        $scope.hueChange(event);
+                        $scope.$apply();
+                        $scope.onChange(event);
+                    }
                 };
 
                 $scope.onOpacityClick = function(event) {
-                    $scope.opacityChange(event);
-                    $scope.$apply();
-                    $scope.onChange(event);
+                    if (!$scope.config.disabled) {
+                        $scope.opacityChange(event);
+                        $scope.$apply();
+                        $scope.onChange(event);
+                    }
                 };
 
                 $scope.onChange = function(event) {
@@ -170,6 +177,10 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     $scope.config.swatchOnly = $scope.colorPickerSwatchOnly === undefined ? false : $scope.colorPickerSwatchOnly;
                     $scope.config.swatchPos = $scope.colorPickerSwatchPos === undefined ? 'left' : $scope.colorPickerSwatchPos;
                     $scope.config.swatchBootstrap = $scope.colorPickerSwatchBootstrap === undefined ? true : $scope.colorPickerSwatchBootstrap;
+                    $scope.config.inline = $scope.colorPickerInline === undefined ? false : $scope.colorPickerInline;
+
+                    $scope.visible = $scope.config.inline;
+
                     $scope.log('Color Picker: Config', $scope.config);
                 };
 
@@ -191,7 +202,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 };
 
                 $scope.hide = function () {
-                    if ($scope.visible || element[0].querySelector('.color-picker-panel').offsetParent !== null) {
+                    if (!$scope.config.inline && ($scope.visible || element[0].querySelector('.color-picker-panel').offsetParent !== null)) {
                         $scope.log('Color Picker: Hide Event');
 
                         $scope.visible = false;
@@ -334,7 +345,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 );
 
                 $scope.$watchGroup(
-                    ['colorPickerDisabled', 'colorPickerSwatchBootstrap', 'colorPickerSwatchOnly', 'colorPickerSwatch', 'colorPickerPos'],
+                    ['colorPickerDisabled', 'colorPickerSwatchBootstrap', 'colorPickerSwatchOnly', 'colorPickerSwatch', 'colorPickerPos', 'colorPickerInline'],
                     function (newValue, oldValue) {
                         if (newValue !== undefined) {
                             $scope.initConfig();
@@ -693,6 +704,7 @@ angular.module('color.picker').run(['$templateCache', function($templateCache) {
         '       \'color-picker-panel-bottom color-picker-panel-right\': config.pos === \'bottom right\',\n' +
         '       \'color-picker-panel-bottom color-picker-panel-left\': config.pos === \'bottom left\',\n' +
         '       \'color-picker-show-alpha\': config.alpha && config.format !== \'hex\',\n' +
+        '       \'color-picker-show-inline\': config.inline,\n' +
         '   }">\n' +
         '       <div class="color-picker-grid color-picker-sprite">\n' +
         '           <div class="color-picker-grid-inner"></div>\n' +
