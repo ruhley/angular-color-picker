@@ -20,7 +20,7 @@
                     <label class="control-label">Disabled (disabled)</label>
                     <select ng-model="disabled" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
                 </div>
-                
+
                 <div class="row">
                     <label class="control-label">Format (format)</label>
                     <select ng-model="format" class="form-control" ng-options="option.value as option.label for option in formatOptions"></select>
@@ -62,6 +62,11 @@
                 </div>
 
                 <div class="row">
+                    <label class="control-label">Inline (inline) - whether or not to display inline or in a popup - false, true</label>
+                    <select ng-model="inline" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
                     <label class="control-label">Color</label>
                     <color-picker
                         ng-model="color"
@@ -74,6 +79,7 @@
                         color-picker-pos="pos"
                         color-picker-case="case"
                         color-picker-swatch-only="swatchOnly"
+                        color-picker-inline="inline"
                         color-picker-on-change="onColorChange($event, color)"
                     ></color-picker>
                 </div>

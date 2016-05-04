@@ -68,6 +68,7 @@ If a list is given then choose one of the items. The first item in the list will
     color-picker-swatch-only="true, false"
     color-picker-pos="'bottom left', 'bottom right', 'top left', 'top right'"
     color-picker-case="'upper', 'lower'"
+    color-picker-inline="false, true"
     color-picker-on-change="onColorChange($event, color)"
 ></color-picker>
 ```
