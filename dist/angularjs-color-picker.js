@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v1.0.7
+ * angularjs-color-picker v1.1.0
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-05-05 09:17:16
+ * 2016-05-06 09:23:49
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -373,35 +373,48 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 });
 
                 $scope.$watch('huePos', function(newValue) {
+                    var container = element[0].querySelector('.color-picker-hue');
                     var el = angular.element(element[0].querySelector('.color-picker-hue .color-picker-slider'));
+                    var bounding = container.getBoundingClientRect();
+
                     el.css({
-                        'top': newValue + '%',
+                        'top': (bounding.height * newValue / 100) + 'px',
                     });
                 });
 
                 $scope.$watch('opacityPos', function(newValue) {
+                    var container = element[0].querySelector('.color-picker-opacity');
                     var el = angular.element(element[0].querySelector('.color-picker-opacity .color-picker-slider'));
+                    var bounding = container.getBoundingClientRect();
+
                     el.css({
-                        'top': newValue + '%',
+                        'top': (bounding.height * newValue / 100) + 'px',
                     });
                 });
 
                 $scope.$watch('lightnessPos', function(newValue) {
+                    var container = element[0].querySelector('.color-picker-grid');
                     var el = angular.element(element[0].querySelector('.color-picker-grid .color-picker-picker'));
+                    var bounding = container.getBoundingClientRect();
+
                     el.css({
-                        'top': newValue + '%',
+                        'top': (bounding.height * newValue / 100) + 'px',
                     });
                 });
 
                 $scope.$watch('saturationPos', function(newValue) {
+                    var container = element[0].querySelector('.color-picker-grid');
                     var el = angular.element(element[0].querySelector('.color-picker-grid .color-picker-picker'));
+                    var bounding = container.getBoundingClientRect();
+
                     el.css({
-                        'left': newValue + '%',
+                        'left': (bounding.width * newValue / 100) + 'px',
                     });
                 });
 
                 $scope.$watch('grid', function(newValue) {
                     var el = angular.element(element[0].querySelector('.color-picker-grid'));
+
                     el.css({
                         'background-color': newValue,
                     });
