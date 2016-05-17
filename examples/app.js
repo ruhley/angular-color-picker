@@ -12,6 +12,6 @@ angular
         });
 
         $scope.onColorChange = function($event, color) {
-            console.log($event, color);
+            console.log($event, color, $scope.color);
         }
     });
