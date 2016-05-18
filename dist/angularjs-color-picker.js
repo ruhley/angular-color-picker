@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v1.1.1
+ * angularjs-color-picker v1.1.2
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-05-06 09:41:26
+ * 2016-05-18 10:16:06
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -162,8 +162,10 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 };
 
                 $scope.onBlur = function() {
-                    $scope.updateModel = true;
-                    $scope.update();
+                    if ($scope.ngModel !== $scope.onChangeValue) {
+                        $scope.updateModel = true;
+                        $scope.update();
+                    }
                 };
 
                 $scope.initConfig = function() {
@@ -190,6 +192,11 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 };
 
                 $scope.show = function () {
+                    // if already visible then don't run show again
+                    if ($scope.visible) {
+                        return true;
+                    }
+
                     $scope.log('Color Picker: Show Event');
                     $scope.visible = true;
                     $scope.hueMouse = false;

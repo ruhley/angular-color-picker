@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v1.1.1
+ * angularjs-color-picker v1.1.2
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-05-06 09:41:26
+ * 2016-05-18 10:16:06
  *
  */
 .color-picker-wrapper .color-picker-input-wrapper {
@@ -15,9 +15,4 @@
 }
 .color-picker-wrapper.color-picker-swatch-only .input-group .input-group-addon {
   border-radius: 4px;
-}
-.form-inline .color-picker-wrapper {
-  width: auto;
-  display: inline-block;
-  vertical-align: middle;
 }
