@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v1.1.2
+ * angularjs-color-picker v1.1.3
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-05-18 10:16:06
+ * 2016-06-07 08:36:56
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -19,7 +19,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
 (function() {
     'use strict';
-
+console.log();
     var colorPicker = function ($document, $timeout) {
         return {
             restrict: 'E',
@@ -42,6 +42,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             link: function ($scope, element, attrs, control) {
                 $scope.onChangeValue = null;
                 $scope.updateModel = true;
+                $scope.chrome = Boolean(window.chrome);
+                $scope.android_version = parseFloat(window.navigator.userAgent.match(/Android\s([0-9\.]*)/i)[1]);
 
                 $scope.init = function () {
                     // if no color provided
@@ -676,7 +678,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             			docElem = doc.documentElement;
 
                         // hack for small chrome screens not position the clicks properly when the page is scrolled
-                        if (window.chrome && screen.width <= 768) {
+                        if ($scope.chrome && $scope.android_version < 6 && screen.width <= 768) {
                             return {
                 				top: rect.top - docElem.clientTop,
                 				left: rect.left - docElem.clientLeft
