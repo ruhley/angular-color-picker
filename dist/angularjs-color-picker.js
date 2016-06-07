@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v1.1.3
+ * angularjs-color-picker v1.1.4
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-06-07 08:36:56
+ * 2016-06-07 10:40:11
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -43,7 +43,8 @@ console.log();
                 $scope.onChangeValue = null;
                 $scope.updateModel = true;
                 $scope.chrome = Boolean(window.chrome);
-                $scope.android_version = parseFloat(window.navigator.userAgent.match(/Android\s([0-9\.]*)/i)[1]);
+                $scope.android_version = window.navigator.userAgent.match(/Android\s([0-9\.]*)/i);
+                $scope.android_version = $scope.android_version && $scope.android_version.length > 1 ? parseFloat($scope.android_version[1]) : NaN;
 
                 $scope.init = function () {
                     // if no color provided
