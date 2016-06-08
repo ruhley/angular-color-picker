@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v1.0.7
+ * angularjs-color-picker v1.1.4
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-05-04 13:06:29
+ * 2016-06-07 10:40:11
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -19,7 +19,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
 (function() {
     'use strict';
-
+console.log();
     var colorPicker = function ($document, $timeout) {
         return {
             restrict: 'E',
@@ -42,6 +42,9 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             link: function ($scope, element, attrs, control) {
                 $scope.onChangeValue = null;
                 $scope.updateModel = true;
+                $scope.chrome = Boolean(window.chrome);
+                $scope.android_version = window.navigator.userAgent.match(/Android\s([0-9\.]*)/i);
+                $scope.android_version = $scope.android_version && $scope.android_version.length > 1 ? parseFloat($scope.android_version[1]) : NaN;
 
                 $scope.init = function () {
                     // if no color provided
@@ -162,8 +165,10 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 };
 
                 $scope.onBlur = function() {
-                    $scope.updateModel = true;
-                    $scope.update();
+                    if ($scope.ngModel !== $scope.onChangeValue) {
+                        $scope.updateModel = true;
+                        $scope.update();
+                    }
                 };
 
                 $scope.initConfig = function() {
@@ -190,6 +195,11 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 };
 
                 $scope.show = function () {
+                    // if already visible then don't run show again
+                    if ($scope.visible) {
+                        return true;
+                    }
+
                     $scope.log('Color Picker: Show Event');
                     $scope.visible = true;
                     $scope.hueMouse = false;
@@ -373,35 +383,48 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 });
 
                 $scope.$watch('huePos', function(newValue) {
+                    var container = element[0].querySelector('.color-picker-hue');
                     var el = angular.element(element[0].querySelector('.color-picker-hue .color-picker-slider'));
+                    var bounding = container.getBoundingClientRect();
+
                     el.css({
-                        'top': newValue + '%',
+                        'top': (bounding.height * newValue / 100) + 'px',
                     });
                 });
 
                 $scope.$watch('opacityPos', function(newValue) {
+                    var container = element[0].querySelector('.color-picker-opacity');
                     var el = angular.element(element[0].querySelector('.color-picker-opacity .color-picker-slider'));
+                    var bounding = container.getBoundingClientRect();
+
                     el.css({
-                        'top': newValue + '%',
+                        'top': (bounding.height * newValue / 100) + 'px',
                     });
                 });
 
                 $scope.$watch('lightnessPos', function(newValue) {
+                    var container = element[0].querySelector('.color-picker-grid');
                     var el = angular.element(element[0].querySelector('.color-picker-grid .color-picker-picker'));
+                    var bounding = container.getBoundingClientRect();
+
                     el.css({
-                        'top': newValue + '%',
+                        'top': (bounding.height * newValue / 100) + 'px',
                     });
                 });
 
                 $scope.$watch('saturationPos', function(newValue) {
+                    var container = element[0].querySelector('.color-picker-grid');
                     var el = angular.element(element[0].querySelector('.color-picker-grid .color-picker-picker'));
+                    var bounding = container.getBoundingClientRect();
+
                     el.css({
-                        'left': newValue + '%',
+                        'left': (bounding.width * newValue / 100) + 'px',
                     });
                 });
 
                 $scope.$watch('grid', function(newValue) {
                     var el = angular.element(element[0].querySelector('.color-picker-grid'));
+
                     el.css({
                         'background-color': newValue,
                     });
@@ -656,7 +679,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             			docElem = doc.documentElement;
 
                         // hack for small chrome screens not position the clicks properly when the page is scrolled
-                        if (window.chrome && screen.width <= 768) {
+                        if ($scope.chrome && $scope.android_version < 6 && screen.width <= 768) {
                             return {
                 				top: rect.top - docElem.clientTop,
                 				left: rect.left - docElem.clientLeft
@@ -695,7 +718,7 @@ angular.module('color.picker').run(['$templateCache', function($templateCache) {
         '<div class="color-picker-wrapper" ng-class="{\'color-picker-swatch-only\': config.swatchOnly}">\n' +
         '   <div class="color-picker-input-wrapper" ng-class="{\'input-group\': config.swatchBootstrap && config.swatch}">\n' +
         '       <span ng-if="config.swatchPos === \'left\'" class="color-picker-swatch" ng-click="focus()" ng-show="config.swatch" ng-class="{\'color-picker-swatch-left\': config.swatchPos !== \'right\', \'color-picker-swatch-right\': config.swatchPos === \'right\', \'input-group-addon\': config.swatchBootstrap}"></span>\n' +
-        '       <input class="color-picker-input form-control" type="text" ng-model="ngModel" ng-disabled="config.disabled" ng-blur="onBlur()" ng-change="onChange($event)" size="7" ng-focus="show()" ng-class="{\'color-picker-input-swatch\': config.swatch && !config.swatchOnly && config.swatchPos === \'left\'}">\n' +
+        '       <input class="color-picker-input form-control" type="text" ng-model="ngModel" ng-readonly="config.swatchOnly" ng-disabled="config.disabled" ng-blur="onBlur()" ng-change="onChange($event)" size="7" ng-focus="show()" ng-class="{\'color-picker-input-swatch\': config.swatch && !config.swatchOnly && config.swatchPos === \'left\'}">\n' +
         '       <span ng-if="config.swatchPos === \'right\'" class="color-picker-swatch" ng-click="focus()" ng-show="config.swatch" ng-class="{\'color-picker-swatch-left\': config.swatchPos !== \'right\', \'color-picker-swatch-right\': config.swatchPos === \'right\', \'input-group-addon\': config.swatchBootstrap}"></span>\n' +
         '   </div>\n' +
         '   <div class="color-picker-panel" ng-show="visible" ng-class="{\n' +
@@ -706,17 +729,19 @@ angular.module('color.picker').run(['$templateCache', function($templateCache) {
         '       \'color-picker-show-alpha\': config.alpha && config.format !== \'hex\',\n' +
         '       \'color-picker-show-inline\': config.inline,\n' +
         '   }">\n' +
-        '       <div class="color-picker-grid color-picker-sprite">\n' +
-        '           <div class="color-picker-grid-inner"></div>\n' +
-        '           <div class="color-picker-picker">\n' +
-        '               <div></div>\n' +
+        '       <div class="color-picker-row">\n' +
+        '           <div class="color-picker-grid color-picker-sprite">\n' +
+        '               <div class="color-picker-grid-inner"></div>\n' +
+        '               <div class="color-picker-picker">\n' +
+        '                   <div></div>\n' +
+        '               </div>\n' +
         '           </div>\n' +
-        '       </div>\n' +
-        '       <div class="color-picker-hue color-picker-sprite">\n' +
-        '           <div class="color-picker-slider"></div>\n' +
-        '       </div>\n' +
-        '       <div class="color-picker-opacity color-picker-sprite" ng-show="config.alpha && config.format !== \'hex\'">\n' +
-        '           <div class="color-picker-slider"></div>\n' +
+        '           <div class="color-picker-hue color-picker-sprite">\n' +
+        '               <div class="color-picker-slider"></div>\n' +
+        '           </div>\n' +
+        '           <div class="color-picker-opacity color-picker-sprite" ng-show="config.alpha && config.format !== \'hex\'">\n' +
+        '               <div class="color-picker-slider"></div>\n' +
+        '           </div>\n' +
         '       </div>\n' +
         '   </div>\n' +
         '</div>'
