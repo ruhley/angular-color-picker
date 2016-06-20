@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v1.1.4
+ * angularjs-color-picker v1.1.5
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-06-07 10:40:11
+ * 2016-06-21 07:56:41
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -19,7 +19,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
 (function() {
     'use strict';
-console.log();
+
     var colorPicker = function ($document, $timeout) {
         return {
             restrict: 'E',
@@ -378,57 +378,62 @@ console.log();
                 //---------------------------
                 // Update Positions And Colors On Elements
                 //---------------------------
+
                 $scope.$watch('swatchColor', function() {
                     $scope.updateSwatchBackground();
                 });
 
-                $scope.$watch('huePos', function(newValue) {
+                $scope.huePosUpdate = function() {
                     var container = element[0].querySelector('.color-picker-hue');
                     var el = angular.element(element[0].querySelector('.color-picker-hue .color-picker-slider'));
                     var bounding = container.getBoundingClientRect();
 
                     el.css({
-                        'top': (bounding.height * newValue / 100) + 'px',
+                        'top': (bounding.height * $scope.huePos / 100) + 'px',
                     });
-                });
+                };
 
-                $scope.$watch('opacityPos', function(newValue) {
+                $scope.opacityPosUpdate = function() {
                     var container = element[0].querySelector('.color-picker-opacity');
                     var el = angular.element(element[0].querySelector('.color-picker-opacity .color-picker-slider'));
                     var bounding = container.getBoundingClientRect();
 
                     el.css({
-                        'top': (bounding.height * newValue / 100) + 'px',
+                        'top': (bounding.height * $scope.opacityPos / 100) + 'px',
                     });
-                });
+                };
 
-                $scope.$watch('lightnessPos', function(newValue) {
-                    var container = element[0].querySelector('.color-picker-grid');
-                    var el = angular.element(element[0].querySelector('.color-picker-grid .color-picker-picker'));
-                    var bounding = container.getBoundingClientRect();
+                $scope.lightnessPosUpdate = function() {
+                    $timeout(function() {
+                        var container = element[0].querySelector('.color-picker-grid');
+                        var el = angular.element(element[0].querySelector('.color-picker-grid .color-picker-picker'));
+                        var bounding = container.getBoundingClientRect();
 
-                    el.css({
-                        'top': (bounding.height * newValue / 100) + 'px',
+                        el.css({
+                            'top': (bounding.height * $scope.lightnessPos / 100) + 'px',
+                        });
                     });
-                });
+                };
 
-                $scope.$watch('saturationPos', function(newValue) {
-                    var container = element[0].querySelector('.color-picker-grid');
-                    var el = angular.element(element[0].querySelector('.color-picker-grid .color-picker-picker'));
-                    var bounding = container.getBoundingClientRect();
+                $scope.saturationPosUpdate = function() {
+                    $timeout(function() {
+                        var container = element[0].querySelector('.color-picker-grid');
+                        var el = angular.element(element[0].querySelector('.color-picker-grid .color-picker-picker'));
+                        var bounding = container.getBoundingClientRect();
 
-                    el.css({
-                        'left': (bounding.width * newValue / 100) + 'px',
+                        el.css({
+                            'left': (bounding.width * $scope.saturationPos / 100) + 'px',
+                        });
                     });
-                });
+                };
 
-                $scope.$watch('grid', function(newValue) {
+                $scope.gridUpdate = function() {
                     var el = angular.element(element[0].querySelector('.color-picker-grid'));
 
                     el.css({
-                        'background-color': newValue,
+                        'background-color': $scope.grid,
                     });
-                });
+                };
 
                 //---------------------------
                 // HUE
@@ -476,6 +481,8 @@ console.log();
                             $scope.huePos = 100;
                         }
 
+                        $scope.huePosUpdate();
+                        $scope.gridUpdate();
                         $scope.update();
                     }
                 };
@@ -529,6 +536,7 @@ console.log();
                             $scope.opacityPos = 100;
                         }
 
+                        $scope.opacityPosUpdate();
                         $scope.update();
                     }
                 };
@@ -591,6 +599,7 @@ console.log();
                             $scope.saturationPos = 100;
                         }
 
+                        $scope.saturationPosUpdate();
                         $scope.update();
                     }
                 };
@@ -610,6 +619,7 @@ console.log();
                             $scope.lightnessPos = 100;
                         }
 
+                        $scope.lightnessPosUpdate();
                         $scope.update();
                     }
                 };
