@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v1.1.5
+ * angularjs-color-picker v1.1.6
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-06-21 07:56:41
+ * 2016-06-23 08:36:52
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -206,9 +206,11 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     $scope.opacityMouse = false;
                     $scope.colorMouse = false;
 
-                    // force the grid selection circle to redraw and fix its position
+                    // force the sliders to re-caculate their position
+                    $scope.hueUpdate();
                     $scope.saturationUpdate();
                     $scope.lightnessUpdate();
+                    $scope.opacityUpdate();
                 };
 
                 $scope.hide = function () {
@@ -384,22 +386,26 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 });
 
                 $scope.huePosUpdate = function() {
-                    var container = element[0].querySelector('.color-picker-hue');
-                    var el = angular.element(element[0].querySelector('.color-picker-hue .color-picker-slider'));
-                    var bounding = container.getBoundingClientRect();
+                    $timeout(function() {
+                        var container = element[0].querySelector('.color-picker-hue');
+                        var el = angular.element(element[0].querySelector('.color-picker-hue .color-picker-slider'));
+                        var bounding = container.getBoundingClientRect();
 
-                    el.css({
-                        'top': (bounding.height * $scope.huePos / 100) + 'px',
+                        el.css({
+                            'top': (bounding.height * $scope.huePos / 100) + 'px',
+                        });
                     });
                 };
 
                 $scope.opacityPosUpdate = function() {
-                    var container = element[0].querySelector('.color-picker-opacity');
-                    var el = angular.element(element[0].querySelector('.color-picker-opacity .color-picker-slider'));
-                    var bounding = container.getBoundingClientRect();
+                    $timeout(function() {
+                        var container = element[0].querySelector('.color-picker-opacity');
+                        var el = angular.element(element[0].querySelector('.color-picker-opacity .color-picker-slider'));
+                        var bounding = container.getBoundingClientRect();
 
-                    el.css({
-                        'top': (bounding.height * $scope.opacityPos / 100) + 'px',
+                        el.css({
+                            'top': (bounding.height * $scope.opacityPos / 100) + 'px',
+                        });
                     });
                 };
 
