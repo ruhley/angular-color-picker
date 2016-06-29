@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v1.1.6
+ * angularjs-color-picker v1.1.7
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-06-23 08:36:52
+ * 2016-06-29 10:55:04
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -97,7 +97,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 $scope.onMouseUp = function(event) {
                     // no current mouse events and not an element in the picker
                     if (!$scope.colorMouse && !$scope.hueMouse && !$scope.opacityMouse && $scope.find(event.target).length === 0) {
-                        $scope.log('Color Picker: Document Click Event');
+                        $scope.log('Document Click Event');
                         $scope.hide();
                     // mouse event on color grid
                     } else if ($scope.colorMouse) {
@@ -186,11 +186,11 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
                     $scope.visible = $scope.config.inline;
 
-                    $scope.log('Color Picker: Config', $scope.config);
+                    $scope.log('Config', $scope.config);
                 };
 
                 $scope.focus = function () {
-                    $scope.log('Color Picker: Focus Event');
+                    $scope.log('Focus Event');
                     $scope.find('.color-picker-input')[0].focus();
                 };
 
@@ -200,7 +200,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                         return true;
                     }
 
-                    $scope.log('Color Picker: Show Event');
+                    $scope.log('Show Event');
                     $scope.visible = true;
                     $scope.hueMouse = false;
                     $scope.opacityMouse = false;
@@ -215,7 +215,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
                 $scope.hide = function () {
                     if (!$scope.config.inline && ($scope.visible || element[0].querySelector('.color-picker-panel').offsetParent !== null)) {
-                        $scope.log('Color Picker: Hide Event');
+                        $scope.log('Hide Event');
 
                         $scope.visible = false;
                         $scope.$apply();
@@ -254,7 +254,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                         color.setAlpha($scope.opacity / 100);
                     }
 
-                    $scope.log('Color Picker: COLOR CHANGED TO ', color, $scope.hue, $scope.saturation, $scope.lightness, $scope.opacity);
+                    $scope.log('COLOR CHANGED TO ', color, $scope.hue, $scope.saturation, $scope.lightness, $scope.opacity);
 
                     $scope.swatchColor = color.toHslString();
 
@@ -304,7 +304,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
                 $scope.$watch('ngModel', function (newValue, oldValue) {
                     if (newValue !== undefined && newValue !== null && newValue !== oldValue && newValue.length > 4) {
-                        $scope.log('Color Picker: MODEL - CHANGED', newValue);
+                        $scope.log('MODEL - CHANGED', newValue);
                         var color = tinycolor(newValue);
 
                         if (color.isValid()) {
@@ -448,7 +448,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     event.stopPropagation();
                     event.preventDefault();
 
-                    $scope.log('Color Picker: HUE - MOUSE DOWN');
+                    $scope.log('HUE - MOUSE DOWN');
                     $scope.hueMouse = true;
                 };
 
@@ -456,7 +456,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     event.stopPropagation();
                     event.preventDefault();
 
-                    $scope.log('Color Picker: HUE - MOUSE UP');
+                    $scope.log('HUE - MOUSE UP');
                     $scope.hueMouse = false;
                 };
 
@@ -464,7 +464,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     event.stopPropagation();
                     event.preventDefault();
 
-                    $scope.log('Color Picker: HUE - MOUSE CHANGE');
+                    $scope.log('HUE - MOUSE CHANGE');
                     var el = $scope.find('.color-picker-hue');
                     $scope.hue = (1 - ((event.pageY - $scope.offset(el).top) / el.prop('offsetHeight'))) * 360;
 
@@ -477,7 +477,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
                 $scope.hueUpdate = function() {
                     if ($scope.hue !== undefined) {
-                        $scope.log('Color Picker: HUE - CHANGED');
+                        $scope.log('HUE - CHANGED');
                         $scope.huePos = (1 - ($scope.hue / 360)) * 100;
                         $scope.grid = tinycolor({h: $scope.hue, s: 100, v: 1}).toHslString();
 
@@ -493,7 +493,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     }
                 };
 
-                $scope.$watch('hue', function (newValue, oldValue) {
+                $scope.$watch('hue', function () {
                     $scope.hueUpdate();
                 });
 
@@ -504,7 +504,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     event.stopPropagation();
                     event.preventDefault();
 
-                    $scope.log('Color Picker: OPACITY - MOUSE DOWN');
+                    $scope.log('OPACITY - MOUSE DOWN');
                     $scope.opacityMouse = true;
                 };
 
@@ -512,7 +512,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     event.stopPropagation();
                     event.preventDefault();
 
-                    $scope.log('Color Picker: OPACITY - MOUSE UP');
+                    $scope.log('OPACITY - MOUSE UP');
                     $scope.opacityMouse = false;
                 };
 
@@ -520,7 +520,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     event.stopPropagation();
                     event.preventDefault();
 
-                    $scope.log('Color Picker: OPACITY - MOUSE CHANGE');
+                    $scope.log('OPACITY - MOUSE CHANGE');
                     var el = $scope.find('.color-picker-opacity');
                     $scope.opacity = (1 - ((event.pageY - $scope.offset(el).top) / el.prop('offsetHeight'))) * 100;
 
@@ -533,7 +533,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
                 $scope.opacityUpdate = function() {
                     if ($scope.opacity !== undefined) {
-                        $scope.log('Color Picker: OPACITY - CHANGED');
+                        $scope.log('OPACITY - CHANGED');
                         $scope.opacityPos = (1 - ($scope.opacity / 100)) * 100;
 
                         if ($scope.opacityPos < 0) {
@@ -547,7 +547,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     }
                 };
 
-                $scope.$watch('opacity', function (newValue, oldValue) {
+                $scope.$watch('opacity', function () {
                     $scope.opacityUpdate();
                 });
 
@@ -558,7 +558,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     event.stopPropagation();
                     event.preventDefault();
 
-                    $scope.log('Color Picker: COLOR - MOUSE DOWN');
+                    $scope.log('COLOR - MOUSE DOWN');
                     $scope.colorMouse = true;
                 };
 
@@ -566,7 +566,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     event.stopPropagation();
                     event.preventDefault();
 
-                    $scope.log('Color Picker: COLOR - MOUSE UP');
+                    $scope.log('COLOR - MOUSE UP');
                     $scope.colorMouse = false;
                 };
 
@@ -574,7 +574,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     event.stopPropagation();
                     event.preventDefault();
 
-                    $scope.log('Color Picker: COLOR - MOUSE CHANGE');
+                    $scope.log('COLOR - MOUSE CHANGE');
                     var el = $scope.find('.color-picker-grid-inner');
                     var offset = $scope.offset(el);
 
@@ -595,8 +595,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 };
 
                 $scope.saturationUpdate = function(oldValue) {
-                    if ($scope.saturation !== undefined && $scope.saturation !== oldValue) {
-                        $scope.log('Color Picker: SATURATION - CHANGED');
+                    if ($scope.saturation !== undefined) {
+                        $scope.log('SATURATION - CHANGED');
                         $scope.saturationPos = ($scope.saturation / 100) * 100;
 
                         if ($scope.saturationPos < 0) {
@@ -610,13 +610,13 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     }
                 };
 
-                $scope.$watch('saturation', function (newValue, oldValue) {
-                    $scope.saturationUpdate(oldValue);
+                $scope.$watch('saturation', function () {
+                    $scope.saturationUpdate();
                 });
 
-                $scope.lightnessUpdate = function(oldValue) {
-                    if ($scope.lightness !== undefined && $scope.lightness !== oldValue) {
-                        $scope.log('Color Picker: LIGHTNESS - CHANGED');
+                $scope.lightnessUpdate = function() {
+                    if ($scope.lightness !== undefined) {
+                        $scope.log('LIGHTNESS - CHANGED');
                         $scope.lightnessPos = (1 - ($scope.lightness / 100)) * 100;
 
                         if ($scope.lightnessPos < 0) {
@@ -630,8 +630,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     }
                 };
 
-                $scope.$watch('lightness', function (newValue, oldValue) {
-                    $scope.lightnessUpdate(oldValue);
+                $scope.$watch('lightness', function () {
+                    $scope.lightnessUpdate();
                 });
 
 
@@ -639,7 +639,9 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 // HELPER FUNCTIONS
                 //---------------------------
                 $scope.log = function () {
+                    // arguments[0] = 'Color Picker: ' + arguments[0];
                     // console.log.apply(console, arguments);
+                    // console.trace();
                 };
 
                 // taken and modified from jQuery's find
