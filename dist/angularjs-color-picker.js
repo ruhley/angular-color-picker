@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v1.1.7
+ * angularjs-color-picker v1.1.8
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-06-29 10:55:04
+ * 2016-07-08 12:57:41
  *
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports){
@@ -37,6 +37,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 colorPickerSwatchBootstrap: '=',
                 colorPickerInline: '=',
                 colorPickerOnChange: '&',
+                colorPickerOnOpen: '&',
+                colorPickerOnClose: '&',
             },
             templateUrl: 'template/color-picker/directive.html',
             link: function ($scope, element, attrs, control) {
@@ -211,6 +213,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     $scope.saturationUpdate();
                     $scope.lightnessUpdate();
                     $scope.opacityUpdate();
+
+                    $scope.colorPickerOnOpen();
                 };
 
                 $scope.hide = function () {
@@ -219,6 +223,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
                         $scope.visible = false;
                         $scope.$apply();
+
+                        $scope.colorPickerOnClose();
                     }
                 };
 
