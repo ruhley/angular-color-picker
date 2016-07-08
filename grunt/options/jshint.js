@@ -1,5 +1,6 @@
 module.exports = {
     options: {
+        esversion: 6,
         globals: {
             // js globals
             angular: true,
@@ -11,7 +12,6 @@ module.exports = {
             process: true,
         }
     },
-    lib: ['<%= config.lib %>/**/*.js'],
-    tests: ['karma.conf.js', '<%= config.tests %>/**/*.js'],
+    src: ['<%= config.src %>/**/*.js'],
     grunt: ['Gruntfile.js', '<%= config.grunt %>/**/*.js']
 };

@@ -9,7 +9,7 @@ module.exports = function() {
         build: {
             files: [{
                 expand: true,
-                cwd: '<%= config.lib %>/<%= config.styles %>',
+                cwd: '<%= config.src %>/<%= config.styles %>',
                 src: ['**/*.less'],
                 dest: '<%= config.dist %>',
                 ext: '.css'

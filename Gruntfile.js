@@ -11,7 +11,7 @@
             // config variables, these are accessible like '<%= config.dev %>'
             var gruntConfig = {config: {
                 // folders
-                lib: 'lib',
+                src: 'src',
                 dist: 'dist',
                 tests: 'tests',
                 grunt: 'grunt',

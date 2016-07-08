@@ -10,10 +10,13 @@ app.controller('AppCtrl', function () {
     }
   };
 
-  // Default (selected) colour format
-  modal.colorFormatFg = 'hex';
-
   // Available colour formats (dropdown options)
   modal.colorFormats = ['hex', 'rgb', 'hsl'];
+
+  modal.options = {
+      format: 'hex',
+      swatchPos: 'right',
+      swatchBootstrap: false
+  }
 
 });

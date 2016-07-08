@@ -1,14 +1,11 @@
 module.exports = function(grunt) {
     grunt.registerTask('build', [
         'notify:build',
-        'jshint:lib',
-        // 'jshint:tests',
+        'jshint:src',
         'jshint:grunt',
-        //'karma:build',
         'clean:build',
-        'concat:build',
+        'run:rollup',
         'less:build',
-        'uglify:build',
         'cssmin:build',
         'notify:buildComplete'
     ]);

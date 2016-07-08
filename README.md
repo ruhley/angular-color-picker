@@ -1,7 +1,6 @@
-# angularjs-color-picker
+# Angular Color Picker
 
-
-AngularJS Color Picker Directive
+Vanilla AngularJS Color Picker Directive with no requirement on jQuery
 
 ## Installation
 
@@ -55,22 +54,49 @@ angular.module('app', ['color.picker']);
 
 ## Options
 
-If a list is given then choose one of the items. The first item in the list will be the default. Only ```ng-model``` is required.
+HTML - Only ```ng-model``` is required. If supplying an api it must be a unique object per color picker. However the event api can be shared among color pickers.
+
 ```html
 <color-picker
-    ng-model=""
-    color-picker-disabled="false, true"
-    color-picker-format="'hsl', 'hsv', 'rgb', 'hex', 'hex8'"
-    color-picker-alpha="true, false"
-    color-picker-swatch="true, false"
-    color-picker-swatch-pos="'left', 'right'"
-    color-picker-swatch-bootstrap="true, false"
-    color-picker-swatch-only="true, false"
-    color-picker-pos="'bottom left', 'bottom right', 'top left', 'top right'"
-    color-picker-case="'upper', 'lower'"
-    color-picker-inline="false, true"
-    color-picker-on-change="onColorChange($event, color)"
+    ng-model="color"
+    options="options"
+    api="api"
+    event-api="eventApi"
 ></color-picker>
+```
+Javascript
+
+```js
+$scope.color = '#FF0000';
+
+// options - if a list is given then choose one of the items. The first item in the list will be the default
+$scope.options = {
+    disabled: [false, true],
+    format: ['hsl', 'hsv', 'rgb', 'hex', 'hex8'],
+    alpha: [true, false],
+    swatch: [true, false],
+    swatchPos: ['left', 'right'],
+    swatchBootstrap: [true, false],
+    swatchOnly: [true, false],
+    pos: ['bottom left', 'bottom right', 'top left', 'top right'],
+    case: ['upper', 'lower'],
+    inline: [false, true],
+    placeholder: '',
+};
+
+// exposed api functions
+$scope.api.open();
+$scope.api.close();
+$scope.api.getElement();
+
+// api event handlers
+$scope.eventApi = {
+    onChange: function(api, color, $event) {},
+    onBlur: function(api, color, $event) {},
+    onOpen: function(api, color, $event) {},
+    onClose: function(api, color, $event) {},
+    onDestroy: function(api, color) {},
+};
 ```
 
 ## Requirements

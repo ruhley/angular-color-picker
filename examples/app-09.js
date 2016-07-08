@@ -7,9 +7,14 @@ angular
         $scope.posOptions = [{label: 'Bottom Left', value: 'bottom left'}, {label: 'Top Left', value: 'top left'}, {label: 'Bottom Right', value: 'bottom right'}, {label: 'Top Right', value: 'top right'}];
         $scope.caseOptions = [{label: 'Upper Case', value: 'upper'}, {label: 'Lower Case', value: 'lower'}];
 
-        $scope.options = {};
-        $scope.api = {};
-        $scope.eventApi = {
+        $scope.repeats = ['A', 'B', 'C', 'D'];
+
+        $scope.options = {
+            'B': {format: 'hex'},
+            'C': {format: 'rgb'},
+            'D': {swatch: false},
+        };
+        $scope.api = {
             onChange: function() {
                 console.log('change', arguments);
             },
