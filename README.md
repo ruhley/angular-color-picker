@@ -1,7 +1,6 @@
-# angularjs-color-picker
+# Angular Color Picker
 
-
-AngularJS Color Picker Directive
+Vanilla AngularJS Color Picker Directive with no requirement on jQuery
 
 ## Installation
 
@@ -55,7 +54,7 @@ angular.module('app', ['color.picker']);
 
 ## Options
 
-Only ```ng-model``` is required.
+HTML - Only ```ng-model``` is required.
 
 ```html
 <color-picker
@@ -64,6 +63,7 @@ Only ```ng-model``` is required.
     api="api"
 ></color-picker>
 ```
+Javascript
 
 ```js
 $scope.color = '#FF0000';
