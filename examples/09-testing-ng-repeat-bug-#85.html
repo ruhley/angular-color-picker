@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <title>Example 9 - Testing ng-repeat Bug #85</title>
+
+        <link rel="stylesheet" href="../dist/angularjs-color-picker.min.css" />
+
+        <script src="../bower_components/angular/angular.min.js"></script>
+        <script src="../bower_components/tinycolor/dist/tinycolor-min.js"></script>
+
+        <script src="../dist/angularjs-color-picker.js"></script>
+
+        <script src="app-09.js"></script>
+    </head>
+    <body ng-app="app" ng-controller="AppCtrl">
+        <div class="col-sm-12">
+            <h1>AngularJS Color Picker</h1>
+            <p>An AngularJS directive for a color picker. No requirement on jQuery.</p>
+            <form class="col-sm-12">
+                <div class="row">
+                    <label class="control-label">Disabled (disabled)</label>
+                    <select ng-model="options['A'].disabled" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Format (format)</label>
+                    <select ng-model="options['A'].format" class="form-control" ng-options="option.value as option.label for option in formatOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Alpha (alpha) - whether or not to display the alpha control</label>
+                    <select ng-model="options['A'].alpha" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Swatch (swatch) - whether or not to display the swatch inside the input field</label>
+                    <select ng-model="options['A'].swatch" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Swatch Only (swatch-only) - whether or not to display the input field</label>
+                    <select ng-model="options['A'].swatchOnly" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Swatch Position (swatch-pos) - the position of the swatch in the input field - 'left' or 'right'</label>
+                    <select ng-model="options['A'].swatchPos" class="form-control" ng-options="option.value as option.label for option in swatchPosOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Swatch Bootstrap Add On (swatch-bootstrap) - whether or not the swatch should appear as a bootstrap add on</label>
+                    <select ng-model="options['A'].swatchBootstrap" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Position (pos) - the position of the picker control in relation to the input field - 'bottom left', 'bottom right', 'top left', 'top right'</label>
+                    <select ng-model="options['A'].pos" class="form-control" ng-options="option.value as option.label for option in posOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Case (case) - The case of hex colors - 'upper', 'lower'</label>
+                    <select ng-model="options['A'].case" class="form-control" ng-options="option.value as option.label for option in caseOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Inline (inline) - whether or not to display inline or in a popup - false, true</label>
+                    <select ng-model="options['A'].inline" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row" ng-repeat="r in repeats">
+                    <label class="control-label">{{r}} Color</label>
+                    <color-picker ng-model="color[r]" options="options[r]" api="api[r]"></color-picker>
+                </div>
+
+                <div class="row">
+                    Two Way Binding
+                    <!-- <color-picker ng-model="color"></color-picker> -->
+                    {{color}}
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
