@@ -5,11 +5,15 @@ angular
             $scope.color = '#0000aa';
         });
 
-        $scope.$watch('color', function(newValue, oldValue) {
-            // console.log(newValue, oldValue);
-        });
-
-        $scope.onColorChange = function($event, color) {
-            console.log($event, color);
-        }
+        $scope.options = {
+            format: 'hex',
+            swatchOnly: false,
+            alpha: false,
+            swatchBootstrap: false,
+        };
+        $scope.api = {
+            onChange: function(event, ngModel) {
+                console.log(event, ngModel);
+            }
+        };
     });

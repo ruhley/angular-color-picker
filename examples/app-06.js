@@ -16,4 +16,10 @@ app.controller('AppCtrl', function () {
   // Available colour formats (dropdown options)
   modal.colorFormats = ['hex', 'rgb', 'hsl'];
 
+  modal.options = {
+      format: 'hex',
+      swatchPos: 'right',
+      swatchBootstrap: false
+  }
+
 });

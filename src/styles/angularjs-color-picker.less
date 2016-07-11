@@ -199,6 +199,16 @@
         display: none;
     }
 
+    &.color-picker-disabled {
+        .color-picker-swatch,
+        .color-picker-hue,
+        .color-picker-opacity,
+        .color-picker-grid,
+        .color-picker-input
+         {
+            cursor: not-allowed !important;
+        }
+    }
 
     &.color-picker-swatch-only {
         .color-picker-input {

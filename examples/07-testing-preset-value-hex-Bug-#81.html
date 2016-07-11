@@ -2,15 +2,12 @@
     <head>
         <title>Example 7 - Testing Preset Hex Value - Bug #81</title>
 
-        <link rel="stylesheet/less" href="../lib/styles/angularjs-color-picker.less" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.4.0/less.min.js"></script>
+        <link rel="stylesheet" href="../dist/angularjs-color-picker.min.css" />
 
-        <script src="../bower_components/angular/angular.js"></script>
-        <script src="../bower_components/tinycolor/tinycolor.js"></script>
+        <script src="../bower_components/angular/angular.min.js"></script>
+        <script src="../bower_components/tinycolor/dist/tinycolor-min.js"></script>
 
-        <script src="../lib/scripts/module.js"></script>
-        <script src="../lib/scripts/directive.js"></script>
-        <script src="../lib/scripts/template.js"></script>
+        <script src="../dist/angularjs-color-picker.js"></script>
 
         <script src="app-preset-hex.js"></script>
     </head>
@@ -24,10 +21,7 @@
                     <label class="control-label">Color</label>
                     <color-picker
                         ng-model="color"
-                        color-picker-format="'hex'" 
-                        color-picker-swatch-only="false"
-                        color-picker-alpha="false"
-                        color-picker-swatch-bootstrap="false"
+                        options="options"
                     ></color-picker>
                 </div>
             </form>

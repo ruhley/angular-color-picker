@@ -2,16 +2,15 @@
     <head>
         <title>Example 6 - Github Bug #65 - Non Assignable</title>
 
-        <link rel="stylesheet/less" href="../lib/styles/angularjs-color-picker.less" />
-        <link rel="stylesheet/less" href="../lib/styles/themes/angularjs-color-picker-bootstrap.less" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.4.0/less.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-        <script src="../bower_components/angular/angular.js"></script>
-        <script src="../bower_components/tinycolor/tinycolor.js"></script>
+        <link rel="stylesheet" href="../dist/angularjs-color-picker.min.css" />
+        <link rel="stylesheet" href="../dist/themes/angularjs-color-picker-bootstrap.min.css" />
 
-        <script src="../lib/scripts/module.js"></script>
-        <script src="../lib/scripts/directive.js"></script>
-        <script src="../lib/scripts/template.js"></script>
+        <script src="../bower_components/angular/angular.min.js"></script>
+        <script src="../bower_components/tinycolor/dist/tinycolor-min.js"></script>
+
+        <script src="../dist/angularjs-color-picker.js"></script>
 
         <script src="app-06.js"></script>
 
@@ -74,9 +73,7 @@
                 name="styleColor"
                 id="label-styleColor"
                 ng-model="modal.edit.style.color"
-                color-picker-format="modal.colorFormatFg"
-                color-picker-swatch-pos="'right'"
-                color-picker-swatch-bootstrap="false"
+                options="modal.options"
                 required
               ></color-picker>
 

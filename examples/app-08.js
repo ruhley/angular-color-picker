@@ -8,6 +8,14 @@ angular
         $scope.caseOptions = [{label: 'Upper Case', value: 'upper'}, {label: 'Lower Case', value: 'lower'}];
 
         $scope.color = '#00FF00';
-        $scope.format = 'hex';
-        $scope.inline = true;
+
+        $scope.options = {
+            format: 'hex',
+            inline: true,
+        };
+        $scope.api = {
+            onChange: function(event, ngModel) {
+                console.log(event, ngModel);
+            }
+        };
     });
