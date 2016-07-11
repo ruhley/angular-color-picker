@@ -4,22 +4,14 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Angular-color-picker : AngularJS Colour Picker Directive">
+    <meta name="description" content="Angular Color Picker : Vanilla AngularJS Color Picker Directive with no requirement on jQuery">
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="bower_components/angular-color-picker/dist/angularjs-color-picker.min.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="bower_components/angular-color-picker/dist/themes/angularjs-color-picker-bootstrap.min.css">
-
-    <script src="bower_components/tinycolor/dist/tinycolor-min.js"></script>
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/angular-color-picker/dist/angularjs-color-picker.min.js"></script>
-    <script src="javascripts/app.js"></script>
 
     <title>Angular Color Picker</title>
   </head>
 
-  <body ng-app="app" ng-controller="AppCtrl">
+  <body>
 
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
@@ -27,7 +19,7 @@
           <a id="forkme_banner" href="https://github.com/ruhley/angular-color-picker">View on GitHub</a>
 
           <h1 id="project_title">Angular Color Picker</h1>
-          <h2 id="project_tagline">AngularJS Colour Picker Directive</h2>
+          <h2 id="project_tagline">Vanilla AngularJS Color Picker Directive with no requirement on jQuery</h2>
 
             <section id="downloads">
               <a class="zip_download_link" href="https://github.com/ruhley/angular-color-picker/zipball/master">Download this project as a .zip file</a>
@@ -40,159 +32,118 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
         <h1>
-<a id="angularjs-color-picker" class="anchor" href="#angularjs-color-picker" aria-hidden="true"><span class="octicon octicon-link"></span></a>angularjs-color-picker</h1>
+<a id="angular-color-picker" class="anchor" href="#angular-color-picker" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Angular Color Picker</h1>
 
 <p>Vanilla AngularJS Color Picker Directive with no requirement on jQuery</p>
 
-<h1>
-<a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h1>
-<form class="col-sm-12">
-<div class="row">
-  <label class="control-label">Color</label>
-  <color-picker
-    ng-model="color"
-    color-picker-disabled="disabled"
-    color-picker-format="format"
-    color-picker-alpha="alpha"
-    color-picker-swatch="swatch"
-    color-picker-swatch-pos="swatchPos"
-    color-picker-swatch-bootstrap="swatchBootstrap"
-    color-picker-swatch-only="swatchOnly"
-    color-picker-pos="pos"
-    color-picker-case="case"
-    color-picker-inline="inline"
-    color-picker-on-change="onChange($event, color)"
-  ></color-picker>
-</div>
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
 
-<div class="row">
-  Two Way Binding - {{color}}
-</div>
+<h4>
+<a id="bower" class="anchor" href="#bower" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bower</h4>
 
-<div class="row">
-  <label class="control-label">Disabled (disabled)</label>
-  <select ng-model="disabled" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
-</div>
+<div class="highlight highlight-source-shell"><pre>bower install angularjs-color-picker --save</pre></div>
 
-<div class="row">
-  <label class="control-label">Format (format)</label>
-  <select ng-model="format" class="form-control" ng-options="option.value as option.label for option in formatOptions"></select>
-</div>
+<h4>
+<a id="npm" class="anchor" href="#npm" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Npm</h4>
 
-<div class="row">
-  <label class="control-label">Alpha (alpha) - whether or not to display the alpha control</label>
-  <select ng-model="alpha" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
-</div>
+<div class="highlight highlight-source-shell"><pre>npm install angularjs-color-picker --save</pre></div>
 
-<div class="row">
-  <label class="control-label">Swatch (swatch) - whether or not to display the swatch inside the input field</label>
-  <select ng-model="swatch" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
-</div>
+<h4>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
 
-<div class="row">
-  <label class="control-label">Swatch Only (swatch-only) - whether or not to display only the swatch</label>
-  <select ng-model="swatchOnly" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
-</div>
-
-<div class="row">
-    <label class="control-label">Swatch Bootstrap Add On (swatch-bootstrap) - whether or not the swatch should appear as a bootstrap add on</label>
-    <select ng-model="swatchBootstrap" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
-</div>
-
-<div class="row">
-  <label class="control-label">Swatch Position (swatch-pos) - the position of the swatch in the input field - 'left' or 'right'</label>
-  <select ng-model="swatchPos" class="form-control" ng-options="option.value as option.label for option in swatchPosOptions"></select>
-</div>
-
-<div class="row">
-  <label class="control-label">Position (pos) - the position of the picker control in relation to the input field - 'bottom left', 'bottom right', 'top left', 'top right'</label>
-  <select ng-model="pos" class="form-control" ng-options="option.value as option.label for option in posOptions"></select>
-</div>
-
-<div class="row">
-  <label class="control-label">Case (case) - The case of hex colors - 'upper', 'lower'</label>
-  <select ng-model="case" class="form-control" ng-options="option.value as option.label for option in caseOptions"></select>
-</div>
-
-<div class="row">
-  <label class="control-label">Inline (inline)</label>
-  <select ng-model="inline" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
-</div>
-
-<div class="row">
-  <label class="control-label">On Change (on-change)</label> -
-  A custom function to run after the user has changed the color. Open the console to view the changes.
-</div>
-
-</form>
-
-<h1>
-<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h1>
+<ul>
+<li>
+<p>Include files</p>
 
 <ul>
 <li>Bower</li>
 </ul>
 
-<div class="highlight highlight-shell"><pre>bower install angularjs-color-picker --save</pre></div>
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>bower_components/angular-color-picker/dist/angularjs-color-picker.min.css<span class="pl-pds">"</span></span> /&gt;
+<span class="pl-c">&lt;!-- only include if you use bootstrap --&gt;</span>
+&lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>bower_components/angular-color-picker/dist/themes/angularjs-color-picker-bootstrap.min.css<span class="pl-pds">"</span></span> /&gt;
+
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>bower_components/tinycolor/dist/tinycolor-min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>bower_components/angular-color-picker/dist/angularjs-color-picker.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
 
 <ul>
-<li>Npm</li>
+<li>Node</li>
 </ul>
 
-<div class="highlight highlight-shell"><pre>npm install angularjs-color-picker --save</pre></div>
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>node_modules/angularjs-color-picker/dist/angularjs-color-picker.min.css<span class="pl-pds">"</span></span> /&gt;
+<span class="pl-c">&lt;!-- only include if you use bootstrap --&gt;</span>
+&lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>node_modules/angularjs-color-picker/dist/themes/angularjs-color-picker-bootstrap.min.css<span class="pl-pds">"</span></span> /&gt;
 
-<ul>
-<li>Include tinycolor.js, angularjs-color-picker.js and angularjs-color-picker.css</li>
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>node_modules/tinycolor2/dist/tinycolor2-min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>node_modules/angular-color-picker/dist/angularjs-color-picker.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+</li>
+<li><p>Add the module to your app</p></li>
 </ul>
 
-<div class="highlight highlight-html"><pre>    &lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s1"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s1"><span class="pl-pds">"</span>bower_components/angularjs-color-picker/angularjs-color-picker.min.css<span class="pl-pds">"</span></span> /&gt;
-
-<span class="pl-s2">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s1"><span class="pl-pds">"</span>bower_components/tinycolor/tinycolor<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
-<span class="pl-s2">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s1"><span class="pl-pds">"</span>bower_components/angularjs-color-picker/angularjs-color-picker.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span></pre></div>
-
-<ul>
-<li>Add the module to your app</li>
-</ul>
-
-<div class="highlight highlight-javascript"><pre>angular.module(<span class="pl-s1"><span class="pl-pds">'</span>app<span class="pl-pds">'</span></span>, [<span class="pl-s1"><span class="pl-pds">'</span>color.picker<span class="pl-pds">'</span></span>]);</pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>app<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>color.picker<span class="pl-pds">'</span></span>]);</pre></div>
 
 <ul>
 <li>Include in your view</li>
 </ul>
 
-<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">color</span><span class="pl-e">-picker</span> <span class="pl-e">ng-model</span>=<span class="pl-s1"><span class="pl-pds">"</span>myColor<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">color</span><span class="pl-e">-picker</span>&gt;</pre></div>
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">color</span><span class="pl-e">-picker</span> <span class="pl-e">ng-model</span>=<span class="pl-s"><span class="pl-pds">"</span>myColor<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">color</span><span class="pl-e">-picker</span>&gt;</pre></div>
 
-<h1>
-<a id="options" class="anchor" href="#options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Options</h1>
+<h2>
+<a id="options" class="anchor" href="#options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Options</h2>
 
-<p>If a list is given then choose one of the items. The first item in the list will be the default.</p>
+<p>HTML - Only <code>ng-model</code> is required.</p>
 
-<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">color</span><span class="pl-e">-picker</span>
-    <span class="pl-e">ng-model</span>=<span class="pl-s1"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> &lt;!-- <span class="pl-e">only</span> <span class="pl-e">required</span> <span class="pl-e">field</span> --&gt;
-    color-picker-disabled="false, true"
-    color-picker-format="'hsl', 'hsv', 'rgb', 'hex', 'hex8'"
-    color-picker-alpha="true, false"
-    color-picker-swatch="true, false"
-    color-picker-swatch-pos="'left', 'right'"
-    color-picker-swatch-only="true, false"
-    color-picker-pos="'bottom left', 'bottom right', 'top left', 'top right'"
-    color-picker-case="'upper', 'lower'"
-    color-picker-inline="false, true"
-    color-picker-on-change="onChange($event, color)"
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">color</span><span class="pl-e">-picker</span>
+    <span class="pl-e">ng-model</span>=<span class="pl-s"><span class="pl-pds">"</span>color<span class="pl-pds">"</span></span>
+    <span class="pl-e">options</span>=<span class="pl-s"><span class="pl-pds">"</span>options<span class="pl-pds">"</span></span>
+    <span class="pl-e">api</span>=<span class="pl-s"><span class="pl-pds">"</span>api<span class="pl-pds">"</span></span>
 &gt;&lt;/<span class="pl-ent">color</span><span class="pl-e">-picker</span>&gt;</pre></div>
 
-<h1>
-<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h1>
+<p>Javascript</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">$scope</span>.<span class="pl-c1">color</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>#FF0000<span class="pl-pds">'</span></span>;
+
+<span class="pl-c">// options - if a list is given then choose one of the items. The first item in the list will be the default</span>
+<span class="pl-smi">$scope</span>.<span class="pl-c1">options</span> <span class="pl-k">=</span> {
+    disabled<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
+    disabled<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
+    format<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>hsl<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hsv<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>rgb<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hex<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hex8<span class="pl-pds">'</span></span>],
+    alpha<span class="pl-k">:</span> [<span class="pl-c1">true</span>, <span class="pl-c1">false</span>],
+    swatch<span class="pl-k">:</span> [<span class="pl-c1">true</span>, <span class="pl-c1">false</span>],
+    swatchPos<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>left<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>right<span class="pl-pds">'</span></span>],
+    swatchBootstrap<span class="pl-k">:</span> [<span class="pl-c1">true</span>, <span class="pl-c1">false</span>],
+    swatchOnly<span class="pl-k">:</span> [<span class="pl-c1">true</span>, <span class="pl-c1">false</span>],
+    pos<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>bottom left<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>bottom right<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>top left<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>top right<span class="pl-pds">'</span></span>],
+    case<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>upper<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>lower<span class="pl-pds">'</span></span>],
+    inline<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
+};
+
+<span class="pl-c">// api event handlers</span>
+<span class="pl-smi">$scope</span>.<span class="pl-smi">api</span> <span class="pl-k">=</span> {
+    <span class="pl-en">onChange</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">$event</span>, <span class="pl-smi">color</span>) {},
+    <span class="pl-en">onBlur</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {},
+    <span class="pl-en">onOpen</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {},
+    <span class="pl-en">onClose</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {},
+    <span class="pl-en">onDestroy</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {},
+};
+
+<span class="pl-c">// exposed functions</span>
+<span class="pl-smi">$scope</span>.<span class="pl-smi">api</span>.<span class="pl-c1">open</span>();
+<span class="pl-smi">$scope</span>.<span class="pl-smi">api</span>.<span class="pl-c1">close</span>();</pre></div>
+
+<h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h2>
 
 <ul>
-<li>angularjs</li>
-<li>tinycolor.js</li>
+<li>angularjs (v1.3 and higher)</li>
+<li>tinycolor.js (18.8 KB minified)</li>
 </ul>
 
 <p>NO requirement for jQuery!</p>
 
-<h1>
-<a id="inspiration" class="anchor" href="#inspiration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Inspiration</h1>
+<h2>
+<a id="inspiration" class="anchor" href="#inspiration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Inspiration</h2>
 
 <p>Inspiration and code taken from projects like</p>
 
@@ -207,7 +158,7 @@
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">Angular-color-picker maintained by <a href="https://github.com/ruhley">ruhley</a></p>
+        <p class="copyright">Angular Color Picker maintained by <a href="https://github.com/ruhley">ruhley</a></p>
         <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
