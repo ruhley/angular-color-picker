@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v1.1.7
+ * angularjs-color-picker v2.0.0
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-06-29 10:55:04
+ * 2016-07-11 16:31:23
  *
  */
 .color-picker-wrapper {
@@ -175,6 +175,13 @@
 }
 .color-picker-wrapper .color-picker-hidden {
   display: none;
+}
+.color-picker-wrapper.color-picker-disabled .color-picker-swatch,
+.color-picker-wrapper.color-picker-disabled .color-picker-hue,
+.color-picker-wrapper.color-picker-disabled .color-picker-opacity,
+.color-picker-wrapper.color-picker-disabled .color-picker-grid,
+.color-picker-wrapper.color-picker-disabled .color-picker-input {
+  cursor: not-allowed !important;
 }
 .color-picker-wrapper.color-picker-swatch-only .color-picker-input {
   padding-left: 33px;
