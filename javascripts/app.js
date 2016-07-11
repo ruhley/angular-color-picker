@@ -7,7 +7,22 @@ angular
 		$scope.posOptions = [{label: 'Bottom Left', value: 'bottom left'}, {label: 'Top Left', value: 'top left'}, {label: 'Bottom Right', value: 'bottom right'}, {label: 'Top Right', value: 'top right'}];
 		$scope.caseOptions = [{label: 'Upper Case', value: 'upper'}, {label: 'Lower Case', value: 'lower'}];
 
-		$scope.onChange = function($event, color) {
-			console.log(color);
+		$scope.options = {};
+		$scope.api = {
+			onOpen: function() {
+				console.log('opened');
+			},
+			onClose: function() {
+				console.log('closed');
+			},
+			onBlur: function() {
+				console.log('blurred');
+			},
+			onDestroy: function() {
+				console.log('destroyed');
+			},
+			onChange: function(event, color) {
+				console.log('changed', color);
+			},
 		};
     });
