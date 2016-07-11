@@ -55,22 +55,46 @@ angular.module('app', ['color.picker']);
 
 ## Options
 
-If a list is given then choose one of the items. The first item in the list will be the default. Only ```ng-model``` is required.
+Only ```ng-model``` is required.
+
 ```html
 <color-picker
-    ng-model=""
-    color-picker-disabled="false, true"
-    color-picker-format="'hsl', 'hsv', 'rgb', 'hex', 'hex8'"
-    color-picker-alpha="true, false"
-    color-picker-swatch="true, false"
-    color-picker-swatch-pos="'left', 'right'"
-    color-picker-swatch-bootstrap="true, false"
-    color-picker-swatch-only="true, false"
-    color-picker-pos="'bottom left', 'bottom right', 'top left', 'top right'"
-    color-picker-case="'upper', 'lower'"
-    color-picker-inline="false, true"
-    color-picker-on-change="onColorChange($event, color)"
+    ng-model="color"
+    options="options"
+    api="api"
 ></color-picker>
+```
+
+```js
+$scope.color = '#FF0000';
+
+// options - if a list is given then choose one of the items. The first item in the list will be the default
+$scope.options = {
+    disabled: [false, true],
+    disabled: [false, true],
+    format: ['hsl', 'hsv', 'rgb', 'hex', 'hex8'],
+    alpha: [true, false],
+    swatch: [true, false],
+    swatchPos: ['left', 'right'],
+    swatchBootstrap: [true, false],
+    swatchOnly: [true, false],
+    pos: ['bottom left', 'bottom right', 'top left', 'top right'],
+    case: ['upper', 'lower'],
+    inline: [false, true],
+};
+
+// api event handlers
+$scope.api = {
+    onChange: function($event, color) {},
+    onBlur: function() {},
+    onOpen: function() {},
+    onClose: function() {},
+    onDestroy: function() {},
+};
+
+// exposed functions
+$scope.api.open();
+$scope.api.close();
 ```
 
 ## Requirements
