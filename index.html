@@ -114,7 +114,12 @@
 
 <div class="row">
   <label class="control-label">api</label> -
-  Exposes open and close methods and onChange, onOpen, onClose, onBlur, and onDestroy events. Open the console to view them.
+  Exposes open, close, and getElement methods. Must be unique per color picker.
+</div>
+
+<div class="row">
+  <label class="control-label">event-api</label> -
+  Handles onChange, onOpen, onClose, onBlur, and onDestroy events. Open the console to view them. Can be shared among color pickers.
 </div>
 
 </form>
@@ -175,12 +180,13 @@
 <h2>
 <a id="options" class="anchor" href="#options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Options</h2>
 
-<p>HTML - Only <code>ng-model</code> is required.</p>
+<p>HTML - Only <code>ng-model</code> is required. If supplying an api it must be a unique object per color picker. However the event api can be shared among color pickers.</p>
 
 <div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">color</span><span class="pl-e">-picker</span>
     <span class="pl-e">ng-model</span>=<span class="pl-s"><span class="pl-pds">"</span>color<span class="pl-pds">"</span></span>
     <span class="pl-e">options</span>=<span class="pl-s"><span class="pl-pds">"</span>options<span class="pl-pds">"</span></span>
     <span class="pl-e">api</span>=<span class="pl-s"><span class="pl-pds">"</span>api<span class="pl-pds">"</span></span>
+    <span class="pl-e">event-api</span>=<span class="pl-s"><span class="pl-pds">"</span>eventApi<span class="pl-pds">"</span></span>
 &gt;&lt;/<span class="pl-ent">color</span><span class="pl-e">-picker</span>&gt;</pre></div>
 
 <p>Javascript</p>
@@ -189,7 +195,6 @@
 
 <span class="pl-c">// options - if a list is given then choose one of the items. The first item in the list will be the default</span>
 <span class="pl-smi">$scope</span>.<span class="pl-c1">options</span> <span class="pl-k">=</span> {
-    disabled<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
     disabled<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
     format<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>hsl<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hsv<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>rgb<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hex<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hex8<span class="pl-pds">'</span></span>],
     alpha<span class="pl-k">:</span> [<span class="pl-c1">true</span>, <span class="pl-c1">false</span>],
@@ -202,18 +207,20 @@
     inline<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
 };
 
-<span class="pl-c">// api event handlers</span>
-<span class="pl-smi">$scope</span>.<span class="pl-smi">api</span> <span class="pl-k">=</span> {
-    <span class="pl-en">onChange</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">$event</span>, <span class="pl-smi">color</span>) {},
-    <span class="pl-en">onBlur</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {},
-    <span class="pl-en">onOpen</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {},
-    <span class="pl-en">onClose</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {},
-    <span class="pl-en">onDestroy</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {},
-};
-
 <span class="pl-c">// exposed functions</span>
 <span class="pl-smi">$scope</span>.<span class="pl-smi">api</span>.<span class="pl-c1">open</span>();
-<span class="pl-smi">$scope</span>.<span class="pl-smi">api</span>.<span class="pl-c1">close</span>();</pre></div>
+<span class="pl-smi">$scope</span>.<span class="pl-smi">api</span>.<span class="pl-c1">close</span>();
+<span class="pl-smi">$scope</span>.<span class="pl-smi">api</span>.<span class="pl-c1">getElement</span>();
+
+<span class="pl-c">// api event handlers</span>
+<span class="pl-smi">$scope</span>.<span class="pl-smi">api</span> <span class="pl-k">=</span> {
+    <span class="pl-en">onChange</span><span class="pl-k">:</span>  <span class="pl-k">function</span>(<span class="pl-smi">api</span>, <span class="pl-smi">color</span>, <span class="pl-smi">$event</span>) {},
+    <span class="pl-en">onBlur</span><span class="pl-k">:</span>    <span class="pl-k">function</span>(<span class="pl-smi">api</span>, <span class="pl-smi">color</span>, <span class="pl-smi">$event</span>) {},
+    <span class="pl-en">onOpen</span><span class="pl-k">:</span>    <span class="pl-k">function</span>(<span class="pl-smi">api</span>, <span class="pl-smi">color</span>, <span class="pl-smi">$event</span>) {},
+    <span class="pl-en">onClose</span><span class="pl-k">:</span>   <span class="pl-k">function</span>(<span class="pl-smi">api</span>, <span class="pl-smi">color</span>, <span class="pl-smi">$event</span>) {},
+    <span class="pl-en">onDestroy</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">api</span>, <span class="pl-smi">color</span>) {},
+};
+</pre></div>
 
 <h2>
 <a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h2>
