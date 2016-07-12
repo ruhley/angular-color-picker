@@ -8,7 +8,8 @@ angular
         $scope.caseOptions = [{label: 'Upper Case', value: 'upper'}, {label: 'Lower Case', value: 'lower'}];
 
         $scope.options = {};
-        $scope.api = {
+        $scope.api = {};
+        $scope.eventApi = {
             onChange: function() {
                 console.log('change', arguments);
             },

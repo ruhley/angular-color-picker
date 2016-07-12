@@ -73,7 +73,7 @@ export default class AngularColorPickerController {
             this.$document.off('mouseup', this.onMouseUp);
             this.$document.off('mousemove', this.onMouseMove);
 
-            this.callApiFunction('onDestroy');
+            this.eventApiDispatch('onDestroy');
         });
 
         //---------------------------
@@ -141,7 +141,7 @@ export default class AngularColorPickerController {
             this.api = {};
         }
 
-        this.api.open = () => {
+        this.api.open = (event) => {
             // if already visible then don't run show again
             if (this.visible) {
                 return true;
@@ -158,7 +158,7 @@ export default class AngularColorPickerController {
             this.lightnessUpdate();
             this.opacityUpdate();
 
-            this.callApiFunction('onOpen');
+            this.eventApiDispatch('onOpen', [event]);
         };
 
         this.api.close = () => {
@@ -167,8 +167,12 @@ export default class AngularColorPickerController {
                 this.visible = false;
                 this.$scope.$apply();
 
-                this.callApiFunction('onClose');
+                this.eventApiDispatch('onClose', [event]);
             }
+        };
+
+        this.api.getElement = () => {
+            return this.$element;
         };
     }
 
@@ -236,7 +240,7 @@ export default class AngularColorPickerController {
     onMouseUp (event) {
         // no current mouse events and not an element in the picker
         if (!this.colorMouse && !this.hueMouse && !this.opacityMouse && this.find(event.target).length === 0) {
-            this.api.close();
+            this.api.close(event);
         // mouse event on color grid
         } else if (this.colorMouse) {
             this.colorUp(event);
@@ -299,7 +303,7 @@ export default class AngularColorPickerController {
         if (this.ngModel !== this.onChangeValue) {
             this.onChangeValue = this.ngModel;
 
-            this.callApiFunction('onChange', [event, this.ngModel]);
+            this.eventApiDispatch('onChange', [event]);
         }
     }
 
@@ -309,7 +313,7 @@ export default class AngularColorPickerController {
             this.update();
         }
 
-        this.callApiFunction('onBlur', [event, this.ngModel]);
+        this.eventApiDispatch(this.api, 'onBlur', [event]);
     }
 
     initConfig () {
@@ -643,9 +647,16 @@ export default class AngularColorPickerController {
     // helper functions
     //---------------------------
 
-    callApiFunction(name, args) {
-        if (this.api && typeof this.api[name] === 'function') {
-            this.api[name].apply(this, args);
+    eventApiDispatch(name, args) {
+        if (this.eventApi && typeof this.eventApi[name] === 'function') {
+            if (!args) {
+                args = [];
+            }
+
+            args.unshift(this.ngModel);
+            args.unshift(this.api);
+
+            this.eventApi[name].apply(this, args);
         }
     }
 

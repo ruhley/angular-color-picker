@@ -8,6 +8,7 @@ export default function colorPickerDirective () {
             ngModel: '=',
             options: '=?',
             api: '=?',
+            eventApi: '=?',
         },
         bindToController: true,
         templateUrl: 'template/color-picker/directive.html',

@@ -54,13 +54,14 @@ angular.module('app', ['color.picker']);
 
 ## Options
 
-HTML - Only ```ng-model``` is required.
+HTML - Only ```ng-model``` is required. If supplying an api it must be a unique object per color picker. However the event api can be shared among color pickers.
 
 ```html
 <color-picker
     ng-model="color"
     options="options"
     api="api"
+    event-api="eventApi"
 ></color-picker>
 ```
 Javascript
@@ -70,7 +71,6 @@ $scope.color = '#FF0000';
 
 // options - if a list is given then choose one of the items. The first item in the list will be the default
 $scope.options = {
-    disabled: [false, true],
     disabled: [false, true],
     format: ['hsl', 'hsv', 'rgb', 'hex', 'hex8'],
     alpha: [true, false],
@@ -83,18 +83,19 @@ $scope.options = {
     inline: [false, true],
 };
 
-// api event handlers
-$scope.api = {
-    onChange: function($event, color) {},
-    onBlur: function() {},
-    onOpen: function() {},
-    onClose: function() {},
-    onDestroy: function() {},
-};
-
-// exposed functions
+// exposed api functions
 $scope.api.open();
 $scope.api.close();
+$scope.api.getElement();
+
+// api event handlers
+$scope.eventApi = {
+    onChange: function(api, color, $event) {},
+    onBlur: function(api, color, $event) {},
+    onOpen: function(api, color, $event) {},
+    onClose: function(api, color, $event) {},
+    onDestroy: function(api, color) {},
+};
 ```
 
 ## Requirements
