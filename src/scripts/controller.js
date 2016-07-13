@@ -84,6 +84,10 @@ export default class AngularColorPickerController {
     }
 
     watchNgModel(newValue, oldValue) {
+        if (this.colorMouse) {
+            return;
+        }
+
         if (newValue !== undefined && newValue !== null && newValue !== oldValue && newValue.length > 4) {
             var color = tinycolor(newValue);
 
