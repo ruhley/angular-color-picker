@@ -1,5 +1,17 @@
 # Changelog
 
+## v2.1.1
+
+#### Breaking Chnages
+  * None
+
+#### New Features
+  * None
+
+#### Bug Fixes
+  * #87 fixing onBlur and onClose
+  * #88 Fixing hue updating when moving in grid on rgb and hex
+
 ## v2.1.0
 
 #### Breaking Chnages

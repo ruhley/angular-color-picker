@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v2.1.0
+ * angularjs-color-picker v2.1.1
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-07-13 08:32:24
+ * 2016-07-14 08:05:35
  *
  */
 
@@ -115,6 +115,10 @@
           value: function watchNgModel(newValue, oldValue) {
               var _this2 = this;
 
+              if (this.colorMouse) {
+                  return;
+              }
+
               if (newValue !== undefined && newValue !== null && newValue !== oldValue && newValue.length > 4) {
                   var color = tinycolor(newValue);
 
@@ -198,7 +202,7 @@
                   _this4.eventApiDispatch('onOpen', [event]);
               };
 
-              this.api.close = function () {
+              this.api.close = function (event) {
                   if (!_this4.options.inline && (_this4.visible || _this4.$element[0].querySelector('.color-picker-panel').offsetParent !== null)) {
 
                       _this4.visible = false;
@@ -361,7 +365,7 @@
                   this.update();
               }
 
-              this.eventApiDispatch(this.api, 'onBlur', [event]);
+              this.eventApiDispatch('onBlur', [event]);
           }
       }, {
           key: 'initConfig',
