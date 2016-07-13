@@ -161,7 +161,7 @@ export default class AngularColorPickerController {
             this.eventApiDispatch('onOpen', [event]);
         };
 
-        this.api.close = () => {
+        this.api.close = (event) => {
             if (!this.options.inline && (this.visible || this.$element[0].querySelector('.color-picker-panel').offsetParent !== null)) {
 
                 this.visible = false;
@@ -313,7 +313,7 @@ export default class AngularColorPickerController {
             this.update();
         }
 
-        this.eventApiDispatch(this.api, 'onBlur', [event]);
+        this.eventApiDispatch('onBlur', [event]);
     }
 
     initConfig () {
