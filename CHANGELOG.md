@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.1.3
+
+#### Breaking Chnages
+  * None
+
+#### New Features
+  * None
+
+#### Bug Fixes
+  * Don't presume a default color
+
 ## v2.1.2
 
 #### Breaking Chnages
@@ -10,8 +21,6 @@
 
 #### Bug Fixes
   * Delaying init until directive link function, to fix a bug in complex multi color picker pages
-
-# Changelog
 
 ## v2.1.1
 

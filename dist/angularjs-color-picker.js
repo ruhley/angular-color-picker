@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v2.1.2
+ * angularjs-color-picker v2.1.3
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-07-15 10:26:38
+ * 2016-07-15 11:05:35
  *
  */
 
@@ -49,6 +49,11 @@
           this.$timeout = _$timeout;
 
           this.$scope.init = this.init.bind(this);
+
+          this.hue = 0;
+          this.saturation = undefined;
+          this.lightness = undefined;
+          this.opacity = undefined;
       }
 
       createClass(AngularColorPickerController, [{
@@ -60,7 +65,7 @@
                   return;
               }
 
-              if (newValue !== undefined && newValue !== null && newValue !== oldValue && newValue.length > 4) {
+              if (newValue !== undefined && newValue !== null && newValue.length > 4) {
                   var color = tinycolor(newValue);
 
                   if (color.isValid()) {
@@ -92,7 +97,7 @@
                   }
               } else {
                   if (newValue === null || newValue === '') {
-                      this.hue = undefined;
+                      this.hue = 0;
                       this.saturation = undefined;
                       this.lightness = undefined;
                       this.opacity = undefined;
@@ -229,21 +234,6 @@
 
                   _this4.eventApiDispatch('onDestroy');
               });
-
-              // if no color provided
-              if (this.ngModel === undefined) {
-                  this.setDefaults();
-              } else {
-                  var color = tinycolor(this.ngModel);
-
-                  if (color.isValid()) {
-                      var hsl = color.toHsv();
-                      this.hue = hsl.h;
-                      this.saturation = hsl.s * 100;
-                      this.lightness = hsl.v * 100;
-                      this.opacity = hsl.a * 100;
-                  }
-              }
 
               // set default config settings
               this.initConfig();
@@ -390,32 +380,11 @@
               this.find('.color-picker-input')[0].focus();
           }
       }, {
-          key: 'setDefaults',
-          value: function setDefaults() {
-              if (this.hue === undefined) {
-                  this.hue = 0;
-              }
-
-              if (this.saturation === undefined) {
-                  this.saturation = 0;
-              }
-
-              if (this.lightness === undefined) {
-                  this.lightness = 100;
-              }
-
-              if (this.opacity === undefined) {
-                  this.opacity = 100;
-              }
-          }
-      }, {
           key: 'update',
           value: function update() {
-              if (this.hue === undefined && this.saturation === undefined && this.lightness === undefined) {
+              if (this.hue === undefined || this.saturation === undefined || this.lightness === undefined) {
                   return false;
               }
-
-              this.setDefaults();
 
               var color = tinycolor({ h: this.hue, s: this.saturation / 100, v: this.lightness / 100 }),
                   colorString;
