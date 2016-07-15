@@ -59,12 +59,12 @@
 
               <div class="input-group-btn" uib-dropdown keyboard-nav>
                 <button class="btn btn-default" uib-dropdown-toggle>
-                  {{ modal.colorFormatFg | uppercase }}
+                  {{ modal.options.format | uppercase }}
                   <i aria-hidden="true" class="fa fa-caret-down"></i>
                 </button>
                 <ul class="dropdown-menu">
-                  <li ng-class="{ active: modal.colorFormatFg === format }" ng-repeat="format in modal.colorFormats"></select>
-                    <a href ng-click="modal.colorFormatFg = format">{{ format | uppercase }}</a>
+                  <li ng-class="{ active: modal.options.format === format }" ng-repeat="format in modal.colorFormats"></select>
+                    <a href ng-click="modal.options.format = format">{{ format | uppercase }}</a>
                   </li>
                 </ul>
               </div>
