@@ -6,81 +6,7 @@ export default class AngularColorPickerController {
         this.$document = _$document;
         this.$timeout = _$timeout;
 
-        // browser variables
-        this.chrome = Boolean(window.chrome);
-        let _android_version = window.navigator.userAgent.match(/Android\s([0-9\.]*)/i);
-        this.android_version = _android_version && _android_version.length > 1 ? parseFloat(_android_version[1]) : NaN;
-
-        // needed variables
-        this.onChangeValue = null;
-        this.updateModel = true;
-
-        //---------------------------
-        // watchers
-        //---------------------------
-
-        // ngModel
-
-        this.$scope.$watch('AngularColorPickerController.ngModel', this.watchNgModel.bind(this));
-
-        // options
-
-        this.$scope.$watch('AngularColorPickerController.options.swatchPos', this.watchSwatchPos.bind(this));
-
-        this.$scope.$watchGroup(
-            [
-                'AngularColorPickerController.options.format',
-                'AngularColorPickerController.options.alpha',
-                'AngularColorPickerController.options.case'
-            ],
-            this.reInitAndUpdate.bind(this)
-        );
-
-        this.$scope.$watchGroup(
-            [
-                'AngularColorPickerController.options.disabled',
-                'AngularColorPickerController.options.swatchBootstrap',
-                'AngularColorPickerController.options.swatchOnly',
-                'AngularColorPickerController.options.swatch',
-                'AngularColorPickerController.options.pos',
-                'AngularColorPickerController.options.inline'
-            ],
-            this.reInit.bind(this)
-        );
-
-        // api
-
-        this.$scope.$watch('AngularColorPickerController.api', this.watchApi.bind(this));
-
-        // internal
-
-        this.$scope.$watch('AngularColorPickerController.swatchColor', this.updateSwatchBackground.bind(this));
-
-        this.$scope.$watch('AngularColorPickerController.hue', this.hueUpdate.bind(this));
-
-        this.$scope.$watch('AngularColorPickerController.saturation', this.saturationUpdate.bind(this));
-
-        this.$scope.$watch('AngularColorPickerController.lightness', this.lightnessUpdate.bind(this));
-
-        this.$scope.$watch('AngularColorPickerController.opacity', this.opacityUpdate.bind(this));
-
-        //---------------------------
-        // destroy
-        //---------------------------
-
-        this.$scope.$on('$destroy', () => {
-            this.$document.off('mousedown', this.onMouseDown);
-            this.$document.off('mouseup', this.onMouseUp);
-            this.$document.off('mousemove', this.onMouseMove);
-
-            this.eventApiDispatch('onDestroy');
-        });
-
-        //---------------------------
-        // Init
-        //---------------------------
-
-        this.init();
+        this.$scope.init = this.init.bind(this);
     }
 
     watchNgModel(newValue, oldValue) {
@@ -140,7 +66,7 @@ export default class AngularColorPickerController {
         }
     }
 
-    watchApi () {
+    setupApi () {
         if (!this.api) {
             this.api = {};
         }
@@ -194,6 +120,76 @@ export default class AngularColorPickerController {
     }
 
     init () {
+        // browser variables
+        this.chrome = Boolean(window.chrome);
+        let _android_version = window.navigator.userAgent.match(/Android\s([0-9\.]*)/i);
+        this.android_version = _android_version && _android_version.length > 1 ? parseFloat(_android_version[1]) : NaN;
+
+        // needed variables
+        this.onChangeValue = null;
+        this.updateModel = true;
+
+        //---------------------------
+        // watchers
+        //---------------------------
+
+        // ngModel
+
+        this.$scope.$watch('AngularColorPickerController.ngModel', this.watchNgModel.bind(this));
+
+        // options
+
+        this.$scope.$watch('AngularColorPickerController.options.swatchPos', this.watchSwatchPos.bind(this));
+
+        this.$scope.$watchGroup(
+            [
+                'AngularColorPickerController.options.format',
+                'AngularColorPickerController.options.alpha',
+                'AngularColorPickerController.options.case'
+            ],
+            this.reInitAndUpdate.bind(this)
+        );
+
+        this.$scope.$watchGroup(
+            [
+                'AngularColorPickerController.options.disabled',
+                'AngularColorPickerController.options.swatchBootstrap',
+                'AngularColorPickerController.options.swatchOnly',
+                'AngularColorPickerController.options.swatch',
+                'AngularColorPickerController.options.pos',
+                'AngularColorPickerController.options.inline'
+            ],
+            this.reInit.bind(this)
+        );
+
+        // api
+
+        this.$scope.$watch('AngularColorPickerController.api', this.setupApi.bind(this));
+
+        // internal
+
+        this.$scope.$watch('AngularColorPickerController.swatchColor', this.updateSwatchBackground.bind(this));
+
+        this.$scope.$watch('AngularColorPickerController.hue', this.hueUpdate.bind(this));
+
+        this.$scope.$watch('AngularColorPickerController.saturation', this.saturationUpdate.bind(this));
+
+        this.$scope.$watch('AngularColorPickerController.lightness', this.lightnessUpdate.bind(this));
+
+        this.$scope.$watch('AngularColorPickerController.opacity', this.opacityUpdate.bind(this));
+
+        //---------------------------
+        // destroy
+        //---------------------------
+
+        this.$scope.$on('$destroy', () => {
+            this.$document.off('mousedown', this.onMouseDown);
+            this.$document.off('mouseup', this.onMouseUp);
+            this.$document.off('mousemove', this.onMouseMove);
+
+            this.eventApiDispatch('onDestroy');
+        });
+
         // if no color provided
         if (this.ngModel === undefined) {
             this.setDefaults();
@@ -244,6 +240,7 @@ export default class AngularColorPickerController {
     onMouseUp (event) {
         // no current mouse events and not an element in the picker
         if (!this.colorMouse && !this.hueMouse && !this.opacityMouse && this.find(event.target).length === 0) {
+            this.setupApi(); // TODO - there are some weird times when this is needed to call close. Need to figure out why.
             this.api.close(event);
         // mouse event on color grid
         } else if (this.colorMouse) {

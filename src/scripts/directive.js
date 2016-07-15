@@ -16,6 +16,7 @@ export default function colorPickerDirective () {
         controllerAs: 'AngularColorPickerController',
         link: function ($scope, element, attrs, control) {
             $scope.control = control;
+            $scope.init();
         }
     };
 }
