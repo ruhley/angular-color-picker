@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v2.1.1
+ * angularjs-color-picker v2.1.2
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-07-14 08:05:35
+ * 2016-07-15 10:26:38
  *
  */
 
@@ -40,8 +40,6 @@
 
   var AngularColorPickerController = function () {
       function AngularColorPickerController(_$scope, _$element, _$document, _$timeout) {
-          var _this = this;
-
           classCallCheck(this, AngularColorPickerController);
 
           // set angular injected variables
@@ -50,70 +48,13 @@
           this.$document = _$document;
           this.$timeout = _$timeout;
 
-          // browser variables
-          this.chrome = Boolean(window.chrome);
-          var _android_version = window.navigator.userAgent.match(/Android\s([0-9\.]*)/i);
-          this.android_version = _android_version && _android_version.length > 1 ? parseFloat(_android_version[1]) : NaN;
-
-          // needed variables
-          this.onChangeValue = null;
-          this.updateModel = true;
-
-          //---------------------------
-          // watchers
-          //---------------------------
-
-          // ngModel
-
-          this.$scope.$watch('AngularColorPickerController.ngModel', this.watchNgModel.bind(this));
-
-          // options
-
-          this.$scope.$watch('AngularColorPickerController.options.swatchPos', this.watchSwatchPos.bind(this));
-
-          this.$scope.$watchGroup(['AngularColorPickerController.options.format', 'AngularColorPickerController.options.alpha', 'AngularColorPickerController.options.case'], this.reInitAndUpdate.bind(this));
-
-          this.$scope.$watchGroup(['AngularColorPickerController.options.disabled', 'AngularColorPickerController.options.swatchBootstrap', 'AngularColorPickerController.options.swatchOnly', 'AngularColorPickerController.options.swatch', 'AngularColorPickerController.options.pos', 'AngularColorPickerController.options.inline'], this.reInit.bind(this));
-
-          // api
-
-          this.$scope.$watch('AngularColorPickerController.api', this.watchApi.bind(this));
-
-          // internal
-
-          this.$scope.$watch('AngularColorPickerController.swatchColor', this.updateSwatchBackground.bind(this));
-
-          this.$scope.$watch('AngularColorPickerController.hue', this.hueUpdate.bind(this));
-
-          this.$scope.$watch('AngularColorPickerController.saturation', this.saturationUpdate.bind(this));
-
-          this.$scope.$watch('AngularColorPickerController.lightness', this.lightnessUpdate.bind(this));
-
-          this.$scope.$watch('AngularColorPickerController.opacity', this.opacityUpdate.bind(this));
-
-          //---------------------------
-          // destroy
-          //---------------------------
-
-          this.$scope.$on('$destroy', function () {
-              _this.$document.off('mousedown', _this.onMouseDown);
-              _this.$document.off('mouseup', _this.onMouseUp);
-              _this.$document.off('mousemove', _this.onMouseMove);
-
-              _this.eventApiDispatch('onDestroy');
-          });
-
-          //---------------------------
-          // Init
-          //---------------------------
-
-          this.init();
+          this.$scope.init = this.init.bind(this);
       }
 
       createClass(AngularColorPickerController, [{
           key: 'watchNgModel',
           value: function watchNgModel(newValue, oldValue) {
-              var _this2 = this;
+              var _this = this;
 
               if (this.colorMouse) {
                   return;
@@ -136,7 +77,7 @@
                       }
 
                       this.$timeout(function () {
-                          _this2.updateModel = true;
+                          _this.updateModel = true;
                       });
 
                       this.isValid = true;
@@ -163,20 +104,20 @@
       }, {
           key: 'watchSwatchPos',
           value: function watchSwatchPos(newValue) {
-              var _this3 = this;
+              var _this2 = this;
 
               if (newValue !== undefined) {
                   this.initConfig();
 
                   this.$timeout(function () {
-                      _this3.updateSwatchBackground();
+                      _this2.updateSwatchBackground();
                   });
               }
           }
       }, {
-          key: 'watchApi',
-          value: function watchApi() {
-              var _this4 = this;
+          key: 'setupApi',
+          value: function setupApi() {
+              var _this3 = this;
 
               if (!this.api) {
                   this.api = {};
@@ -184,36 +125,36 @@
 
               this.api.open = function (event) {
                   // if already visible then don't run show again
-                  if (_this4.visible) {
+                  if (_this3.visible) {
                       return true;
                   }
 
-                  _this4.visible = true;
-                  _this4.hueMouse = false;
-                  _this4.opacityMouse = false;
-                  _this4.colorMouse = false;
+                  _this3.visible = true;
+                  _this3.hueMouse = false;
+                  _this3.opacityMouse = false;
+                  _this3.colorMouse = false;
 
                   // force the sliders to re-caculate their position
-                  _this4.hueUpdate();
-                  _this4.saturationUpdate();
-                  _this4.lightnessUpdate();
-                  _this4.opacityUpdate();
+                  _this3.hueUpdate();
+                  _this3.saturationUpdate();
+                  _this3.lightnessUpdate();
+                  _this3.opacityUpdate();
 
-                  _this4.eventApiDispatch('onOpen', [event]);
+                  _this3.eventApiDispatch('onOpen', [event]);
               };
 
               this.api.close = function (event) {
-                  if (!_this4.options.inline && (_this4.visible || _this4.$element[0].querySelector('.color-picker-panel').offsetParent !== null)) {
+                  if (!_this3.options.inline && (_this3.visible || _this3.$element[0].querySelector('.color-picker-panel').offsetParent !== null)) {
 
-                      _this4.visible = false;
-                      _this4.$scope.$apply();
+                      _this3.visible = false;
+                      _this3.$scope.$apply();
 
-                      _this4.eventApiDispatch('onClose', [event]);
+                      _this3.eventApiDispatch('onClose', [event]);
                   }
               };
 
               this.api.getElement = function () {
-                  return _this4.$element;
+                  return _this3.$element;
               };
           }
       }, {
@@ -234,6 +175,61 @@
       }, {
           key: 'init',
           value: function init() {
+              var _this4 = this;
+
+              // browser variables
+              this.chrome = Boolean(window.chrome);
+              var _android_version = window.navigator.userAgent.match(/Android\s([0-9\.]*)/i);
+              this.android_version = _android_version && _android_version.length > 1 ? parseFloat(_android_version[1]) : NaN;
+
+              // needed variables
+              this.onChangeValue = null;
+              this.updateModel = true;
+
+              //---------------------------
+              // watchers
+              //---------------------------
+
+              // ngModel
+
+              this.$scope.$watch('AngularColorPickerController.ngModel', this.watchNgModel.bind(this));
+
+              // options
+
+              this.$scope.$watch('AngularColorPickerController.options.swatchPos', this.watchSwatchPos.bind(this));
+
+              this.$scope.$watchGroup(['AngularColorPickerController.options.format', 'AngularColorPickerController.options.alpha', 'AngularColorPickerController.options.case'], this.reInitAndUpdate.bind(this));
+
+              this.$scope.$watchGroup(['AngularColorPickerController.options.disabled', 'AngularColorPickerController.options.swatchBootstrap', 'AngularColorPickerController.options.swatchOnly', 'AngularColorPickerController.options.swatch', 'AngularColorPickerController.options.pos', 'AngularColorPickerController.options.inline'], this.reInit.bind(this));
+
+              // api
+
+              this.$scope.$watch('AngularColorPickerController.api', this.setupApi.bind(this));
+
+              // internal
+
+              this.$scope.$watch('AngularColorPickerController.swatchColor', this.updateSwatchBackground.bind(this));
+
+              this.$scope.$watch('AngularColorPickerController.hue', this.hueUpdate.bind(this));
+
+              this.$scope.$watch('AngularColorPickerController.saturation', this.saturationUpdate.bind(this));
+
+              this.$scope.$watch('AngularColorPickerController.lightness', this.lightnessUpdate.bind(this));
+
+              this.$scope.$watch('AngularColorPickerController.opacity', this.opacityUpdate.bind(this));
+
+              //---------------------------
+              // destroy
+              //---------------------------
+
+              this.$scope.$on('$destroy', function () {
+                  _this4.$document.off('mousedown', _this4.onMouseDown);
+                  _this4.$document.off('mouseup', _this4.onMouseUp);
+                  _this4.$document.off('mousemove', _this4.onMouseMove);
+
+                  _this4.eventApiDispatch('onDestroy');
+              });
+
               // if no color provided
               if (this.ngModel === undefined) {
                   this.setDefaults();
@@ -286,6 +282,7 @@
           value: function onMouseUp(event) {
               // no current mouse events and not an element in the picker
               if (!this.colorMouse && !this.hueMouse && !this.opacityMouse && this.find(event.target).length === 0) {
+                  this.setupApi(); // TODO - there are some weird times when this is needed to call close. Need to figure out why.
                   this.api.close(event);
                   // mouse event on color grid
               } else if (this.colorMouse) {
@@ -843,6 +840,7 @@
           controllerAs: 'AngularColorPickerController',
           link: function link($scope, element, attrs, control) {
               $scope.control = control;
+              $scope.init();
           }
       };
   }
