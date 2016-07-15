@@ -7,6 +7,11 @@ export default class AngularColorPickerController {
         this.$timeout = _$timeout;
 
         this.$scope.init = this.init.bind(this);
+
+        this.hue = 0;
+        this.saturation = undefined;
+        this.lightness = undefined;
+        this.opacity = undefined;
     }
 
     watchNgModel(newValue, oldValue) {
@@ -14,7 +19,7 @@ export default class AngularColorPickerController {
             return;
         }
 
-        if (newValue !== undefined && newValue !== null && newValue !== oldValue && newValue.length > 4) {
+        if (newValue !== undefined && newValue !== null && newValue.length > 4) {
             var color = tinycolor(newValue);
 
             if (color.isValid()) {
@@ -46,7 +51,7 @@ export default class AngularColorPickerController {
             }
         } else {
             if (newValue === null || newValue === '') {
-                this.hue = undefined;
+                this.hue = 0;
                 this.saturation = undefined;
                 this.lightness = undefined;
                 this.opacity = undefined;
@@ -190,21 +195,6 @@ export default class AngularColorPickerController {
             this.eventApiDispatch('onDestroy');
         });
 
-        // if no color provided
-        if (this.ngModel === undefined) {
-            this.setDefaults();
-        } else {
-            var color = tinycolor(this.ngModel);
-
-            if (color.isValid()) {
-                var hsl = color.toHsv();
-                this.hue = hsl.h;
-                this.saturation = hsl.s * 100;
-                this.lightness = hsl.v * 100;
-                this.opacity = hsl.a * 100;
-            }
-        }
-
         // set default config settings
         this.initConfig();
 
@@ -340,30 +330,10 @@ export default class AngularColorPickerController {
         this.find('.color-picker-input')[0].focus();
     }
 
-    setDefaults () {
-        if (this.hue === undefined) {
-            this.hue = 0;
-        }
-
-        if (this.saturation === undefined) {
-            this.saturation = 0;
-        }
-
-        if (this.lightness === undefined) {
-            this.lightness = 100;
-        }
-
-        if (this.opacity === undefined) {
-            this.opacity = 100;
-        }
-    }
-
     update () {
-        if (this.hue === undefined && this.saturation === undefined && this.lightness === undefined) {
+        if (this.hue === undefined || this.saturation === undefined || this.lightness === undefined) {
             return false;
         }
-
-        this.setDefaults();
 
         var color = tinycolor({h: this.hue, s: this.saturation / 100, v: this.lightness / 100}),
             colorString;
