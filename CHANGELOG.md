@@ -2,7 +2,18 @@
 
 ## v2.1.4
 
-#### Breaking Chnages
+#### Breaking Changes
+  * None
+
+#### New Features
+  * New `placeholder` option
+
+#### Bug Fixes
+  * None
+
+## v2.1.3
+
+#### Breaking Changes
   * None
 
 #### New Features
@@ -13,7 +24,7 @@
 
 ## v2.1.2
 
-#### Breaking Chnages
+#### Breaking Changes
   * None
 
 #### New Features
@@ -24,7 +35,7 @@
 
 ## v2.1.1
 
-#### Breaking Chnages
+#### Breaking Changes
   * None
 
 #### New Features
@@ -36,7 +47,7 @@
 
 ## v2.1.0
 
-#### Breaking Chnages
+#### Breaking Changes
   * Seperated the `api` into `api` and `eventApi`. This allows for shared event handling
     * `api` now has `open`, `close`, and `getElement`
     * `eventApi` now has `onOpen`, `onClose`, `onChange`, `onBlur`, and `onDestroy`
@@ -50,7 +61,7 @@
 
 ## v2.0.0
 
-#### Breaking Chnages
+#### Breaking Changes
 
   * All the directive bindings are now passed in as an `options` object. The functionality has stayed the same and the names are the same but without `color-picker` at the front (e.g. `color-pick-swatch-pos` is now just `swatchPos`).
 

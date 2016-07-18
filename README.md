@@ -81,6 +81,7 @@ $scope.options = {
     pos: ['bottom left', 'bottom right', 'top left', 'top right'],
     case: ['upper', 'lower'],
     inline: [false, true],
+    placeholder: '',
 };
 
 // exposed api functions
