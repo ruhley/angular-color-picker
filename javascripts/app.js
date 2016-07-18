@@ -7,7 +7,9 @@ angular
 		$scope.posOptions = [{label: 'Bottom Left', value: 'bottom left'}, {label: 'Top Left', value: 'top left'}, {label: 'Bottom Right', value: 'bottom right'}, {label: 'Top Right', value: 'top right'}];
 		$scope.caseOptions = [{label: 'Upper Case', value: 'upper'}, {label: 'Lower Case', value: 'lower'}];
 
-		$scope.options = {};
+		$scope.options = {
+			placeholder: 'My Color',
+		};
 		$scope.api = {
 			onOpen: function() {
 				console.log('opened');

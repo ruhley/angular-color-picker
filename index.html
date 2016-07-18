@@ -83,17 +83,17 @@
 </div>
 
 <div class="row">
-  <label class="control-label">Swatch Only (swatch-only) - whether or not to display only the swatch</label>
+  <label class="control-label">Swatch Only (swatchOnly) - whether or not to display only the swatch</label>
   <select ng-model="options.swatchOnly" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
 </div>
 
 <div class="row">
-    <label class="control-label">Swatch Bootstrap Add On (swatch-bootstrap) - whether or not the swatch should appear as a bootstrap add on</label>
+    <label class="control-label">Swatch Bootstrap Add On (swatchBootstrap) - whether or not the swatch should appear as a bootstrap add on</label>
     <select ng-model="options.swatchBootstrap" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
 </div>
 
 <div class="row">
-  <label class="control-label">Swatch Position (swatch-pos) - the position of the swatch in the input field - 'left' or 'right'</label>
+  <label class="control-label">Swatch Position (swatchPos) - the position of the swatch in the input field - 'left' or 'right'</label>
   <select ng-model="options.swatchPos" class="form-control" ng-options="option.value as option.label for option in swatchPosOptions"></select>
 </div>
 
@@ -110,6 +110,11 @@
 <div class="row">
   <label class="control-label">Inline (inline)</label>
   <select ng-model="options.inline" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+</div>
+
+<div class="row">
+  <label class="control-label">Placeholder (placeholder)</label>
+  <input ng-model="options.placeholder" type="text" class="form-control" />
 </div>
 
 <div class="row">
@@ -205,6 +210,7 @@
     pos<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>bottom left<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>bottom right<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>top left<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>top right<span class="pl-pds">'</span></span>],
     case<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>upper<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>lower<span class="pl-pds">'</span></span>],
     inline<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
+    placeholder<span class="pl-k">:</span> <span class="pl-pds">'</span><span class="pl-pds">'</span>,
 };
 
 <span class="pl-c">// exposed functions</span>
