@@ -162,7 +162,8 @@ export default class AngularColorPickerController {
                 'AngularColorPickerController.options.swatchOnly',
                 'AngularColorPickerController.options.swatch',
                 'AngularColorPickerController.options.pos',
-                'AngularColorPickerController.options.inline'
+                'AngularColorPickerController.options.inline',
+                'AngularColorPickerController.options.placeholder'
             ],
             this.reInit.bind(this)
         );
@@ -322,6 +323,7 @@ export default class AngularColorPickerController {
         this.options.swatchPos = this.options.swatchPos === undefined ? 'left' : this.options.swatchPos;
         this.options.swatchBootstrap = this.options.swatchBootstrap === undefined ? true : this.options.swatchBootstrap;
         this.options.inline = this.options.inline === undefined ? false : this.options.inline;
+        this.options.placeholder = this.options.placeholder === undefined ? '' : this.options.placeholder;
 
         this.visible = this.options.inline;
     }
