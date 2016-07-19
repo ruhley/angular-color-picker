@@ -46,7 +46,7 @@ export default class AngularColorPickerController {
 
             this.$scope.control[0].$setValidity(this.$element.attr('name'), this.isValid);
 
-            if (oldValue !== undefined && typeof this.$scope.control[0].$setDirty === 'function') {
+            if (newValue !== oldValue && oldValue !== undefined && typeof this.$scope.control[0].$setDirty === 'function') {
                 this.$scope.control[0].$setDirty();
             }
         } else {
