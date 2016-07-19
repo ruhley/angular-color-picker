@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.1.5
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * None
+
+#### Bug Fixes
+  * Bug #91 setDirty being called on instantiation
+
 ## v2.1.4
 
 #### Breaking Changes

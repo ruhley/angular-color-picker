@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v2.1.4
+ * angularjs-color-picker v2.1.5
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-07-18 14:50:42
+ * 2016-07-20 07:53:13
  *
  */
 
@@ -92,7 +92,7 @@
 
                   this.$scope.control[0].$setValidity(this.$element.attr('name'), this.isValid);
 
-                  if (oldValue !== undefined && typeof this.$scope.control[0].$setDirty === 'function') {
+                  if (newValue !== oldValue && oldValue !== undefined && typeof this.$scope.control[0].$setDirty === 'function') {
                       this.$scope.control[0].$setDirty();
                   }
               } else {
