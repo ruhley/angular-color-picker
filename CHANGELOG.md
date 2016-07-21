@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.1.6
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * None
+
+#### Bug Fixes
+  * Bug #92 Fire click would trigger onChange twice
+
 ## v2.1.5
 
 #### Breaking Changes

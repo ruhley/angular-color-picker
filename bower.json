@@ -1,7 +1,7 @@
 {
   "name": "angular-color-picker",
   "description": "Color Picker Directive For AngularJS",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "homepage": "https://github.com/ruhley/angular-color-picker",
   "repository": {
     "type": "git",
