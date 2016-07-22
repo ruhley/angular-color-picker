@@ -232,6 +232,7 @@ export default class AngularColorPickerController {
         if (!this.colorMouse && !this.hueMouse && !this.opacityMouse && this.find(event.target).length === 0) {
             this.setupApi(); // TODO - there are some weird times when this is needed to call close. Need to figure out why.
             this.api.close(event);
+            this.$scope.$apply();
         // mouse event on color grid
         } else if (this.colorMouse) {
             this.colorUp(event);
