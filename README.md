@@ -73,6 +73,7 @@ $scope.color = '#FF0000';
 $scope.options = {
     disabled: [false, true],
     format: ['hsl', 'hsv', 'rgb', 'hex', 'hex8'],
+    hue: [true, false],
     alpha: [true, false],
     swatch: [true, false],
     swatchPos: ['left', 'right'],
@@ -82,11 +83,28 @@ $scope.options = {
     case: ['upper', 'lower'],
     inline: [false, true],
     placeholder: '',
+    close: {
+        show: [false, true],
+        label: 'Close',
+        class: '',
+    },
+    clear: {
+        show: [false, true],
+        label: 'Clear',
+        class: '',
+    },
+    reset: {
+        show: [false, true],
+        label: 'Reset',
+        class: '',
+    },
 };
 
 // exposed api functions
 $scope.api.open();
 $scope.api.close();
+$scope.api.clear();
+$scope.api.reset();
 $scope.api.getElement();
 
 // api event handlers
@@ -95,6 +113,8 @@ $scope.eventApi = {
     onBlur: function(api, color, $event) {},
     onOpen: function(api, color, $event) {},
     onClose: function(api, color, $event) {},
+    onClear: function(api, color, $event) {},
+    onReset: function(api, color, $event) {},
     onDestroy: function(api, color) {},
 };
 ```
