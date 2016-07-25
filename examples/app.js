@@ -7,7 +7,12 @@ angular
         $scope.posOptions = [{label: 'Bottom Left', value: 'bottom left'}, {label: 'Top Left', value: 'top left'}, {label: 'Bottom Right', value: 'bottom right'}, {label: 'Top Right', value: 'top right'}];
         $scope.caseOptions = [{label: 'Upper Case', value: 'upper'}, {label: 'Lower Case', value: 'lower'}];
 
-        $scope.options = {};
+        $scope.color = 'hsl(0, 100%, 50%)';
+        $scope.options = {
+            close: {show: true},
+            clear: {show: true},
+            reset: {show: true},
+        };
         $scope.api = {};
         $scope.eventApi = {
             onChange: function() {
@@ -21,6 +26,12 @@ angular
             },
             onClose: function() {
                 console.info('close', arguments);
+            },
+            onClear: function() {
+                console.info('clear', arguments);
+            },
+            onReset: function() {
+                console.info('reset', arguments);
             },
             onDestroy: function() {
                 console.info('destroy', arguments);
