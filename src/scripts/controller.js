@@ -542,7 +542,10 @@ export default class AngularColorPickerController {
     }
 
     gridUpdate () {
-        if(!this.options.updateBackgroundColor) return;
+        if(!this.options.updateBackgroundColor) {
+            return;
+        }
+
         var el = angular.element(this.$element[0].querySelector('.color-picker-grid'));
 
         el.css({
@@ -684,8 +687,7 @@ export default class AngularColorPickerController {
                 degHue += 360.0;
             this.hue = degHue;
             this.lightness =  100;
-        }
-        else {
+        } else {
             this.saturation = ((event.pageX - offset.left) / el.prop('offsetWidth')) * 100;
             this.lightness = (1 - ((event.pageY - offset.top) / el.prop('offsetHeight'))) * 100;
 
@@ -712,8 +714,7 @@ export default class AngularColorPickerController {
 
                 this.xPos = (px + 100.0) * 0.5;
                 this.yPos =  (py + 100.0) * 0.5;
-            }
-            else {
+            } else {
                 this.saturationPos = (this.saturation / 100) * 100;
 
                 if (this.saturationPos < 0) {
