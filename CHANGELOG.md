@@ -1,5 +1,17 @@
 # Changelog
 
+## v2.2.0
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * New `hue` option to show or hide the hue selector
+  * New `close`, `clear` and `reset` options to show extra buttons
+
+#### Bug Fixes
+  * Bug #82 Support touch events
+
 ## v2.1.6
 
 #### Breaking Changes

@@ -19,6 +19,23 @@ export default class AngularColorPickerController {
             return;
         }
 
+        if (newValue !== undefined && oldValue !== undefined && !this.hasOwnProperty('initialNgModel')) {
+            this.initialNgModel = newValue;
+        }
+
+        // check dirty/pristine state
+        if (this.hasOwnProperty('initialNgModel')) {
+            if (newValue === this.initialNgModel) {
+                if (typeof this.$scope.control[0].$setPristine === 'function') {
+                    this.$scope.control[0].$setPristine();
+                }
+            } else {
+                if (typeof this.$scope.control[0].$setDirty === 'function') {
+                    this.$scope.control[0].$setDirty();
+                }
+            }
+        }
+
         if (newValue !== undefined && newValue !== null && newValue.length > 4) {
             var color = tinycolor(newValue);
 
@@ -45,10 +62,6 @@ export default class AngularColorPickerController {
             }
 
             this.$scope.control[0].$setValidity(this.$element.attr('name'), this.isValid);
-
-            if (newValue !== oldValue && oldValue !== undefined && typeof this.$scope.control[0].$setDirty === 'function') {
-                this.$scope.control[0].$setDirty();
-            }
         } else {
             if (newValue === null || newValue === '') {
                 this.hue = 0;
@@ -100,9 +113,25 @@ export default class AngularColorPickerController {
             if (!this.options.inline && (this.visible || this.$element[0].querySelector('.color-picker-panel').offsetParent !== null)) {
 
                 this.visible = false;
-                this.$scope.$apply();
+                this.$scope.$applyAsync();
 
                 this.eventApiDispatch('onClose', [event]);
+            }
+        };
+
+        this.api.clear = (event) => {
+            if (this.ngModel !== '') {
+                this.ngModel = '';
+
+                this.eventApiDispatch('onClear', [event]);
+            }
+        };
+
+        this.api.reset = (event) => {
+            if (this.ngModel !== this.initialNgModel) {
+                this.ngModel = this.initialNgModel;
+
+                this.eventApiDispatch('onReset', [event]);
             }
         };
 
@@ -192,6 +221,10 @@ export default class AngularColorPickerController {
             this.$document.off('mouseup', this.onMouseUp);
             this.$document.off('mousemove', this.onMouseMove);
 
+            this.$document.off('touchstart', this.onMouseDown);
+            this.$document.off('touchend', this.onMouseUp);
+            this.$document.off('touchmove', this.onMouseMove);
+
             this.eventApiDispatch('onDestroy');
         });
 
@@ -203,13 +236,22 @@ export default class AngularColorPickerController {
         this.$document.on('mouseup', this.onMouseUp.bind(this));
         this.$document.on('mousemove', this.onMouseMove.bind(this));
 
-        this.find('.color-picker-grid').on('click', this.onColorClick.bind(this));
-        this.find('.color-picker-hue').on('click', this.onHueClick.bind(this));
-        this.find('.color-picker-opacity').on('click', this.onOpacityClick.bind(this));
+        // setup touch events
+        this.$document.on('touchstart', this.onMouseDown.bind(this));
+        this.$document.on('touchend', this.onMouseUp.bind(this));
+        this.$document.on('touchmove', this.onMouseMove.bind(this));
 
-        if(this.options.round) {
-            this.find('.color-picker-sprite').addClass('.color-picker-sprite--round');
-        }
+        // grid click
+        this.find('.color-picker-grid').on('click', this.onColorClick.bind(this));
+        this.find('.color-picker-grid').on('touchend', this.onColorClick.bind(this));
+
+        // hue click
+        this.find('.color-picker-hue').on('click', this.onHueClick.bind(this));
+        this.find('.color-picker-hue').on('touchend', this.onHueClick.bind(this));
+
+        // opacity click
+        this.find('.color-picker-opacity').on('click', this.onOpacityClick.bind(this));
+        this.find('.color-picker-opacity').on('touchend', this.onOpacityClick.bind(this));
     }
 
     onMouseDown (event) {
@@ -319,26 +361,63 @@ export default class AngularColorPickerController {
     }
 
     initConfig () {
-        if (!this.options) {
-            this.options = {};
-        }
-
-        this.options.disabled = this.options.disabled === undefined ? false : this.options.disabled;
-        this.options.hue = this.options.showHue === undefined ? true : this.options.showHue;
-        this.options.alpha = this.options.showAlpha === undefined ? true : this.options.showAlpha;
-        this.options.round = !this.options.showHue && !this.options.showAlpha;
-        this.options.case = this.options.case === undefined ? 'upper' : this.options.case;
-        this.options.format = this.options.format === undefined ? 'hsl' : this.options.format;
-        this.options.pos = this.options.pos === undefined ? 'bottom left' : this.options.pos;
-        this.options.swatch = this.options.swatch === undefined ? true : this.options.swatch;
-        this.options.swatchOnly = this.options.swatchOnly === undefined ? false : this.options.swatchOnly;
-        this.options.swatchPos = this.options.swatchPos === undefined ? 'left' : this.options.swatchPos;
-        this.options.swatchBootstrap = this.options.swatchBootstrap === undefined ? true : this.options.swatchBootstrap;
-        this.options.inline = this.options.inline === undefined ? false : this.options.inline;
-        this.options.updateBackgroundColor = this.options.updateBackgroundColor === undefined ? false : this.options.updateBackgroundColor;
-        this.options.placeholder = this.options.placeholder === undefined ? '' : this.options.placeholder;
+        this.options = this.merge(this.options, {
+            disabled: false,
+            hue: true,
+            alpha: true,
+            round: false,
+            case: 'upper',
+            format: 'hsl',
+            pos: 'bottom left',
+            swatch: true,
+            swatchOnly: false,
+            swatchPos: 'left',
+            swatchBootstrap: true,
+            inline: false,
+            placeholder: '',
+            close: {
+                show: false,
+                label: 'Close',
+                class: '',
+            },
+            clear: {
+                show: false,
+                label: 'Clear',
+                class: '',
+            },
+            reset: {
+                show: false,
+                label: 'Reset',
+                class: '',
+            },
+        });
 
         this.visible = this.options.inline;
+    }
+
+    merge(options, defaultOptions) {
+        var newObject = {};
+        var attr;
+
+        for (attr in defaultOptions) {
+            if (defaultOptions.hasOwnProperty(attr)) {
+                newObject[attr] = defaultOptions[attr];
+            }
+        }
+
+        if (typeof options === 'object') {
+            for (attr in options) {
+                if (options.hasOwnProperty(attr)) {
+                    if (typeof options[attr] === 'object') {
+                        newObject[attr] = this.merge(options[attr], newObject[attr]);
+                    } else {
+                        newObject[attr] = options[attr];
+                    }
+                }
+            }
+        }
+
+        return newObject;
     }
 
     focus () {
