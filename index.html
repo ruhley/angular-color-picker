@@ -68,8 +68,18 @@
 </div>
 
 <div class="row">
+  <label class="control-label">Round (round)</label>
+  <select ng-model="options.round" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+</div>
+
+<div class="row">
   <label class="control-label">Format (format)</label>
   <select ng-model="options.format" class="form-control" ng-options="option.value as option.label for option in formatOptions"></select>
+</div>
+
+<div class="row">
+  <label class="control-label">Hue (hue) - whether or not to display the hue control</label>
+  <select ng-model="options.hue" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
 </div>
 
 <div class="row">
@@ -201,7 +211,9 @@
 <span class="pl-c">// options - if a list is given then choose one of the items. The first item in the list will be the default</span>
 <span class="pl-smi">$scope</span>.<span class="pl-c1">options</span> <span class="pl-k">=</span> {
     disabled<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
+    round<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
     format<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>hsl<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hsv<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>rgb<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hex<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hex8<span class="pl-pds">'</span></span>],
+    hue<span class="pl-k">:</span> [<span class="pl-c1">true</span>, <span class="pl-c1">false</span>],
     alpha<span class="pl-k">:</span> [<span class="pl-c1">true</span>, <span class="pl-c1">false</span>],
     swatch<span class="pl-k">:</span> [<span class="pl-c1">true</span>, <span class="pl-c1">false</span>],
     swatchPos<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>left<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>right<span class="pl-pds">'</span></span>],
@@ -224,6 +236,8 @@
     <span class="pl-en">onBlur</span><span class="pl-k">:</span>    <span class="pl-k">function</span>(<span class="pl-smi">api</span>, <span class="pl-smi">color</span>, <span class="pl-smi">$event</span>) {},
     <span class="pl-en">onOpen</span><span class="pl-k">:</span>    <span class="pl-k">function</span>(<span class="pl-smi">api</span>, <span class="pl-smi">color</span>, <span class="pl-smi">$event</span>) {},
     <span class="pl-en">onClose</span><span class="pl-k">:</span>   <span class="pl-k">function</span>(<span class="pl-smi">api</span>, <span class="pl-smi">color</span>, <span class="pl-smi">$event</span>) {},
+    <span class="pl-en">onClear</span><span class="pl-k">:</span>   <span class="pl-k">function</span>(<span class="pl-smi">api</span>, <span class="pl-smi">color</span>, <span class="pl-smi">$event</span>) {},
+    <span class="pl-en">onReset</span><span class="pl-k">:</span>   <span class="pl-k">function</span>(<span class="pl-smi">api</span>, <span class="pl-smi">color</span>, <span class="pl-smi">$event</span>) {},
     <span class="pl-en">onDestroy</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">api</span>, <span class="pl-smi">color</span>) {},
 };
 </pre></div>
