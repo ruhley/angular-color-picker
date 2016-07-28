@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.3.0
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * New `round` option to show a round color picker
+
+#### Bug Fixes
+  * None
+
 ## v2.2.0
 
 #### Breaking Changes

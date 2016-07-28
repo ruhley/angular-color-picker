@@ -72,6 +72,7 @@ $scope.color = '#FF0000';
 // options - if a list is given then choose one of the items. The first item in the list will be the default
 $scope.options = {
     disabled: [false, true],
+    round: [false, true],
     format: ['hsl', 'hsv', 'rgb', 'hex', 'hex8'],
     hue: [true, false],
     alpha: [true, false],
