@@ -1,7 +1,7 @@
 {
   "name": "angularjs-color-picker",
   "description": "Color Picker Directive For AngularJS",
-  "version": "2.1.7",
+  "version": "2.2.0",
   "license": "MIT",
   "main": "dist/angularjs-color-picker.min.js",
   "dependencies": {

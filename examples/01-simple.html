@@ -72,6 +72,11 @@
                 </div>
 
                 <div class="row">
+                    <label class="control-label">Round (round) - whether or not to display the picker as a circle</label>
+                    <select ng-model="options.round" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
                     <label class="control-label">Close Visible (close.show) - whether or not to display the close button - false, true</label>
                     <select ng-model="options.close.show" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
                 </div>

@@ -30,6 +30,11 @@
                 </div>
 
                 <div class="row">
+                    <label class="control-label">Hue (hue) - whether or not to display the hue control</label>
+                    <select ng-model="options.hue" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
                     <label class="control-label">Alpha (alpha) - whether or not to display the alpha control</label>
                     <select ng-model="options.alpha" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
                 </div>
@@ -67,6 +72,56 @@
                 <div class="row">
                     <label class="control-label">Inline (inline) - whether or not to display inline or in a popup - false, true</label>
                     <select ng-model="options.inline" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Round (round) - whether or not to display the picker as a circle</label>
+                    <select ng-model="options.round" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Close Visible (close.show) - whether or not to display the close button - false, true</label>
+                    <select ng-model="options.close.show" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Close Label (close.label) - The label of the close button - "Close"</label>
+                    <input type="text" ng-model="options.close.label" placeholder="Close" class="form-control" />
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Close class (close.class) - The class of the close button - ""</label>
+                    <input type="text" ng-model="options.close.class" placeholder="Class" class="form-control" />
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Clear Visible (clear.show) - whether or not to display the clear button - false, true</label>
+                    <select ng-model="options.clear.show" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Clear Label (clear.label) - The label of the clear button - "Clear"</label>
+                    <input type="text" ng-model="options.clear.label" placeholder="Clear" class="form-control" />
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Clear class (clear.class) - The class of the clear button - ""</label>
+                    <input type="text" ng-model="options.clear.class" placeholder="Class" class="form-control" />
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Reset Visible (reset.show) - whether or not to display the reset button - false, true</label>
+                    <select ng-model="options.reset.show" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Reset Label (reset.label) - The label of the reset button - "Reset"</label>
+                    <input type="text" ng-model="options.reset.label" placeholder="Reset" class="form-control" />
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Reset class (reset.class) - The class of the reset button - ""</label>
+                    <input type="text" ng-model="options.reset.class" placeholder="Class" class="form-control" />
                 </div>
 
                 <div class="row">

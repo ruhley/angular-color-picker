@@ -191,7 +191,8 @@ export default class AngularColorPickerController {
                 'AngularColorPickerController.options.swatch',
                 'AngularColorPickerController.options.pos',
                 'AngularColorPickerController.options.inline',
-                'AngularColorPickerController.options.placeholder'
+                'AngularColorPickerController.options.placeholder',
+                'AngularColorPickerController.options.round',
             ],
             this.reInit.bind(this)
         );
@@ -393,6 +394,10 @@ export default class AngularColorPickerController {
         });
 
         this.visible = this.options.inline;
+
+        if (this.options.round) {
+            this.options.hue = false;
+        }
     }
 
     merge(options, defaultOptions) {
@@ -515,9 +520,11 @@ export default class AngularColorPickerController {
             var el = angular.element(this.$element[0].querySelector('.color-picker-grid .color-picker-picker'));
             var bounding = container.getBoundingClientRect();
 
-            el.css({
-                'top': (bounding.height * this.lightnessPos / 100) + 'px',
-            });
+            if (!this.options.round) {
+                el.css({
+                    'top': (bounding.height * this.lightnessPos / 100) + 'px',
+                });
+            }
         });
     }
 
@@ -527,7 +534,7 @@ export default class AngularColorPickerController {
             var el = angular.element(this.$element[0].querySelector('.color-picker-grid .color-picker-picker'));
             var bounding = container.getBoundingClientRect();
 
-            if(this.options.round) {
+            if (this.options.round) {
                 el.css({
                     left: (bounding.width * this.xPos / 100) + 'px',
                     top: (bounding.height * this.yPos / 100) + 'px',
@@ -542,10 +549,6 @@ export default class AngularColorPickerController {
     }
 
     gridUpdate () {
-        if(!this.options.updateBackgroundColor) {
-            return;
-        }
-
         var el = angular.element(this.$element[0].querySelector('.color-picker-grid'));
 
         el.css({
@@ -674,17 +677,18 @@ export default class AngularColorPickerController {
         var el = this.find('.color-picker-grid-inner');
         var offset = this.offset(el);
 
-        if(this.options.round) {
+        if (this.options.round) {
             var dx = ((event.pageX - offset.left) * 2.0  / el.prop('offsetWidth')) - 1.0;
             var dy = -((event.pageY - offset.top) * 2.0  / el.prop('offsetHeight')) + 1.0;
 
-            var tmpSaturation = Math.sqrt(dx*dx + dy*dy);
+            var tmpSaturation = Math.sqrt(dx * dx + dy * dy);
             var tmpHue = Math.atan2(dy, dx);
 
             this.saturation = 100 * tmpSaturation;
             var degHue = tmpHue * 57.29577951308233; // rad to deg
-            if (degHue < 0.0)
+            if (degHue < 0.0) {
                 degHue += 360.0;
+            }
             this.hue = degHue;
             this.lightness =  100;
         } else {
@@ -710,10 +714,25 @@ export default class AngularColorPickerController {
             if (this.options.round) {
                 var angle = this.hue * 0.01745329251994; // deg to rad
                 var px = Math.cos(angle) * this.saturation;
-                var py = -Math.sin(angle) * this.saturation ;
+                var py = -Math.sin(angle) * this.saturation;
 
                 this.xPos = (px + 100.0) * 0.5;
-                this.yPos =  (py + 100.0) * 0.5;
+                this.yPos = (py + 100.0) * 0.5;
+
+                // because we are using percentages this can be half of 100%
+                var center = 50;
+                // distance of pointer from the center of the circle
+                var distance = Math.pow(center - this.xPos, 2) + Math.pow(center - this.yPos, 2);
+                // distance of edge of circle from the center of the circle
+                var radius = Math.pow(center, 2);
+
+                // if not inside the circle
+                if (distance > radius) {
+                    var rads = Math.atan2(this.yPos - center, this.xPos - center);
+
+                    this.xPos = Math.cos(rads) * center + center;
+                    this.yPos = Math.sin(rads) * center + center;
+                }
             } else {
                 this.saturationPos = (this.saturation / 100) * 100;
 
