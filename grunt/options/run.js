@@ -1,6 +1,6 @@
 module.exports = {
     rollup: {
-      cmd: 'nodejs',
+      cmd: 'node',
       args: [
         'grunt/rollup.js',
       ]
