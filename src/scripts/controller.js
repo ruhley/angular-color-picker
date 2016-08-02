@@ -1,3 +1,5 @@
+import tinycolor from 'tinycolor2';
+
 export default class AngularColorPickerController {
     constructor(_$scope, _$element, _$document, _$timeout, _ColorPickerOptions) {
         // set angular injected variables
