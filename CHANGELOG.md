@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.4.0
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * New `ColorPickerOptions` decorator
+
+#### Bug Fixes
+  * Add import for `tinycolor` for webpack
+
 ## v2.3.0
 
 #### Breaking Changes
