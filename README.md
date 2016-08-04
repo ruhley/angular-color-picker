@@ -119,7 +119,7 @@ $scope.eventApi = {
     onDestroy: function(api, color) {},
 };
 
-// decorator
+// decorator - all variables in options can be globally overridden here
 angular
     .module('app', ['color.picker'])
     .config(function($provide) {

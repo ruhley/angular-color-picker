@@ -1,18 +1,20 @@
 /*!
- * angularjs-color-picker v2.3.0
+ * angularjs-color-picker v2.4.0
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-07-29 09:30:27
+ * 2016-08-05 08:32:24
  *
  */
 
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global.AngularjsColorPicker = factory());
-}(this, function () { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('tinycolor2')) :
+  typeof define === 'function' && define.amd ? define(['tinycolor2'], factory) :
+  (global.AngularjsColorPicker = factory(global.tinycolor));
+}(this, function (tinycolor) { 'use strict';
+
+  tinycolor = 'default' in tinycolor ? tinycolor['default'] : tinycolor;
 
   var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
     return typeof obj;
@@ -45,7 +47,7 @@
   }();
 
   var AngularColorPickerController = function () {
-      function AngularColorPickerController(_$scope, _$element, _$document, _$timeout) {
+      function AngularColorPickerController(_$scope, _$element, _$document, _$timeout, _ColorPickerOptions) {
           classCallCheck(this, AngularColorPickerController);
 
           // set angular injected variables
@@ -53,6 +55,7 @@
           this.$element = _$element;
           this.$document = _$document;
           this.$timeout = _$timeout;
+          this.ColorPickerOptions = _ColorPickerOptions;
 
           this.$scope.init = this.init.bind(this);
 
@@ -415,36 +418,7 @@
       }, {
           key: 'initConfig',
           value: function initConfig() {
-              this.options = this.merge(this.options, {
-                  disabled: false,
-                  hue: true,
-                  alpha: true,
-                  round: false,
-                  case: 'upper',
-                  format: 'hsl',
-                  pos: 'bottom left',
-                  swatch: true,
-                  swatchOnly: false,
-                  swatchPos: 'left',
-                  swatchBootstrap: true,
-                  inline: false,
-                  placeholder: '',
-                  close: {
-                      show: false,
-                      label: 'Close',
-                      class: ''
-                  },
-                  clear: {
-                      show: false,
-                      label: 'Clear',
-                      class: ''
-                  },
-                  reset: {
-                      show: false,
-                      label: 'Reset',
-                      class: ''
-                  }
-              });
+              this.options = this.merge(this.options, this.ColorPickerOptions);
 
               this.visible = this.options.inline;
 
@@ -944,7 +918,7 @@
       return AngularColorPickerController;
   }();
 
-  AngularColorPickerController.$inject = ['$scope', '$element', '$document', '$timeout'];
+  AngularColorPickerController.$inject = ['$scope', '$element', '$document', '$timeout', 'ColorPickerOptions'];
 
   function colorPickerDirective() {
       return {
@@ -973,7 +947,42 @@
 
   template.$inject = ['$templateCache'];
 
-  var colorPicker = angular.module('color.picker', []).directive('colorPicker', colorPickerDirective).run(template);
+  var AngularColorPickerOptions = function AngularColorPickerOptions() {
+      classCallCheck(this, AngularColorPickerOptions);
+
+      return {
+          disabled: false,
+          hue: true,
+          alpha: true,
+          round: false,
+          case: 'upper',
+          format: 'hsl',
+          pos: 'bottom left',
+          swatch: true,
+          swatchOnly: false,
+          swatchPos: 'left',
+          swatchBootstrap: true,
+          inline: false,
+          placeholder: '',
+          close: {
+              show: false,
+              label: 'Close',
+              class: ''
+          },
+          clear: {
+              show: false,
+              label: 'Clear',
+              class: ''
+          },
+          reset: {
+              show: false,
+              label: 'Reset',
+              class: ''
+          }
+      };
+  };
+
+  var colorPicker = angular.module('color.picker', []).service('ColorPickerOptions', AngularColorPickerOptions).directive('colorPicker', colorPickerDirective).run(template);
 
   return colorPicker;
 
