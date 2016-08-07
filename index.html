@@ -63,6 +63,11 @@
 </div>
 
 <div class="row">
+  <label class="control-label">Required (required)</label>
+  <select ng-model="options.required" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+</div>
+
+<div class="row">
   <label class="control-label">Disabled (disabled)</label>
   <select ng-model="options.disabled" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
 </div>
@@ -210,6 +215,7 @@
 
 <span class="pl-c">// options - if a list is given then choose one of the items. The first item in the list will be the default</span>
 <span class="pl-smi">$scope</span>.<span class="pl-c1">options</span> <span class="pl-k">=</span> {
+    required<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
     disabled<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
     round<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
     format<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>hsl<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hsv<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>rgb<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hex<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hex8<span class="pl-pds">'</span></span>],
