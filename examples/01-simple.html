@@ -17,6 +17,11 @@
             <p>An AngularJS directive for a color picker. No requirement on jQuery.</p>
             <form class="col-sm-12">
                 <div class="row">
+                    <label class="control-label">Required (required)</label>
+                    <select ng-model="options.required" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
                     <label class="control-label">Disabled (disabled)</label>
                     <select ng-model="options.disabled" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
                 </div>

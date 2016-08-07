@@ -1,6 +1,7 @@
 export default class AngularColorPickerOptions {
     constructor() {
         return {
+            required: false,
             disabled: false,
             hue: true,
             alpha: true,
