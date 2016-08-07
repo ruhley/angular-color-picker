@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.4.1
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * New `required` option
+
+#### Bug Fixes
+  * None
+
 ## v2.4.0
 
 #### Breaking Changes
