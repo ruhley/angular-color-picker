@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v2.4.2
+ * angularjs-color-picker v2.4.3
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-08-11 13:26:59
+ * 2016-08-12 09:20:07
  *
  */
 
@@ -418,6 +418,10 @@
       }, {
           key: 'initConfig',
           value: function initConfig() {
+              if (!this.options) {
+                  this.options = {};
+              }
+
               this.mergeOptions(this.options, this.ColorPickerOptions);
 
               this.visible = this.options.inline;
@@ -429,9 +433,7 @@
       }, {
           key: 'mergeOptions',
           value: function mergeOptions(options, defaultOptions) {
-              var attr;
-
-              for (attr in defaultOptions) {
+              for (var attr in defaultOptions) {
                   if (defaultOptions.hasOwnProperty(attr)) {
                       if (!options || !options.hasOwnProperty(attr)) {
                           options[attr] = defaultOptions[attr];

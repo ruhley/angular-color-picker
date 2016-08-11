@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.4.3
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * None
+
+#### Bug Fixes
+  *   Bug #103 error creating options if none provided
+
 ## v2.4.2
 
 #### Breaking Changes
