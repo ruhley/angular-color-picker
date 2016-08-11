@@ -365,6 +365,10 @@ export default class AngularColorPickerController {
     }
 
     initConfig () {
+        if (!this.options) {
+            this.options = {};
+        }
+
         this.mergeOptions(this.options, this.ColorPickerOptions);
 
         this.visible = this.options.inline;
@@ -375,9 +379,7 @@ export default class AngularColorPickerController {
     }
 
     mergeOptions(options, defaultOptions) {
-        var attr;
-
-        for (attr in defaultOptions) {
+        for (var attr in defaultOptions) {
             if (defaultOptions.hasOwnProperty(attr)) {
                 if (!options || !options.hasOwnProperty(attr)) {
                     options[attr] = defaultOptions[attr];
