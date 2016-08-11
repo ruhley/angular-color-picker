@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.4.2
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * None
+
+#### Bug Fixes
+  *  Bug #102 non assign error if options was set in html
+
 ## v2.4.1
 
 #### Breaking Changes

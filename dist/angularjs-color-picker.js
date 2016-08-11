@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v2.4.1
+ * angularjs-color-picker v2.4.2
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-08-08 08:30:56
+ * 2016-08-11 13:26:59
  *
  */
 
@@ -418,7 +418,7 @@
       }, {
           key: 'initConfig',
           value: function initConfig() {
-              this.options = this.merge(this.options, this.ColorPickerOptions);
+              this.mergeOptions(this.options, this.ColorPickerOptions);
 
               this.visible = this.options.inline;
 
@@ -427,30 +427,19 @@
               }
           }
       }, {
-          key: 'merge',
-          value: function merge(options, defaultOptions) {
-              var newObject = {};
+          key: 'mergeOptions',
+          value: function mergeOptions(options, defaultOptions) {
               var attr;
 
               for (attr in defaultOptions) {
                   if (defaultOptions.hasOwnProperty(attr)) {
-                      newObject[attr] = defaultOptions[attr];
-                  }
-              }
-
-              if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
-                  for (attr in options) {
-                      if (options.hasOwnProperty(attr)) {
-                          if (_typeof(options[attr]) === 'object') {
-                              newObject[attr] = this.merge(options[attr], newObject[attr]);
-                          } else {
-                              newObject[attr] = options[attr];
-                          }
+                      if (!options || !options.hasOwnProperty(attr)) {
+                          options[attr] = defaultOptions[attr];
+                      } else if (_typeof(defaultOptions[attr]) === 'object') {
+                          this.mergeOptions(options[attr], defaultOptions[attr]);
                       }
                   }
               }
-
-              return newObject;
           }
       }, {
           key: 'focus',
