@@ -365,7 +365,7 @@ export default class AngularColorPickerController {
     }
 
     initConfig () {
-        this.options = this.merge(this.options, this.ColorPickerOptions);
+        this.mergeOptions(this.options, this.ColorPickerOptions);
 
         this.visible = this.options.inline;
 
@@ -374,29 +374,18 @@ export default class AngularColorPickerController {
         }
     }
 
-    merge(options, defaultOptions) {
-        var newObject = {};
+    mergeOptions(options, defaultOptions) {
         var attr;
 
         for (attr in defaultOptions) {
             if (defaultOptions.hasOwnProperty(attr)) {
-                newObject[attr] = defaultOptions[attr];
-            }
-        }
-
-        if (typeof options === 'object') {
-            for (attr in options) {
-                if (options.hasOwnProperty(attr)) {
-                    if (typeof options[attr] === 'object') {
-                        newObject[attr] = this.merge(options[attr], newObject[attr]);
-                    } else {
-                        newObject[attr] = options[attr];
-                    }
+                if (!options || !options.hasOwnProperty(attr)) {
+                    options[attr] = defaultOptions[attr];
+                } else if (typeof defaultOptions[attr] === 'object') {
+                    this.mergeOptions(options[attr], defaultOptions[attr]);
                 }
             }
         }
-
-        return newObject;
     }
 
     focus () {
