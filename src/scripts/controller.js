@@ -259,6 +259,8 @@ export default class AngularColorPickerController {
     }
 
     onMouseDown (event) {
+        this.has_moused_moved = false;
+
         // an element in this picker
         if (!this.options.disabled && this.find(event.target).length > 0) {
             // mouse event on color grid
@@ -284,17 +286,17 @@ export default class AngularColorPickerController {
             this.api.close(event);
             this.$scope.$apply();
         // mouse event on color grid
-        } else if (this.colorMouse) {
+    } else if (this.colorMouse && this.has_moused_moved) {
             this.colorUp(event);
             this.$scope.$apply();
             this.onChange(event);
         // mouse event on hue slider
-        } else if (this.hueMouse) {
+        } else if (this.hueMouse && this.has_moused_moved) {
             this.hueUp(event);
             this.$scope.$apply();
             this.onChange(event);
         // mouse event on opacity slider
-        } else if (this.opacityMouse) {
+        } else if (this.opacityMouse && this.has_moused_moved) {
             this.opacityUp(event);
             this.$scope.$apply();
             this.onChange(event);
@@ -304,50 +306,51 @@ export default class AngularColorPickerController {
     onMouseMove (event) {
         // mouse event on color grid
         if (this.colorMouse) {
+            this.has_moused_moved = true;
             this.colorChange(event);
             this.$scope.$apply();
         // mouse event on hue slider
         } else if (this.hueMouse) {
+            this.has_moused_moved = true;
             this.hueChange(event);
             this.$scope.$apply();
         // mouse event on opacity slider
         } else if (this.opacityMouse) {
+            this.has_moused_moved = true;
             this.opacityChange(event);
             this.$scope.$apply();
         }
     }
 
     onColorClick (event) {
-        if (!this.options.disabled) {
+        if (!this.options.disabled && !this.has_moused_moved) {
             this.colorChange(event);
+            this.colorUp(event);
             this.$scope.$apply();
             this.onChange(event);
         }
     }
 
     onHueClick (event) {
-        if (!this.options.disabled) {
+        if (!this.options.disabled && !this.has_moused_moved) {
             this.hueChange(event);
+            this.hueUp(event);
             this.$scope.$apply();
             this.onChange(event);
         }
     }
 
     onOpacityClick (event) {
-        if (!this.options.disabled) {
+        if (!this.options.disabled && !this.has_moused_moved) {
             this.opacityChange(event);
+            this.opacityUp(event);
             this.$scope.$apply();
             this.onChange(event);
         }
     }
 
     onChange (event) {
-        // on first firing, set this so it doesn't fire twice
-        if (!this.hasOwnProperty('onChangeValue')) {
-            this.onChangeValue = this.ngModel;
-        }
-
-        // this can be triggered by both click and mouseup, so don't fire twice
+        // don't fire if it hasn't actually changed
         if (this.ngModel !== this.onChangeValue) {
             this.onChangeValue = this.ngModel;
 
