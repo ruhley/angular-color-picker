@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.4.4
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * None
+
+#### Bug Fixes
+  *   Bug - First change event was not firing if mouse drag
+
 ## v2.4.3
 
 #### Breaking Changes
