@@ -85,6 +85,8 @@ $scope.options = {
     case: ['upper', 'lower'],
     inline: [false, true],
     placeholder: '',
+    id: [undefined, String], // input id, useful for labels
+    name: [undefined, String], // input name, useful for ng-messages or form validation
     close: {
         show: [false, true],
         label: 'Close',
