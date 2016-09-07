@@ -4,7 +4,7 @@
  *
  * Copyright 2016 ruhley
  *
- * 2016-09-07 13:57:48
+ * 2016-09-07 15:01:47
  *
  */
 
@@ -225,6 +225,11 @@ var AngularColorPickerController = function () {
             var _android_version = window.navigator.userAgent.match(/Android\s([0-9\.]*)/i);
             this.android_version = _android_version && _android_version.length > 1 ? parseFloat(_android_version[1]) : NaN;
 
+            var mouseEventHandlers = {
+                down: this.onMouseDown.bind(this),
+                up: this.onMouseUp.bind(this),
+                move: this.onMouseMove.bind(this)
+            };
             // needed variables
             this.updateModel = true;
 
@@ -265,13 +270,13 @@ var AngularColorPickerController = function () {
             //---------------------------
 
             this.$scope.$on('$destroy', function () {
-                _this4.$document.off('mousedown', _this4.onMouseDown);
-                _this4.$document.off('mouseup', _this4.onMouseUp);
-                _this4.$document.off('mousemove', _this4.onMouseMove);
+                _this4.$document.off('mousedown', mouseEventHandlers.down);
+                _this4.$document.off('mouseup', mouseEventHandlers.up);
+                _this4.$document.off('mousemove', mouseEventHandlers.move);
 
-                _this4.$document.off('touchstart', _this4.onMouseDown);
-                _this4.$document.off('touchend', _this4.onMouseUp);
-                _this4.$document.off('touchmove', _this4.onMouseMove);
+                _this4.$document.off('touchstart', mouseEventHandlers.down);
+                _this4.$document.off('touchend', mouseEventHandlers.up);
+                _this4.$document.off('touchmove', mouseEventHandlers.move);
 
                 _this4.eventApiDispatch('onDestroy');
             });
@@ -280,9 +285,9 @@ var AngularColorPickerController = function () {
             this.initConfig();
 
             // setup mouse events
-            this.$document.on('mousedown', this.onMouseDown.bind(this));
-            this.$document.on('mouseup', this.onMouseUp.bind(this));
-            this.$document.on('mousemove', this.onMouseMove.bind(this));
+            this.$document.on('mousedown', mouseEventHandlers.down);
+            this.$document.on('mouseup', mouseEventHandlers.up);
+            this.$document.on('mousemove', mouseEventHandlers.move);
 
             // setup touch events
             this.$document.on('touchstart', this.onMouseDown.bind(this));
