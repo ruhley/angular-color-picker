@@ -15,6 +15,8 @@ export default class AngularColorPickerOptions {
             swatchBootstrap: true,
             inline: false,
             placeholder: '',
+            id: undefined,
+            name: undefined,
             close: {
                 show: false,
                 label: 'Close',
