@@ -82,6 +82,21 @@
                 </div>
 
                 <div class="row">
+                    <label class="control-label">Placeholder (placeholder)</label>
+                    <input type="text" ng-model="options.placeholder" placeholder="Placeholder" class="form-control" />
+                </div>
+
+                <div class="row">
+                    <label class="control-label">ID (id)</label>
+                    <input type="text" ng-model="options.id" placeholder="ID" class="form-control" />
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Name (name)</label>
+                    <input type="text" ng-model="options.name" placeholder="Name" class="form-control" />
+                </div>
+
+                <div class="row">
                     <label class="control-label">Close Visible (close.show) - whether or not to display the close button - false, true</label>
                     <select ng-model="options.close.show" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
                 </div>

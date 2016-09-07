@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.4.5
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * Added `id` and `name` to the options object
+
+#### Bug Fixes
+  * None
+
 ## v2.4.4
 
 #### Breaking Changes
@@ -9,7 +20,7 @@
   * None
 
 #### Bug Fixes
-  *   Bug - First change event was not firing if mouse drag
+  * Bug - First change event was not firing if mouse drag
 
 ## v2.4.3
 
@@ -20,7 +31,7 @@
   * None
 
 #### Bug Fixes
-  *   Bug #103 error creating options if none provided
+  * Bug #103 error creating options if none provided
 
 ## v2.4.2
 
