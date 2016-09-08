@@ -162,6 +162,11 @@ export default class AngularColorPickerController {
         let _android_version = window.navigator.userAgent.match(/Android\s([0-9\.]*)/i);
         this.android_version = _android_version && _android_version.length > 1 ? parseFloat(_android_version[1]) : NaN;
 
+        const mouseEventHandlers = {
+            down: this.onMouseDown.bind(this),
+            up: this.onMouseUp.bind(this),
+            move: this.onMouseMove.bind(this)
+        }
         // needed variables
         this.updateModel = true;
 
@@ -221,13 +226,13 @@ export default class AngularColorPickerController {
         //---------------------------
 
         this.$scope.$on('$destroy', () => {
-            this.$document.off('mousedown', this.onMouseDown);
-            this.$document.off('mouseup', this.onMouseUp);
-            this.$document.off('mousemove', this.onMouseMove);
+            this.$document.off('mousedown', mouseEventHandlers.down);
+            this.$document.off('mouseup', mouseEventHandlers.up);
+            this.$document.off('mousemove', mouseEventHandlers.move);
 
-            this.$document.off('touchstart', this.onMouseDown);
-            this.$document.off('touchend', this.onMouseUp);
-            this.$document.off('touchmove', this.onMouseMove);
+            this.$document.off('touchstart', mouseEventHandlers.down);
+            this.$document.off('touchend', mouseEventHandlers.up);
+            this.$document.off('touchmove', mouseEventHandlers.move);
 
             this.eventApiDispatch('onDestroy');
         });
@@ -236,14 +241,14 @@ export default class AngularColorPickerController {
         this.initConfig();
 
         // setup mouse events
-        this.$document.on('mousedown', this.onMouseDown.bind(this));
-        this.$document.on('mouseup', this.onMouseUp.bind(this));
-        this.$document.on('mousemove', this.onMouseMove.bind(this));
+        this.$document.on('mousedown', mouseEventHandlers.down);
+        this.$document.on('mouseup', mouseEventHandlers.up);
+        this.$document.on('mousemove', mouseEventHandlers.move);
 
         // setup touch events
-        this.$document.on('touchstart', this.onMouseDown.bind(this));
-        this.$document.on('touchend', this.onMouseUp.bind(this));
-        this.$document.on('touchmove', this.onMouseMove.bind(this));
+        this.$document.on('touchstart', mouseEventHandlers.down);
+        this.$document.on('touchend', mouseEventHandlers.up);
+        this.$document.on('touchmove', mouseEventHandlers.move);
 
         // grid click
         this.find('.color-picker-grid').on('click', this.onColorClick.bind(this));
