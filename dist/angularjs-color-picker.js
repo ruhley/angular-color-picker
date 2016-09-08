@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v2.4.5
+ * angularjs-color-picker v2.4.6
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-09-07 15:01:47
+ * 2016-09-09 08:58:41
  *
  */
 
@@ -230,6 +230,7 @@ var AngularColorPickerController = function () {
                 up: this.onMouseUp.bind(this),
                 move: this.onMouseMove.bind(this)
             };
+
             // needed variables
             this.updateModel = true;
 
@@ -290,9 +291,9 @@ var AngularColorPickerController = function () {
             this.$document.on('mousemove', mouseEventHandlers.move);
 
             // setup touch events
-            this.$document.on('touchstart', this.onMouseDown.bind(this));
-            this.$document.on('touchend', this.onMouseUp.bind(this));
-            this.$document.on('touchmove', this.onMouseMove.bind(this));
+            this.$document.on('touchstart', mouseEventHandlers.down);
+            this.$document.on('touchend', mouseEventHandlers.up);
+            this.$document.on('touchmove', mouseEventHandlers.move);
 
             // grid click
             this.find('.color-picker-grid').on('click', this.onColorClick.bind(this));

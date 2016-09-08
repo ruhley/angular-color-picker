@@ -166,7 +166,8 @@ export default class AngularColorPickerController {
             down: this.onMouseDown.bind(this),
             up: this.onMouseUp.bind(this),
             move: this.onMouseMove.bind(this)
-        }
+        };
+        
         // needed variables
         this.updateModel = true;
 

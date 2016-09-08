@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.4.6
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * None
+
+#### Bug Fixes
+  * Bug #109 - Properly remove event listeners on destroy
+
 ## v2.4.5
 
 #### Breaking Changes
