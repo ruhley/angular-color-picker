@@ -38,6 +38,7 @@ export default function template($templateCache) {
         '       <div class="color-picker-actions">' +
         '           <button ' +
         '               class="color-picker-action color-picker-action-clear"' +
+        '               tabindex="-1' +
         '               ng-class="AngularColorPickerController.options.clear.class"' +
         '               ng-show="AngularColorPickerController.options.clear.show"' +
         '               ng-click="AngularColorPickerController.api.clear($event)"' +
@@ -46,6 +47,7 @@ export default function template($templateCache) {
         '           </button><!--' +
         '           --><button ' +
         '               class="color-picker-action color-picker-action-reset"' +
+        '               tabindex="-1' +
         '               ng-class="AngularColorPickerController.options.reset.class"' +
         '               ng-show="AngularColorPickerController.options.reset.show"' +
         '               ng-click="AngularColorPickerController.api.reset($event)"' +
@@ -54,6 +56,7 @@ export default function template($templateCache) {
         '           </button><!--' +
         '           --><button' +
         '               class="color-picker-action color-picker-action-close"' +
+        '               tabindex="-1' +
         '               ng-class="AngularColorPickerController.options.close.class"' +
         '               ng-show="AngularColorPickerController.options.close.show"' +
         '               ng-click="AngularColorPickerController.api.close($event)"' +

@@ -162,12 +162,13 @@ export default class AngularColorPickerController {
         let _android_version = window.navigator.userAgent.match(/Android\s([0-9\.]*)/i);
         this.android_version = _android_version && _android_version.length > 1 ? parseFloat(_android_version[1]) : NaN;
 
-        const mouseEventHandlers = {
-            down: this.onMouseDown.bind(this),
-            up: this.onMouseUp.bind(this),
-            move: this.onMouseMove.bind(this)
+        const eventHandlers = {
+            mouseDown: this.onMouseDown.bind(this),
+            mouseUp: this.onMouseUp.bind(this),
+            mouseMove: this.onMouseMove.bind(this),
+            keyUp: this.onKeyUp.bind(this),
         };
-        
+
         // needed variables
         this.updateModel = true;
 
@@ -227,13 +228,18 @@ export default class AngularColorPickerController {
         //---------------------------
 
         this.$scope.$on('$destroy', () => {
-            this.$document.off('mousedown', mouseEventHandlers.down);
-            this.$document.off('mouseup', mouseEventHandlers.up);
-            this.$document.off('mousemove', mouseEventHandlers.move);
+            // remove mouse events
+            this.$document.off('mousedown', eventHandlers.mouseDown);
+            this.$document.off('mouseup', eventHandlers.mouseUp);
+            this.$document.off('mousemove', eventHandlers.mouseMove);
 
-            this.$document.off('touchstart', mouseEventHandlers.down);
-            this.$document.off('touchend', mouseEventHandlers.up);
-            this.$document.off('touchmove', mouseEventHandlers.move);
+            // remove touch events
+            this.$document.off('touchstart', eventHandlers.mouseDown);
+            this.$document.off('touchend', eventHandlers.mouseUp);
+            this.$document.off('touchmove', eventHandlers.mouseMove);
+
+            // remove key events
+            this.$document.off('keyup', eventHandlers.keyUp);
 
             this.eventApiDispatch('onDestroy');
         });
@@ -242,14 +248,17 @@ export default class AngularColorPickerController {
         this.initConfig();
 
         // setup mouse events
-        this.$document.on('mousedown', mouseEventHandlers.down);
-        this.$document.on('mouseup', mouseEventHandlers.up);
-        this.$document.on('mousemove', mouseEventHandlers.move);
+        this.$document.on('mousedown', eventHandlers.mouseDown);
+        this.$document.on('mouseup', eventHandlers.mouseUp);
+        this.$document.on('mousemove', eventHandlers.mouseMove);
 
         // setup touch events
-        this.$document.on('touchstart', mouseEventHandlers.down);
-        this.$document.on('touchend', mouseEventHandlers.up);
-        this.$document.on('touchmove', mouseEventHandlers.move);
+        this.$document.on('touchstart', eventHandlers.mouseDown);
+        this.$document.on('touchend', eventHandlers.mouseUp);
+        this.$document.on('touchmove', eventHandlers.mouseMove);
+
+        // setup key events
+        this.$document.on('keyup', eventHandlers.keyUp);
 
         // grid click
         this.find('.color-picker-grid').on('click', this.onColorClick.bind(this));
@@ -328,6 +337,13 @@ export default class AngularColorPickerController {
         }
     }
 
+    onKeyUp (event) {
+        // escape key
+        if (event.keyCode === 27) {
+            this.api.close(event);
+        }
+    }
+
     onColorClick (event) {
         if (!this.options.disabled && !this.has_moused_moved) {
             this.colorChange(event);
@@ -371,6 +387,7 @@ export default class AngularColorPickerController {
         }
 
         this.eventApiDispatch('onBlur', [event]);
+        this.api.close(event);
     }
 
     initConfig () {
