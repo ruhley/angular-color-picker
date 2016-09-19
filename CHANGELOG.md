@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.4.7
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * Pressing escape will close the popup panel
+
+#### Bug Fixes
+  * Bug #113 - Tab focus opens panel, tab blur does not close it
+
 ## v2.4.6
 
 #### Breaking Changes
