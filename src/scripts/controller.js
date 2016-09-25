@@ -570,7 +570,9 @@ export default class AngularColorPickerController {
         event.preventDefault();
 
         var el = this.find('.color-picker-hue');
-        this.hue = (1 - ((event.pageY - this.offset(el).top) / el.prop('offsetHeight'))) * 360;
+        var eventPos = this.getEventPos(event);
+
+        this.hue = (1 - ((eventPos.pageY - this.offset(el).top) / el.prop('offsetHeight'))) * 360;
 
         if (this.hue > 360) {
             this.hue = 360;
@@ -619,7 +621,9 @@ export default class AngularColorPickerController {
         event.preventDefault();
 
         var el = this.find('.color-picker-opacity');
-        this.opacity = (1 - ((event.pageY - this.offset(el).top) / el.prop('offsetHeight'))) * 100;
+        var eventPos = this.getEventPos(event);
+
+        this.opacity = (1 - ((eventPos.pageY - this.offset(el).top) / el.prop('offsetHeight'))) * 100;
 
         if (this.opacity > 100) {
             this.opacity = 100;
@@ -666,11 +670,12 @@ export default class AngularColorPickerController {
         event.preventDefault();
 
         var el = this.find('.color-picker-grid-inner');
+        var eventPos = this.getEventPos(event);
         var offset = this.offset(el);
 
         if (this.options.round) {
-            var dx = ((event.pageX - offset.left) * 2.0  / el.prop('offsetWidth')) - 1.0;
-            var dy = -((event.pageY - offset.top) * 2.0  / el.prop('offsetHeight')) + 1.0;
+            var dx = ((eventPos.pageX - offset.left) * 2.0  / el.prop('offsetWidth')) - 1.0;
+            var dy = -((eventPos.pageY - offset.top) * 2.0  / el.prop('offsetHeight')) + 1.0;
 
             var tmpSaturation = Math.sqrt(dx * dx + dy * dy);
             var tmpHue = Math.atan2(dy, dx);
@@ -683,8 +688,8 @@ export default class AngularColorPickerController {
             this.hue = degHue;
             this.lightness =  100;
         } else {
-            this.saturation = ((event.pageX - offset.left) / el.prop('offsetWidth')) * 100;
-            this.lightness = (1 - ((event.pageY - offset.top) / el.prop('offsetHeight'))) * 100;
+            this.saturation = ((eventPos.pageX - offset.left) / el.prop('offsetWidth')) * 100;
+            this.lightness = (1 - ((eventPos.pageY - offset.top) / el.prop('offsetHeight'))) * 100;
 
             if (this.saturation > 100) {
                 this.saturation = 100;
@@ -758,6 +763,10 @@ export default class AngularColorPickerController {
     // helper functions
     //---------------------------
 
+    getEventPos(event) {
+        return event.type.search('touch') === 0 ? event.changedTouches[0] : event;
+    }
+
     eventApiDispatch(name, args) {
         if (this.eventApi && typeof this.eventApi[name] === 'function') {
             if (!args) {
@@ -776,7 +785,6 @@ export default class AngularColorPickerController {
         var context = this.wrapper ? this.wrapper[0] : this.$element[0],
             results = [],
             nodeType;
-
 
         // Same basic safeguard as Sizzle
         if (!selector) {
