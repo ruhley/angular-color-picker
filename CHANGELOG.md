@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.4.8
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * None
+
+#### Bug Fixes
+  * Bug #115 - Touch events not getting proper position
+
 ## v2.4.7
 
 #### Breaking Changes
