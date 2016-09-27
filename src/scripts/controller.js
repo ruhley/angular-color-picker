@@ -141,6 +141,10 @@ export default class AngularColorPickerController {
         this.api.getElement = () => {
             return this.$element;
         };
+
+        this.api.getScope = () => {
+            return this.$scope;
+        };
     }
 
     reInit(newValue) {
