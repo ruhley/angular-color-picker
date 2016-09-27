@@ -134,7 +134,7 @@
 
 <div class="row">
   <label class="control-label">api</label> -
-  Exposes open, close, and getElement methods. Must be unique per color picker.
+  Exposes open, close, getElement, and getScope methods. Must be unique per color picker.
 </div>
 
 <div class="row">
@@ -229,6 +229,8 @@
     case<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>upper<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>lower<span class="pl-pds">'</span></span>],
     inline<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
     placeholder<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>,
+    id<span class="pl-k">:</span> <span class="pl-c1">undefined</span>,
+    name<span class="pl-k">:</span> <span class="pl-c1">undefined</span>,
     close<span class="pl-k">:</span> {
         show<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
         label<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Close<span class="pl-pds">'</span></span>,
@@ -247,11 +249,12 @@
 };
 
 <span class="pl-c">// exposed api functions</span>
-<span class="pl-smi">$scope</span>.<span class="pl-smi">api</span>.<span class="pl-c1">open</span>();
-<span class="pl-smi">$scope</span>.<span class="pl-smi">api</span>.<span class="pl-c1">close</span>();
-<span class="pl-smi">$scope</span>.<span class="pl-smi">api</span>.<span class="pl-c1">clear</span>();
-<span class="pl-smi">$scope</span>.<span class="pl-smi">api</span>.<span class="pl-c1">reset</span>();
-<span class="pl-smi">$scope</span>.<span class="pl-smi">api</span>.<span class="pl-en">getElement</span>();
+<span class="pl-smi">$scope</span>.<span class="pl-smi">api</span>.<span class="pl-c1">open</span>();       <span class="pl-c">// opens the popup</span>
+<span class="pl-smi">$scope</span>.<span class="pl-smi">api</span>.<span class="pl-c1">close</span>();      <span class="pl-c">// closes the popup</span>
+<span class="pl-smi">$scope</span>.<span class="pl-smi">api</span>.<span class="pl-c1">clear</span>();      <span class="pl-c">// removes value</span>
+<span class="pl-smi">$scope</span>.<span class="pl-smi">api</span>.<span class="pl-c1">reset</span>();      <span class="pl-c">// resets color value to original value</span>
+<span class="pl-smi">$scope</span>.<span class="pl-smi">api</span>.<span class="pl-en">getElement</span>(); <span class="pl-c">// returns the wrapping &lt;color-picker&gt; element</span>
+<span class="pl-smi">$scope</span>.<span class="pl-smi">api</span>.<span class="pl-en">getScope</span>();   <span class="pl-c">// returns the color picker $scope</span>
 
 <span class="pl-c">// api event handlers</span>
 <span class="pl-smi">$scope</span>.<span class="pl-smi">eventApi</span> <span class="pl-k">=</span> {
@@ -275,8 +278,7 @@ angular
             <span class="pl-smi">options</span>.<span class="pl-smi">format</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>hex<span class="pl-pds">'</span></span>;
             <span class="pl-k">return</span> options;
         });
-    });
-</pre></div>
+    });</pre></div>
 
 <h2>
 <a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h2>
