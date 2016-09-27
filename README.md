@@ -105,20 +105,21 @@ $scope.options = {
 };
 
 // exposed api functions
-$scope.api.open();
-$scope.api.close();
-$scope.api.clear();
-$scope.api.reset();
-$scope.api.getElement();
+$scope.api.open();       // opens the popup
+$scope.api.close();      // closes the popup
+$scope.api.clear();      // removes value
+$scope.api.reset();      // resets color value to original value
+$scope.api.getElement(); // returns the wrapping <color-picker> element
+$scope.api.getScope();   // returns the color picker $scope
 
 // api event handlers
 $scope.eventApi = {
-    onChange: function(api, color, $event) {},
-    onBlur: function(api, color, $event) {},
-    onOpen: function(api, color, $event) {},
-    onClose: function(api, color, $event) {},
-    onClear: function(api, color, $event) {},
-    onReset: function(api, color, $event) {},
+    onChange:  function(api, color, $event) {},
+    onBlur:    function(api, color, $event) {},
+    onOpen:    function(api, color, $event) {},
+    onClose:   function(api, color, $event) {},
+    onClear:   function(api, color, $event) {},
+    onReset:   function(api, color, $event) {},
     onDestroy: function(api, color) {},
 };
 

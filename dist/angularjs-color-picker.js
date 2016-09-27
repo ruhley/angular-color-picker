@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v2.4.8
+ * angularjs-color-picker v2.5.0
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-09-26 08:41:56
+ * 2016-09-28 08:11:52
  *
  */
 
@@ -271,6 +271,10 @@ var AngularColorPickerController = function () {
 
             this.api.getElement = function () {
                 return _this3.$element;
+            };
+
+            this.api.getScope = function () {
+                return _this3.$scope;
             };
         }
     }, {

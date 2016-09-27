@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.5.0
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  *  Improvement #116 Allow access to $scope
+
+#### Bug Fixes
+  * None
+
 ## v2.4.8
 
 #### Breaking Changes
