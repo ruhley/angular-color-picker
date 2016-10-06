@@ -38,7 +38,7 @@ npm install angularjs-color-picker --save
     <link rel="stylesheet" href="node_modules/angularjs-color-picker/dist/themes/angularjs-color-picker-bootstrap.min.css" />
 
     <script src="node_modules/tinycolor2/dist/tinycolor2-min.js"></script>
-    <script src="node_modules/angular-color-picker/dist/angularjs-color-picker.min.js"></script>
+    <script src="node_modules/angularjs-color-picker/dist/angularjs-color-picker.min.js"></script>
     ```
 
 
