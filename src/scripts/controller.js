@@ -390,6 +390,8 @@ export default class AngularColorPickerController {
             this.update();
         }
 
+        this.$scope.control[0].$setTouched();
+
         this.eventApiDispatch('onBlur', [event]);
         this.api.close(event);
     }
