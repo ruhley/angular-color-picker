@@ -37,6 +37,11 @@
                 </div>
 
                 <div class="row">
+                    <label class="control-label">Saturation (saturation) - whether or not to display the saturation control</label>
+                    <select ng-model="options.saturation" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
                     <label class="control-label">Alpha (alpha) - whether or not to display the alpha control</label>
                     <select ng-model="options.alpha" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
                 </div>
@@ -162,7 +167,7 @@
                 <div class="row">
                     <h2>HTML Options</h2>
                     <label class="control-label">Color</label>
-                    <color-picker class='col-sm-1' ng-model="color2" options="{'format':'hex', 'placeholder': color, 'round': false}"></color-picker>
+                    <color-picker class='col-sm-1' ng-model="color2" options="{'format':'hex', 'placeholder': 'Hello', 'round': false}"></color-picker>
                 </div>
 
                 <div class="row">

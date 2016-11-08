@@ -1,13 +1,13 @@
 angular
     .module('app', ['color.picker'])
     .config(function($provide) {
-        // $provide.decorator('ColorPickerOptions', function($delegate) {
-        //     var options = angular.copy($delegate);
-        //     options.round = true;
-        //     options.alpha = false;
-        //     options.format = 'hex';
-        //     return options;
-        // });
+        $provide.decorator('ColorPickerOptions', function($delegate) {
+            var options = angular.copy($delegate);
+            // options.round = true;
+            // options.saturation = true;
+            options.format = 'hsl';
+            return options;
+        });
     })
     .controller('AppCtrl', function($scope) {
         $scope.formatOptions = [{label: 'HSL', value: 'hsl'}, {label: 'HSV', value: 'hsv'}, {label: 'RGB', value: 'rgb'}, {label: 'HEX', value: 'hex'}, {label: 'HEX8', value: 'hex8'}];

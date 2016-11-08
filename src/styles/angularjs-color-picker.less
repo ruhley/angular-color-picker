@@ -99,6 +99,7 @@
                 display: table-row;
 
                 .color-picker-hue,
+                .color-picker-saturation,
                 .color-picker-opacity {
                     display: table-cell;
                     position: relative;
@@ -110,6 +111,10 @@
 
                 .color-picker-hue {
                 	background-position: 0 0;
+                }
+
+                .color-picker-saturation {
+                    background: linear-gradient(to bottom, #FFFFFF 0%, #7C7C7C 100%);
                 }
 
                 .color-picker-opacity {
@@ -197,11 +202,27 @@
         	position: relative;
         }
 
+        &.color-picker-show-hue.color-picker-show-saturation.color-picker-show-alpha {
+        	width: 210px;
+        }
+
+        &.color-picker-show-hue.color-picker-show-saturation {
+        	width: 190px;
+        }
+
         &.color-picker-show-hue.color-picker-show-alpha {
         	width: 190px;
         }
 
+        &.color-picker-show-saturation.color-picker-show-alpha {
+        	width: 190px;
+        }
+
         &.color-picker-show-hue {
+        	width: 170px;
+        }
+
+        &.color-picker-show-saturation {
         	width: 170px;
         }
 

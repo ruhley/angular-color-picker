@@ -16,6 +16,7 @@ export default function template($templateCache) {
         '       \'color-picker-panel-bottom color-picker-panel-left\': AngularColorPickerController.options.pos === \'bottom left\',' +
         '       \'color-picker-panel-round\': AngularColorPickerController.options.round,' +
         '       \'color-picker-show-hue\': AngularColorPickerController.options.hue,' +
+        '       \'color-picker-show-saturation\': AngularColorPickerController.options.saturation,' +
         '       \'color-picker-show-alpha\': AngularColorPickerController.options.alpha && AngularColorPickerController.options.format !== \'hex\',' +
         '       \'color-picker-show-inline\': AngularColorPickerController.options.inline,' +
         '   }">' +
@@ -28,6 +29,9 @@ export default function template($templateCache) {
         '                   </div>' +
         '               </div>' +
         '               <div class="color-picker-hue color-picker-sprite" ng-show="AngularColorPickerController.options.hue">' +
+        '                   <div class="color-picker-slider"></div>' +
+        '               </div>' +
+        '               <div class="color-picker-saturation" ng-show="AngularColorPickerController.options.saturation">' +
         '                   <div class="color-picker-slider"></div>' +
         '               </div>' +
         '               <div class="color-picker-opacity color-picker-sprite" ng-show="AngularColorPickerController.options.alpha && AngularColorPickerController.options.format !== \'hex\'">' +
