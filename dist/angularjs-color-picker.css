@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v2.5.0
+ * angularjs-color-picker v2.6.0
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-09-28 08:11:55
+ * 2016-11-09 08:24:34
  *
  */
 .color-picker-wrapper {
@@ -94,6 +94,8 @@
   display: table-row;
 }
 .color-picker-wrapper .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-hue,
+.color-picker-wrapper .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-saturation,
+.color-picker-wrapper .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-lightness,
 .color-picker-wrapper .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-opacity {
   display: table-cell;
   position: relative;
@@ -104,6 +106,12 @@
 }
 .color-picker-wrapper .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-hue {
   background-position: 0 0;
+}
+.color-picker-wrapper .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-saturation {
+  background: linear-gradient(to bottom, #FFFFFF 0%, #7C7C7C 100%);
+}
+.color-picker-wrapper .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-lightness {
+  background: linear-gradient(to bottom, #FFFFFF 0%, #000000 100%);
 }
 .color-picker-wrapper .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-opacity {
   background-position: -40px 0;
@@ -165,10 +173,46 @@
 .color-picker-wrapper .color-picker-panel.color-picker-show-inline {
   position: relative;
 }
+.color-picker-wrapper .color-picker-panel.color-picker-show-hue.color-picker-show-saturation.color-picker-show-lightness.color-picker-show-alpha {
+  width: 230px;
+}
+.color-picker-wrapper .color-picker-panel.color-picker-show-hue.color-picker-show-saturation.color-picker-show-lightness {
+  width: 210px;
+}
+.color-picker-wrapper .color-picker-panel.color-picker-show-hue.color-picker-show-saturation.color-picker-show-alpha {
+  width: 210px;
+}
+.color-picker-wrapper .color-picker-panel.color-picker-show-hue.color-picker-show-lightness.color-picker-show-alpha {
+  width: 210px;
+}
+.color-picker-wrapper .color-picker-panel.color-picker-show-hue.color-picker-show-saturation {
+  width: 190px;
+}
+.color-picker-wrapper .color-picker-panel.color-picker-show-hue.color-picker-show-lightness {
+  width: 190px;
+}
 .color-picker-wrapper .color-picker-panel.color-picker-show-hue.color-picker-show-alpha {
   width: 190px;
 }
+.color-picker-wrapper .color-picker-panel.color-picker-show-saturation.color-picker-show-alpha {
+  width: 190px;
+}
+.color-picker-wrapper .color-picker-panel.color-picker-show-saturation.color-picker-show-lightness {
+  width: 190px;
+}
+.color-picker-wrapper .color-picker-panel.color-picker-show-saturation.color-picker-show-lightness.color-picker-show-alpha {
+  width: 210px;
+}
+.color-picker-wrapper .color-picker-panel.color-picker-show-lightness.color-picker-show-alpha {
+  width: 190px;
+}
 .color-picker-wrapper .color-picker-panel.color-picker-show-hue {
+  width: 170px;
+}
+.color-picker-wrapper .color-picker-panel.color-picker-show-saturation {
+  width: 170px;
+}
+.color-picker-wrapper .color-picker-panel.color-picker-show-lightness {
   width: 170px;
 }
 .color-picker-wrapper .color-picker-panel.color-picker-show-alpha {

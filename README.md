@@ -76,6 +76,8 @@ $scope.options = {
     round: [false, true],
     format: ['hsl', 'hsv', 'rgb', 'hex', 'hex8'],
     hue: [true, false],
+    saturation: [false, true],
+    lightness: [false, true], // Note: In the square mode this is HSV instead of HSL
     alpha: [true, false],
     swatch: [true, false],
     swatchPos: ['left', 'right'],

@@ -1,12 +1,24 @@
 # Changelog
 
+## v2.6.0
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * New saturation and lightness options
+
+#### Bug Fixes
+  * Bug #120 - Set $touched on blur
+  * Fixing up color calculation in the differences between square and round
+
 ## v2.5.0
 
 #### Breaking Changes
   * None
 
 #### New Features
-  *  Improvement #116 Allow access to $scope
+  * Improvement #116 Allow access to $scope
 
 #### Bug Fixes
   * None
@@ -86,7 +98,7 @@
   * None
 
 #### Bug Fixes
-  *  Bug #102 non assign error if options was set in html
+  * Bug #102 non assign error if options was set in html
 
 ## v2.4.1
 
