@@ -5,6 +5,7 @@ export default class AngularColorPickerOptions {
             disabled: false,
             hue: true,
             saturation: false,
+            lightness: false,
             alpha: true,
             round: false,
             case: 'upper',

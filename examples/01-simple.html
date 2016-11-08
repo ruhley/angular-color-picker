@@ -42,6 +42,11 @@
                 </div>
 
                 <div class="row">
+                    <label class="control-label">Lightness (lightness) - whether or not to display the lightness control</label>
+                    <select ng-model="options.lightness" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
                     <label class="control-label">Alpha (alpha) - whether or not to display the alpha control</label>
                     <select ng-model="options.alpha" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
                 </div>

@@ -3,8 +3,9 @@ angular
     .config(function($provide) {
         $provide.decorator('ColorPickerOptions', function($delegate) {
             var options = angular.copy($delegate);
-            // options.round = true;
-            // options.saturation = true;
+            options.round = true;
+            options.lightness = true;
+            options.inline = true;
             options.format = 'hsl';
             return options;
         });
