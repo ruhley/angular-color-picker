@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.6.1
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * None
+
+#### Bug Fixes
+  * Bug #123 Add type to buttons to not interfere with form submit buttons
+
 ## v2.6.0
 
 #### Breaking Changes
