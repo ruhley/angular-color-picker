@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.6.2
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * None
+
+#### Bug Fixes
+  *  Bug #124 remove some rounding that could interfere when translating between color types
+
 ## v2.6.1
 
 #### Breaking Changes

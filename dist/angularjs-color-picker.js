@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v2.6.1
+ * angularjs-color-picker v2.6.2
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-11-17 07:50:09
+ * 2016-11-21 08:25:55
  *
  */
 
@@ -172,14 +172,14 @@ var AngularColorPickerController = function () {
 
                     if (this.options.round) {
                         hsl = color.toHsl();
-                        this.lightness = Math.round(hsl.l * 100);
+                        this.lightness = hsl.l * 100;
                     } else {
                         hsl = color.toHsv();
-                        this.lightness = Math.round(hsl.v * 100);
+                        this.lightness = hsl.v * 100;
                     }
 
-                    this.hue = Math.round(hsl.h);
-                    this.saturation = Math.round(hsl.s * 100);
+                    this.hue = hsl.h;
+                    this.saturation = hsl.s * 100;
 
                     this.updateModel = false;
 
