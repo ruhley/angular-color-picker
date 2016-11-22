@@ -16,15 +16,8 @@
             <h1>AngularJS Color Picker</h1>
             <p>An AngularJS directive for a color picker. No requirement on jQuery.</p>
             <form class="col-sm-12">
-                <div class="row">
-                    <label class="control-label">Required (required)</label>
-                    <select ng-model="options.required" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
-                </div>
 
-                <div class="row">
-                    <label class="control-label">Disabled (disabled)</label>
-                    <select ng-model="options.disabled" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
-                </div>
+                <h3>Color</h3>
 
                 <div class="row">
                     <label class="control-label">Format (format)</label>
@@ -52,6 +45,13 @@
                 </div>
 
                 <div class="row">
+                    <label class="control-label">Case (case) - The case of hex colors - 'upper', 'lower'</label>
+                    <select ng-model="options.case" class="form-control" ng-options="option.value as option.label for option in caseOptions"></select>
+                </div>
+
+                <h3>Swatch</h3>
+
+                <div class="row">
                     <label class="control-label">Swatch (swatch) - whether or not to display the swatch inside the input field</label>
                     <select ng-model="options.swatch" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
                 </div>
@@ -71,14 +71,11 @@
                     <select ng-model="options.swatchBootstrap" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
                 </div>
 
+                <h3>Popup</h3>
+
                 <div class="row">
                     <label class="control-label">Position (pos) - the position of the picker control in relation to the input field - 'bottom left', 'bottom right', 'top left', 'top right'</label>
                     <select ng-model="options.pos" class="form-control" ng-options="option.value as option.label for option in posOptions"></select>
-                </div>
-
-                <div class="row">
-                    <label class="control-label">Case (case) - The case of hex colors - 'upper', 'lower'</label>
-                    <select ng-model="options.case" class="form-control" ng-options="option.value as option.label for option in caseOptions"></select>
                 </div>
 
                 <div class="row">
@@ -89,6 +86,18 @@
                 <div class="row">
                     <label class="control-label">Round (round) - whether or not to display the picker as a circle</label>
                     <select ng-model="options.round" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <h3>Attributes</h3>
+
+                <div class="row">
+                    <label class="control-label">Required (required)</label>
+                    <select ng-model="options.required" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Disabled (disabled)</label>
+                    <select ng-model="options.disabled" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
                 </div>
 
                 <div class="row">
@@ -105,6 +114,35 @@
                     <label class="control-label">Name (name)</label>
                     <input type="text" ng-model="options.name" placeholder="Name" class="form-control" />
                 </div>
+
+                <h3>Show/Hide</h3>
+
+                <div class="row">
+                    <label class="control-label">Show Swatch (show.swatch) - whether or not to open when clicking the swatch - true, false</label>
+                    <select ng-model="options.show.swatch" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Show Focus (show.focus) - whether or not to open when focusing on the input - true, false</label>
+                    <select ng-model="options.show.focus" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Hide Blur (hide.blur) - whether or not to close when losing focus on the input - true, false</label>
+                    <select ng-model="options.hide.blur" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Hide Escape (hide.escape) - whether or not to close when pressing the escape key - true, false</label>
+                    <select ng-model="options.hide.escape" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Hide Click (hide.click) - whether or not to close when clicking outside the color picker - true, false</label>
+                    <select ng-model="options.hide.click" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <h3>Buttons</h3>
 
                 <div class="row">
                     <label class="control-label">Close Visible (close.show) - whether or not to display the close button - false, true</label>
@@ -150,6 +188,8 @@
                     <label class="control-label">Reset class (reset.class) - The class of the reset button - ""</label>
                     <input type="text" ng-model="options.reset.class" placeholder="Class" class="form-control" />
                 </div>
+
+                <h3>Examples</h3>
 
                 <div class="row">
                     <label class="control-label">Color</label>

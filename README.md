@@ -71,24 +71,39 @@ $scope.color = '#FF0000';
 
 // options - if a list is given then choose one of the items. The first item in the list will be the default
 $scope.options = {
+    // html attributes
     required: [false, true],
     disabled: [false, true],
-    round: [false, true],
+    placeholder: '',
+    id: undefined,
+    name: undefined,
+    // color
     format: ['hsl', 'hsv', 'rgb', 'hex', 'hex8'],
     hue: [true, false],
     saturation: [false, true],
-    lightness: [false, true], // Note: In the square mode this is HSV instead of HSL
+    lightness: [false, true], // Note: In the square mode this is HSV and in round mode this is HSL
     alpha: [true, false],
+    case: ['upper', 'lower'],
+    // swatch
     swatch: [true, false],
     swatchPos: ['left', 'right'],
     swatchBootstrap: [true, false],
     swatchOnly: [true, false],
+    // popup
+    round: [false, true],
     pos: ['bottom left', 'bottom right', 'top left', 'top right'],
-    case: ['upper', 'lower'],
     inline: [false, true],
-    placeholder: '',
-    id: undefined,
-    name: undefined,
+    // show/hide
+    show: {
+        swatch: [true, false],
+        focus: [true, false],
+    },
+    hide: {
+        blur: [true, false],
+        escape: [true, false],
+        click: [true, false],
+    },
+    // buttons
     close: {
         show: [false, true],
         label: 'Close',

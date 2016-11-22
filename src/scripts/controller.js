@@ -328,7 +328,9 @@ export default class AngularColorPickerController {
         // no current mouse events and not an element in the picker
         if (!this.colorMouse && !this.hueMouse && !this.opacityMouse && this.find(event.target).length === 0) {
             this.setupApi(); // TODO - there are some weird times when this is needed to call close. Need to figure out why.
-            this.api.close(event);
+            if (this.options.hide.click) {
+                this.api.close(event);
+            }
             this.$scope.$apply();
         // mouse event on color grid
         } else if (this.colorMouse && this.has_moused_moved) {
@@ -389,7 +391,7 @@ export default class AngularColorPickerController {
 
     onKeyUp (event) {
         // escape key
-        if (event.keyCode === 27) {
+        if (this.options.hide.escape && event.keyCode === 27) {
             this.api.close(event);
         }
     }
@@ -459,7 +461,7 @@ export default class AngularColorPickerController {
         this.eventApiDispatch('onBlur', [event]);
 
         // if clicking outside the color picker
-        if (this.find(event.relatedTarget).length === 0) {
+        if (this.options.hide.blur && this.find(event.relatedTarget).length === 0) {
             this.api.close(event);
         }
     }
@@ -496,8 +498,16 @@ export default class AngularColorPickerController {
         }
     }
 
-    focus () {
-        this.find('.color-picker-input')[0].focus();
+    onSwatchClick ($event) {
+        if (this.options.show.swatch) {
+            this.api.open($event);
+        }
+    }
+
+    onFocus ($event) {
+        if (this.options.show.focus) {
+            this.api.open($event);
+        }
     }
 
     update () {

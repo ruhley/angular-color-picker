@@ -19,6 +19,15 @@ export default class AngularColorPickerOptions {
             placeholder: '',
             id: undefined,
             name: undefined,
+            show: {
+                swatch: true,
+                focus: true,
+            },
+            hide: {
+                blur: true,
+                escape: true,
+                click: true,
+            },
             close: {
                 show: false,
                 label: 'Close',
