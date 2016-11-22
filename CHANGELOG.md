@@ -1,5 +1,17 @@
 # Changelog
 
+## v2.7.0
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * Feature #126 Add open/closed class
+  * Feature #125 add show/hide control
+
+#### Bug Fixes
+  *  None
+
 ## v2.6.2
 
 #### Breaking Changes
