@@ -5,7 +5,7 @@ angular
             var options = angular.copy($delegate);
             options.round = true;
             options.lightness = true;
-            options.inline = true;
+            // options.inline = true;
             options.format = 'hsl';
             return options;
         });

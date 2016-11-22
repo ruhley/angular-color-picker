@@ -100,12 +100,12 @@ export default class AngularColorPickerController {
         }
 
         this.api.open = (event) => {
-            // if already visible then don't run show again
-            if (this.visible) {
+            // if already open then don't run show again
+            if (this.is_open) {
                 return true;
             }
 
-            this.visible = true;
+            this.is_open = true;
             this.hueMouse = false;
             this.opacityMouse = false;
             this.colorMouse = false;
@@ -122,10 +122,10 @@ export default class AngularColorPickerController {
         this.api.close = (event) => {
             if (
                 !this.options.inline &&
-                (this.visible ||
+                (this.is_open ||
                 this.$element[0].querySelector('.color-picker-panel').offsetParent !== null)
             ) {
-                this.visible = false;
+                this.is_open = false;
                 this.$scope.$applyAsync();
 
                 this.eventApiDispatch('onClose', [event]);
@@ -471,7 +471,7 @@ export default class AngularColorPickerController {
 
         this.mergeOptions(this.options, this.ColorPickerOptions);
 
-        this.visible = this.options.inline;
+        this.is_open = this.options.inline;
 
         if (this.options.round) {
             this.options.hue = false;
