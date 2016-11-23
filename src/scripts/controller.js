@@ -949,6 +949,10 @@ export default class AngularColorPickerController {
             }
 
             this.saturation = tmpSaturation * 100;
+
+            if (this.lightness === undefined) {
+                this.lightness = 50;
+            }
         } else {
             this.saturation = ((eventPos.pageX - offset.left) / el.prop('offsetWidth')) * 100;
             this.lightness = (1 - ((eventPos.pageY - offset.top) / el.prop('offsetHeight'))) * 100;
