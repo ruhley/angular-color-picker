@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v2.7.0
+ * angularjs-color-picker v2.7.1
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-11-23 08:23:21
+ * 2016-11-23 10:23:24
  *
  */
 
@@ -1113,6 +1113,10 @@ var AngularColorPickerController = function () {
                 }
 
                 this.saturation = tmpSaturation * 100;
+
+                if (this.lightness === undefined) {
+                    this.lightness = 50;
+                }
             } else {
                 this.saturation = (eventPos.pageX - offset.left) / el.prop('offsetWidth') * 100;
                 this.lightness = (1 - (eventPos.pageY - offset.top) / el.prop('offsetHeight')) * 100;

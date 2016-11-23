@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.7.1
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * None
+
+#### Bug Fixes
+  *  Bug #127 add default lightness for round color picker
+
 ## v2.7.0
 
 #### Breaking Changes
