@@ -999,13 +999,15 @@ export default class AngularColorPickerController {
     }
 
     updateRoundPos() {
-        var container = this.$element[0].querySelector('.color-picker-grid');
-        var el = angular.element(this.$element[0].querySelector('.color-picker-grid .color-picker-picker'));
-        var bounding = container.getBoundingClientRect();
+        this.$timeout(() => {
+            var container = this.$element[0].querySelector('.color-picker-grid');
+            var el = angular.element(this.$element[0].querySelector('.color-picker-grid .color-picker-picker'));
+            var bounding = container.getBoundingClientRect();
 
-        el.css({
-            left: (bounding.width * this.xPos / 100) + 'px',
-            top: (bounding.height * this.yPos / 100) + 'px',
+            el.css({
+                left: (bounding.width * this.xPos / 100) + 'px',
+                top: (bounding.height * this.yPos / 100) + 'px',
+            });
         });
     }
 
