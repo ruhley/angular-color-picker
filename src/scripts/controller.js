@@ -1012,7 +1012,19 @@ export default class AngularColorPickerController {
     }
 
     getEventPos(event) {
-        return event.type.search('touch') === 0 ? event.changedTouches[0] : event;
+        // if a touch event
+        if (event.type.search('touch') === 0) {
+            // if event modified by angular
+            if (event.originalEvent && event.originalEvent.changedTouches) {
+                return event.originalEvent.changedTouches[0];
+            // if a standard js touch event
+            } else if (event.changedTouches) {
+                return event.changedTouches[0];
+            }
+        }
+
+        // return a non-touch event
+        return event;
     }
 
     eventApiDispatch(name, args) {
