@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v2.7.1
+ * angularjs-color-picker v2.7.2
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2016 ruhley
  *
- * 2016-11-23 10:23:24
+ * 2016-12-23 14:00:20
  *
  */
 
@@ -1166,19 +1166,35 @@ var AngularColorPickerController = function () {
     }, {
         key: 'updateRoundPos',
         value: function updateRoundPos() {
-            var container = this.$element[0].querySelector('.color-picker-grid');
-            var el = angular.element(this.$element[0].querySelector('.color-picker-grid .color-picker-picker'));
-            var bounding = container.getBoundingClientRect();
+            var _this9 = this;
 
-            el.css({
-                left: bounding.width * this.xPos / 100 + 'px',
-                top: bounding.height * this.yPos / 100 + 'px'
+            this.$timeout(function () {
+                var container = _this9.$element[0].querySelector('.color-picker-grid');
+                var el = angular.element(_this9.$element[0].querySelector('.color-picker-grid .color-picker-picker'));
+                var bounding = container.getBoundingClientRect();
+
+                el.css({
+                    left: bounding.width * _this9.xPos / 100 + 'px',
+                    top: bounding.height * _this9.yPos / 100 + 'px'
+                });
             });
         }
     }, {
         key: 'getEventPos',
         value: function getEventPos(event) {
-            return event.type.search('touch') === 0 ? event.changedTouches[0] : event;
+            // if a touch event
+            if (event.type.search('touch') === 0) {
+                // if event modified by angular
+                if (event.originalEvent && event.originalEvent.changedTouches) {
+                    return event.originalEvent.changedTouches[0];
+                    // if a standard js touch event
+                } else if (event.changedTouches) {
+                    return event.changedTouches[0];
+                }
+            }
+
+            // return a non-touch event
+            return event;
         }
     }, {
         key: 'eventApiDispatch',
