@@ -1,24 +1,30 @@
 export default class AngularColorPickerOptions {
     constructor() {
         return {
+            // input attributes
+            id: undefined,
+            name: undefined,
             required: false,
             disabled: false,
+            placeholder: '',
+            input_class: '',
+            // color
+            format: 'hsl',
+            case: 'upper',
             hue: true,
             saturation: false,
             lightness: false,
             alpha: true,
+            // picker
             round: false,
-            case: 'upper',
-            format: 'hsl',
             pos: 'bottom left',
+            inline: false,
+            // swatch
             swatch: true,
             swatchOnly: false,
             swatchPos: 'left',
             swatchBootstrap: true,
-            inline: false,
-            placeholder: '',
-            id: undefined,
-            name: undefined,
+            // show/hide events
             show: {
                 swatch: true,
                 focus: true,
@@ -28,6 +34,7 @@ export default class AngularColorPickerOptions {
                 escape: true,
                 click: true,
             },
+            // buttons
             close: {
                 show: false,
                 label: 'Close',
