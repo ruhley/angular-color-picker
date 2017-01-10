@@ -25,22 +25,27 @@ export default function template($templateCache) {
         '   }">' +
         '       <div class="color-picker-grid-wrapper">' +
         '           <div class="color-picker-row">' +
-        '               <div class="color-picker-grid color-picker-sprite">' +
+        '               <div class="color-picker-grid">' +
+        '                   <div class="color-picker-overlay"></div>' +
         '                   <div class="color-picker-grid-inner"></div>' +
         '                   <div class="color-picker-picker">' +
         '                       <div></div>' +
         '                   </div>' +
         '               </div>' +
-        '               <div class="color-picker-hue color-picker-sprite" ng-show="AngularColorPickerController.options.hue">' +
+        '               <div class="color-picker-hue" ng-show="AngularColorPickerController.options.hue">' +
+        '                   <div class="color-picker-overlay"></div>' +
         '                   <div class="color-picker-slider"></div>' +
         '               </div>' +
         '               <div class="color-picker-saturation" ng-show="AngularColorPickerController.options.saturation">' +
+        '                   <div class="color-picker-overlay"></div>' +
         '                   <div class="color-picker-slider"></div>' +
         '               </div>' +
         '               <div class="color-picker-lightness" ng-show="AngularColorPickerController.options.lightness">' +
+        '                   <div class="color-picker-overlay"></div>' +
         '                   <div class="color-picker-slider"></div>' +
         '               </div>' +
-        '               <div class="color-picker-opacity color-picker-sprite" ng-show="AngularColorPickerController.options.alpha && AngularColorPickerController.options.format !== \'hex\'">' +
+        '               <div class="color-picker-opacity" ng-show="AngularColorPickerController.options.alpha && AngularColorPickerController.options.format !== \'hex\'">' +
+        '                   <div class="color-picker-overlay"></div>' +
         '                   <div class="color-picker-slider"></div>' +
         '               </div>' +
         '           </div>' +
