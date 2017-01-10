@@ -521,7 +521,6 @@ export default class AngularColorPickerController {
             color.setAlpha(this.opacity / 100);
         }
 
-
         this.swatchColor = color.toHslString();
 
         this.updateGridBackground(color);
@@ -530,42 +529,40 @@ export default class AngularColorPickerController {
         this.updateLightnessBackground(color);
         this.updateAlphaBackground(color);
 
-        var colorString;
-
-        switch (this.options.format) {
-            case 'rgb':
-                colorString = color.toRgbString();
-                break;
-
-            case 'hex':
-                colorString = color.toHexString();
-                if (this.options.case === 'lower') {
-                    colorString = colorString.toLowerCase();
-                } else {
-                    colorString = colorString.toUpperCase();
-                }
-                break;
-
-            case 'hex8':
-                colorString = color.toHex8String();
-                if (this.options.case === 'lower') {
-                    colorString = colorString.toLowerCase();
-                } else {
-                    colorString = colorString.toUpperCase();
-                }
-                break;
-
-            case 'hsv':
-                colorString = color.toHsvString();
-                break;
-
-            default:
-                colorString = color.toHslString();
-                break;
-        }
-
         if (this.updateModel) {
-            this.ngModel = colorString;
+            switch (this.options.format) {
+                case 'rgb':
+                    this.ngModel = color.toRgbString();
+                    break;
+
+                case 'hex':
+                    if (this.options.case === 'lower') {
+                        this.ngModel = color.toHexString().toLowerCase();
+                    } else {
+                        this.ngModel = color.toHexString().toUpperCase();
+                    }
+                    break;
+
+                case 'hex8':
+                    if (this.options.case === 'lower') {
+                        this.ngModel = color.toHex8String().toLowerCase();
+                    } else {
+                        this.ngModel = color.toHex8String().toUpperCase();
+                    }
+                    break;
+
+                case 'hsv':
+                    this.ngModel = color.toHsvString();
+                    break;
+
+                case 'raw':
+                    this.ngModel = color.clone();
+                    break;
+
+                default:
+                    this.ngModel = color.toHslString();
+                    break;
+            }
         }
     }
 
