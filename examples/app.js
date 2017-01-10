@@ -4,8 +4,11 @@ angular
         $provide.decorator('ColorPickerOptions', function($delegate) {
             var options = angular.copy($delegate);
             options.round = true;
+            options.hue = true;
+            options.saturation = true;
             options.lightness = true;
-            // options.inline = true;
+            options.alpha = true;
+            options.inline = false;
             options.format = 'hsl';
             return options;
         });

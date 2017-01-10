@@ -1,5 +1,19 @@
 # Changelog
 
+## v3.0.0 - unreleased
+
+#### Breaking Changes
+  * Removed the bootstrap `form-control` class from the input box. You can add it to all color pickers again using the `ColorPickerOptions` decorator.
+  * The hue and saturation controls are now no longer hidden if the round option is changed.
+
+#### New Features
+  * New `input_class` option
+  * The styles of all the controls now change when the values of other controls change
+  * Optimised the css to be 1/4 of the file size
+
+#### Bug Fixes
+  * None
+
 ## v2.7.1
 
 #### Breaking Changes
@@ -9,7 +23,7 @@
   * None
 
 #### Bug Fixes
-  *  Bug #127 add default lightness for round color picker
+  * Bug #127 add default lightness for round color picker
 
 ## v2.7.0
 
@@ -21,7 +35,7 @@
   * Feature #125 add show/hide control
 
 #### Bug Fixes
-  *  None
+  * None
 
 ## v2.6.2
 
@@ -32,7 +46,7 @@
   * None
 
 #### Bug Fixes
-  *  Bug #124 remove some rounding that could interfere when translating between color types
+  * Bug #124 remove some rounding that could interfere when translating between color types
 
 ## v2.6.1
 
