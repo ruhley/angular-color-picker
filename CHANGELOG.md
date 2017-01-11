@@ -10,6 +10,7 @@
   * New `input_class` option
   * The styles of all the controls now change when the values of other controls change
   * Optimised the css to be 1/4 of the file size
+  * Added `raw` format option
 
 #### Bug Fixes
   * None
