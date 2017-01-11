@@ -7,6 +7,7 @@ The build steps to releasing a new version. Before you can do this you need to t
   * Commit and push all changes with a meaningful message
   * Update version in bower.json and package.json
   * Build the dist files -  ``` grunt build ```
+  * Run `npm test` to make sure all the tests pass
   * Update CHANGELOG.md
   * Update documentation if needed
   * Commit and push with the message "Bumping to v\*.\*.\*"

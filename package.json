@@ -40,6 +40,7 @@
     "node": ">=4.4.0"
   },
   "scripts": {
-      "test": "./node_modules/.bin/webdriver-manager update --standalone && ./node_modules/.bin/protractor ./test/protractor-config.js"
+      "update_and_test": "./node_modules/.bin/webdriver-manager update --standalone && ./node_modules/.bin/protractor ./test/protractor-config.js",
+      "test": "./node_modules/.bin/protractor ./test/protractor-config.js"
   }
 }
