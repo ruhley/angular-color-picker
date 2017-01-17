@@ -1,6 +1,6 @@
 # Changelog
 
-## v3.0.0 - unreleased
+## v3.0.0
 
 #### Breaking Changes
   * Removed the bootstrap `form-control` class from the input box. You can add it to all color pickers again using the `ColorPickerOptions` decorator.
@@ -13,7 +13,8 @@
   * Added `raw` format option
 
 #### Bug Fixes
-  * None
+  * #136 swatch color not matching picker color
+  * #138 missing qoutes within template
 
 ## v2.7.1
 
