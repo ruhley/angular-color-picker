@@ -512,9 +512,9 @@ export default class AngularColorPickerController {
         var color;
 
         if (this.options.round) {
-            color = tinycolor({h: this.hue, s: this.saturation, l: this.lightness});
+            color = tinycolor({h: this.hue, s: `${this.saturation}%`, l: `${this.lightness}%`});
         } else {
-            color = tinycolor({h: this.hue, s: this.saturation, v: this.lightness});
+            color = tinycolor({h: this.hue, s: `${this.saturation}%`, v: `${this.lightness}%`});
         }
 
         if (this.options.alpha) {
