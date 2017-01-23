@@ -1,5 +1,17 @@
 # Changelog
 
+## v3.0.1
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * None
+
+#### Bug Fixes
+  * Bug #142 Explicitly specify that saturation and lightness are percentages
+  * Bug #143 Gradient shown below picker in Firefox
+
 ## v3.0.0
 
 #### Breaking Changes

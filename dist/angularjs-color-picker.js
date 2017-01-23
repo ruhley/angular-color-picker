@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v3.0.0
+ * angularjs-color-picker v3.0.1
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2017 ruhley
  *
- * 2017-01-17 14:36:43
+ * 2017-01-24 08:42:28
  *
  */
 
@@ -572,9 +572,9 @@ var AngularColorPickerController = function () {
             var color;
 
             if (this.options.round) {
-                color = tinycolor({ h: this.hue, s: this.saturation, l: this.lightness });
+                color = tinycolor({ h: this.hue, s: this.saturation + '%', l: this.lightness + '%' });
             } else {
-                color = tinycolor({ h: this.hue, s: this.saturation, v: this.lightness });
+                color = tinycolor({ h: this.hue, s: this.saturation + '%', v: this.lightness + '%' });
             }
 
             if (this.options.alpha) {

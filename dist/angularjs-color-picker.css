@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v3.0.0
+ * angularjs-color-picker v3.0.1
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2017 ruhley
  *
- * 2017-01-17 14:36:47
+ * 2017-01-24 08:42:32
  *
  */
 .color-picker-wrapper {
@@ -97,6 +97,8 @@
   position: absolute;
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
   z-index: 2;
 }
 .color-picker-wrapper .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-grid,
