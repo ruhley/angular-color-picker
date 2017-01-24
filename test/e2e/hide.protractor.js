@@ -10,7 +10,7 @@ describe('Options: ', () => {
         it('Should hide when clicking the swatch by default', () => {
             Page.input_field.click();
             expect(Page.color_picker_panel.isDisplayed()).toEqual(true);
-            browser.driver.executeScript('document.activeElement.blur()');
+            Page.blurColorPicker();
             expect(Page.color_picker_panel.isDisplayed()).toEqual(false);
         });
 
@@ -18,7 +18,7 @@ describe('Options: ', () => {
             Page.hide_blur_field.$('[label="No"]').click();
             Page.input_field.click();
             expect(Page.color_picker_panel.isDisplayed()).toEqual(true);
-            browser.driver.executeScript('document.activeElement.blur()');
+            Page.blurColorPicker();
             expect(Page.color_picker_panel.isDisplayed()).toEqual(true);
         });
 
@@ -26,7 +26,7 @@ describe('Options: ', () => {
             Page.hide_blur_field.$('[label="Yes"]').click();
             Page.input_field.click();
             expect(Page.color_picker_panel.isDisplayed()).toEqual(true);
-            browser.driver.executeScript('document.activeElement.blur()');
+            Page.blurColorPicker();
             expect(Page.color_picker_panel.isDisplayed()).toEqual(false);
         });
     });

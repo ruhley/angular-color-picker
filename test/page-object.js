@@ -6,11 +6,13 @@ class Page {
 
         // attribute fields
         this.id_field = element(by.model('options.id'));
-        this.input_class_field = element(by.model('options.input_class'));
+        this.inputClass_field = element(by.model('options.inputClass'));
         this.name_field = element(by.model('options.name'));
         this.placeholder_field = element(by.model('options.placeholder'));
 
         // color fields
+        this.format_field = element(by.model('options.format'));
+        this.restrict_to_format_field = element(by.model('options.restrictToFormat'));
         this.hue_field = element(by.model('options.hue'));
         this.saturation_field = element(by.model('options.saturation'));
         this.lightness_field = element(by.model('options.lightness'));
@@ -72,6 +74,14 @@ class Page {
 
     openColorPicker() {
         this.input_field.click();
+    }
+
+    closeColorPicker() {
+        this.input_field.sendKeys(protractor.Key.ESCAPE);
+    }
+
+    blurColorPicker() {
+        browser.driver.executeScript('document.activeElement.blur()');
     }
 }
 
