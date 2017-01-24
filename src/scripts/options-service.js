@@ -10,6 +10,7 @@ export default class AngularColorPickerOptions {
             inputClass: '',
             // color
             format: 'hsl',
+            restrictToFormat: false,
             case: 'upper',
             hue: true,
             saturation: false,

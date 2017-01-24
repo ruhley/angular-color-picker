@@ -41,7 +41,7 @@ export default class AngularColorPickerController {
 
         if (newValue !== undefined && newValue !== null) {
             var color = tinycolor(newValue);
-            var isValid = color.isValid();
+            var isValid = color.isValid() && (!this.options.restrictToFormat || color.getFormat() === this.options.format);
 
             if (isValid) {
                 var hsl;
