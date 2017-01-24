@@ -39,7 +39,7 @@ export default class AngularColorPickerController {
             }
         }
 
-        if (newValue !== undefined && newValue !== null && newValue.length > 4) {
+        if (newValue !== undefined && newValue !== null) {
             var color = tinycolor(newValue);
 
             if (color.isValid()) {
