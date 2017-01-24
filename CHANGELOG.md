@@ -1,5 +1,16 @@
 # Changelog
 
+## v3.1.0
+
+#### Breaking Changes
+  * Changing `input_class` to camel case `inputClass` to match the other options
+
+#### New Features
+  *  Feature #145 New `restrictToFormat` option
+
+#### Bug Fixes
+  *  Bug #144 remove color string limit of 4 characters
+
 ## v3.0.1
 
 #### Breaking Changes
