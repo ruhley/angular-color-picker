@@ -41,8 +41,9 @@ export default class AngularColorPickerController {
 
         if (newValue !== undefined && newValue !== null) {
             var color = tinycolor(newValue);
+            var isValid = color.isValid();
 
-            if (color.isValid()) {
+            if (isValid) {
                 var hsl;
 
                 if (this.options.round) {
@@ -65,13 +66,9 @@ export default class AngularColorPickerController {
                 this.$timeout(() => {
                     this.updateModel = true;
                 });
-
-                this.isValid = true;
-            } else {
-                this.isValid = false;
             }
 
-            this.$scope.control[0].$setValidity(this.$element.attr('name'), this.isValid);
+            this.$scope.control[0].$setValidity(this.$element.attr('name'), isValid);
         } else {
             if (newValue === null || newValue === '') {
                 this.hue = 0;
