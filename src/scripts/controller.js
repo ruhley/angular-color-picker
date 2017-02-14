@@ -290,6 +290,9 @@ export default class AngularColorPickerController {
         // opacity click
         this.find('.color-picker-opacity').on('click', this.onOpacityClick.bind(this));
         this.find('.color-picker-opacity').on('touchend', this.onOpacityClick.bind(this));
+
+        this.find('.color-picker-input').on('focusin', this.onFocus.bind(this));
+        this.find('.color-picker-input').on('focusout', this.onBlur.bind(this));
     }
 
     onMouseDown (event) {
