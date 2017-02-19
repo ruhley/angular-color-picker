@@ -1,5 +1,16 @@
 # Changelog
 
+## v3.1.2
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  *  None
+
+#### Bug Fixes
+  *  Bug #148 Color picker hue looks empty on IE
+
 ## v3.1.1
 
 #### Breaking Changes
@@ -9,7 +20,7 @@
   *  None
 
 #### Bug Fixes
-  *  Bug #147  Switching from focus/blur to focusin/focusout for IE compatibility - https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/101237/
+  *  Bug #147 Switching from focus/blur to focusin/focusout for IE compatibility - https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/101237/
 
 ## v3.1.0
 
