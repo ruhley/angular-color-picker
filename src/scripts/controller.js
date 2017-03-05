@@ -18,10 +18,6 @@ export default class AngularColorPickerController {
     }
 
     watchNgModel(newValue, oldValue) {
-        if (this.colorMouse) {
-            return;
-        }
-
         if (newValue !== undefined && oldValue !== undefined && !this.hasOwnProperty('initialNgModel')) {
             this.initialNgModel = newValue;
         }
@@ -37,6 +33,10 @@ export default class AngularColorPickerController {
                     this.$scope.control[0].$setDirty();
                 }
             }
+        }
+
+        if (this.colorMouse) {
+            return;
         }
 
         if (newValue !== undefined && newValue !== null) {
