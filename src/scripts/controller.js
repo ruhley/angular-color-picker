@@ -759,21 +759,22 @@ export default class AngularColorPickerController {
         var el = this.find('.color-picker-grid .color-picker-overlay');
 
         if (this.options.round) {
-            var hsl = color.toHsl();
-
-            hsl.s = 0;
-            var center = tinycolor(hsl);
+            var center = tinycolor({
+                h: this.hue,
+                s: 0,
+                l: this.lightness
+            });
 
             el.css({
                 'background-color': center.toRgbString()
             });
         } else {
-            var hsv = color.toHsv();
-
-            hsv.s = 100;
-            hsv.v = 1;
-            hsv.a = 1;
-            var background = tinycolor(hsv);
+            var background = tinycolor({
+                h: this.hue,
+                s: 1,
+                v: 1,
+                a: 1
+            });
 
             el.css({
                 'background-color': background.toRgbString()
@@ -791,109 +792,79 @@ export default class AngularColorPickerController {
 
     updateHueBackground (color) {
         var el = this.find('.color-picker-hue .color-picker-overlay');
-        var hsl = color.toHsl();
 
-        hsl.h = 0;
-        var zero_sixths = tinycolor(hsl);
+        var zero_sixths = this.getCurrentColorValue();
+        var one_sixths = this.getCurrentColorValue();
+        var two_sixths = this.getCurrentColorValue();
+        var three_sixths = this.getCurrentColorValue();
+        var four_sixths = this.getCurrentColorValue();
+        var five_sixths = this.getCurrentColorValue();
+        var six_sixths = this.getCurrentColorValue();
 
-        hsl.h = 60;
-        var one_sixths = tinycolor(hsl);
-
-        hsl.h = 120;
-        var two_sixths = tinycolor(hsl);
-
-        hsl.h = 180;
-        var three_sixths = tinycolor(hsl);
-
-        hsl.h = 240;
-        var four_sixths = tinycolor(hsl);
-
-        hsl.h = 300;
-        var five_sixths = tinycolor(hsl);
-
-        hsl.h = 359;
-        var six_sixths = tinycolor(hsl);
+        zero_sixths.h = 0;
+        one_sixths.h = 60;
+        two_sixths.h = 120;
+        three_sixths.h = 180;
+        four_sixths.h = 240;
+        five_sixths.h = 300;
+        six_sixths.h = 359;
 
         el.css({
             'background': 'linear-gradient(to top, ' +
-            zero_sixths.toRgbString() + ' 0%, ' +
-            one_sixths.toRgbString() + ' 17%, ' +
-            two_sixths.toRgbString() + ' 33%, ' +
-            three_sixths.toRgbString() + ' 50%, ' +
-            four_sixths.toRgbString() + ' 67%, ' +
-            five_sixths.toRgbString() + ' 83%, ' +
-            six_sixths.toRgbString() + ' 100%)'
+            tinycolor(zero_sixths).toRgbString() + ' 0%, ' +
+            tinycolor(one_sixths).toRgbString() + ' 17%, ' +
+            tinycolor(two_sixths).toRgbString() + ' 33%, ' +
+            tinycolor(three_sixths).toRgbString() + ' 50%, ' +
+            tinycolor(four_sixths).toRgbString() + ' 67%, ' +
+            tinycolor(five_sixths).toRgbString() + ' 83%, ' +
+            tinycolor(six_sixths).toRgbString() + ' 100%)'
         });
     }
 
     updateSaturationBackground (color) {
         var el = this.find('.color-picker-saturation .color-picker-overlay');
-        var high;
-        var low;
+        var high = this.getCurrentColorValue();
+        var low = this.getCurrentColorValue();
 
-        if (this.options.round) {
-            var hsl = color.toHsl();
-
-            hsl.s = 100;
-            high = tinycolor(hsl);
-
-            hsl.s = 0;
-            low = tinycolor(hsl);
-        } else {
-            var hsv = color.toHsv();
-
-            hsv.s = 100;
-            high = tinycolor(hsv);
-
-            hsv.s = 0;
-            low = tinycolor(hsv);
-        }
+        high.s = 100;
+        low.s = 0;
 
         el.css({
-            'background': 'linear-gradient(to bottom, ' + high.toRgbString() + ' 0%, ' + low.toRgbString() + ' 100%)'
+            'background': 'linear-gradient(to bottom, ' + tinycolor(high).toRgbString() + ' 0%, ' + tinycolor(low).toRgbString() + ' 100%)'
         });
     }
 
     updateLightnessBackground (color) {
         var el = this.find('.color-picker-lightness .color-picker-overlay');
+        var bright = this.getCurrentColorValue();
+        var middle = this.getCurrentColorValue();
+        var dark = this.getCurrentColorValue();
 
         if (this.options.round) {
-            var hsl = color.toHsl();
-
-            hsl.l = 100;
-            var bright = tinycolor(hsl);
-
-            hsl.l = 50;
-            var middle = tinycolor(hsl);
-
-            hsl.l = 0;
-            var dark = tinycolor(hsl);
-
-            el.css({
-                'background': 'linear-gradient(to bottom, ' + bright.toRgbString() + ' 0%, ' + middle.toRgbString() + ' 50%, ' + dark.toRgbString() + ' 100%)'
-            });
+            bright.l = 100;
+            middle.l = 50;
+            dark.l = 0;
         } else {
-            var hsv = color.toHsv();
-
-            hsv.v = 100;
-            var high = tinycolor(hsv);
-
-            hsv.v = 0;
-            var low = tinycolor(hsv);
-
-            el.css({
-                'background': 'linear-gradient(to bottom, ' + high.toRgbString() + ' 0%, ' + low.toRgbString() + ' 100%)'
-            });
+            bright.v = 100;
+            middle.v = 50;
+            dark.v = 0;
         }
+
+        el.css({
+            'background': 'linear-gradient(to bottom, ' + tinycolor(bright).toRgbString() + ' 0%, ' + tinycolor(middle).toRgbString() + ' 50%, ' + tinycolor(dark).toRgbString() + ' 100%)'
+        });
     }
 
     updateAlphaBackground (color) {
         var el = this.find('.color-picker-opacity .color-picker-overlay');
-        var opaque = color.clone().setAlpha(1);
-        var transparent = color.clone().setAlpha(0);
+        var opaque = this.getCurrentColorValue();
+        var transparent = this.getCurrentColorValue();
+
+        opaque.a = 1;
+        transparent.a = 0;
 
         el.css({
-            'background': 'linear-gradient(to bottom, ' + opaque.toRgbString() + ' 0%, ' + transparent.toRgbString() + ' 100%)'
+            'background': 'linear-gradient(to bottom, ' + tinycolor(opaque).toRgbString() + ' 0%, ' + tinycolor(transparent).toRgbString() + ' 100%)'
         });
     }
 
@@ -1066,6 +1037,24 @@ export default class AngularColorPickerController {
     //---------------------------
     // helper functions
     //---------------------------
+
+    getCurrentColorValue() {
+        if (this.options.round) {
+            return {
+                h: this.hue,
+                s: this.saturation,
+                l: this.lightness,
+                // a: this.opacity / 100,
+            };
+        }
+
+        return {
+            h: this.hue,
+            s: this.saturation,
+            v: this.lightness,
+            // a: this.opacity / 100,
+        };
+    }
 
     getRoundPos() {
         var angle = this.hue * 0.01745329251994; // deg to rad
