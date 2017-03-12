@@ -1,5 +1,12 @@
 language: node_js
 node_js:
   - "7"
-
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install chromium-chromedriver
+before_script:
+  - "export PATH=$PATH:/usr/lib/chromium-browser/"
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
 script: npm test
