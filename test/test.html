@@ -25,11 +25,6 @@
                 </div>
 
                 <div class="row">
-                    <label class="control-label">Restrict To Format (restrictToFormat) - whether or not to restrict typing of the color to the selected format</label>
-                    <select ng-model="options.restrictToFormat" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
-                </div>
-
-                <div class="row">
                     <label class="control-label">Hue (hue) - whether or not to display the hue control</label>
                     <select ng-model="options.hue" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
                 </div>
@@ -91,6 +86,18 @@
                 <div class="row">
                     <label class="control-label">Round (round) - whether or not to display the picker as a circle</label>
                     <select ng-model="options.round" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <h3>Validation</h3>
+
+                <div class="row">
+                    <label class="control-label">Restrict To Format (restrictToFormat) - whether or not to restrict typing of the color to the selected format</label>
+                    <select ng-model="options.restrictToFormat" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Allow Empty (allowEmpty) - whether or not to allow empty values as valid</label>
+                    <select ng-model="options.allowEmpty" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
                 </div>
 
                 <h3>Attributes</h3>

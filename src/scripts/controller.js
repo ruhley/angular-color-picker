@@ -41,7 +41,7 @@ export default class AngularColorPickerController {
 
         if (newValue !== undefined && newValue !== null) {
             var color = tinycolor(newValue);
-            var isValid = color.isValid() && (!this.options.restrictToFormat || color.getFormat() === this.options.format);
+            var isValid = this.isColorValid(color);
 
             if (isValid) {
                 var hsl;
@@ -68,7 +68,7 @@ export default class AngularColorPickerController {
                 });
             }
 
-            this.$scope.control[0].$setValidity(this.$element.attr('name'), isValid);
+            this.$scope.control[0].$setValidity('color', isValid);
         } else {
             if (newValue === null || newValue === '') {
                 this.hue = 0;
@@ -201,6 +201,8 @@ export default class AngularColorPickerController {
                 'AngularColorPickerController.options.alpha',
                 'AngularColorPickerController.options.case',
                 'AngularColorPickerController.options.round',
+                'AngularColorPickerController.options.restrictToFormat',
+                'AngularColorPickerController.options.allowEmpty',
             ],
             this.reInitAndUpdate.bind(this)
         );
@@ -1037,6 +1039,24 @@ export default class AngularColorPickerController {
     //---------------------------
     // helper functions
     //---------------------------
+
+    isColorValid(color) {
+        let isValid = color.isValid();
+
+        if (isValid && this.options.restrictToFormat) {
+            isValid = color.getFormat() === this.options.format;
+        }
+
+        if (!isValid && this.options.allowEmpty) {
+            let input = color.getOriginalInput();
+
+            if (input === undefined || input === null || input === '') {
+                isValid = true;
+            }
+        }
+
+        return isValid;
+    }
 
     getCurrentColorValue() {
         if (this.options.round) {

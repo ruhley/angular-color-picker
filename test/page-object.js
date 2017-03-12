@@ -10,9 +10,12 @@ class Page {
         this.name_field = element(by.model('options.name'));
         this.placeholder_field = element(by.model('options.placeholder'));
 
+        // validation fields
+        this.restrict_to_format_field = element(by.model('options.restrictToFormat'));
+        this.allow_empty_field = element(by.model('options.allowEmpty'));
+
         // color fields
         this.format_field = element(by.model('options.format'));
-        this.restrict_to_format_field = element(by.model('options.restrictToFormat'));
         this.hue_field = element(by.model('options.hue'));
         this.saturation_field = element(by.model('options.saturation'));
         this.lightness_field = element(by.model('options.lightness'));
@@ -44,6 +47,7 @@ class Page {
         this.button_reset_show_label = element(by.model('options.reset.label'));
 
         // color picker elements
+        this.color_picker = element(by.model('color'));
         this.input_field = element(by.model('AngularColorPickerController.ngModel'));
         this.color_picker_panel = element(by.css('.color-picker-panel'));
         this.swatch = element(by.css('.color-picker-swatch'));
