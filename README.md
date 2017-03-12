@@ -78,9 +78,11 @@ $scope.options = {
     inputClass: '',
     id: undefined,
     name: undefined,
+    // validation
+    restrictToFormat: [false, true],
+    allowEmpty: [false, true],
     // color
     format: ['hsl', 'hsv', 'rgb', 'hex', 'hex8', 'raw'],
-    restrictToFormat: [false, true],
     hue: [true, false],
     saturation: [false, true],
     lightness: [false, true], // Note: In the square mode this is HSV and in round mode this is HSL

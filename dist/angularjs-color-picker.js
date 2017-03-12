@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v3.1.2
+ * angularjs-color-picker v3.2.0
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2017 ruhley
  *
- * 2017-02-20 08:09:11
+ * 2017-03-13 08:35:27
  *
  */
 
@@ -74,10 +74,6 @@ var AngularColorPickerController = function () {
         value: function watchNgModel(newValue, oldValue) {
             var _this = this;
 
-            if (this.colorMouse) {
-                return;
-            }
-
             if (newValue !== undefined && oldValue !== undefined && !this.hasOwnProperty('initialNgModel')) {
                 this.initialNgModel = newValue;
             }
@@ -95,9 +91,13 @@ var AngularColorPickerController = function () {
                 }
             }
 
+            if (this.colorMouse) {
+                return;
+            }
+
             if (newValue !== undefined && newValue !== null) {
                 var color = tinycolor(newValue);
-                var isValid = color.isValid() && (!this.options.restrictToFormat || color.getFormat() === this.options.format);
+                var isValid = this.isColorValid(color);
 
                 if (isValid) {
                     var hsl;
@@ -124,7 +124,7 @@ var AngularColorPickerController = function () {
                     });
                 }
 
-                this.$scope.control[0].$setValidity(this.$element.attr('name'), isValid);
+                this.$scope.control[0].$setValidity('color', isValid);
             } else {
                 if (newValue === null || newValue === '') {
                     this.hue = 0;
@@ -258,7 +258,7 @@ var AngularColorPickerController = function () {
 
             this.$scope.$watch('AngularColorPickerController.options.swatchPos', this.watchSwatchPos.bind(this));
 
-            this.$scope.$watchGroup(['AngularColorPickerController.options.format', 'AngularColorPickerController.options.alpha', 'AngularColorPickerController.options.case', 'AngularColorPickerController.options.round'], this.reInitAndUpdate.bind(this));
+            this.$scope.$watchGroup(['AngularColorPickerController.options.format', 'AngularColorPickerController.options.alpha', 'AngularColorPickerController.options.case', 'AngularColorPickerController.options.round', 'AngularColorPickerController.options.restrictToFormat', 'AngularColorPickerController.options.allowEmpty'], this.reInitAndUpdate.bind(this));
 
             this.$scope.$watchGroup(['AngularColorPickerController.options.disabled', 'AngularColorPickerController.options.swatchBootstrap', 'AngularColorPickerController.options.swatchOnly', 'AngularColorPickerController.options.swatch', 'AngularColorPickerController.options.pos', 'AngularColorPickerController.options.inline', 'AngularColorPickerController.options.placeholder'], this.reInit.bind(this));
 
@@ -841,21 +841,22 @@ var AngularColorPickerController = function () {
             var el = this.find('.color-picker-grid .color-picker-overlay');
 
             if (this.options.round) {
-                var hsl = color.toHsl();
-
-                hsl.s = 0;
-                var center = tinycolor(hsl);
+                var center = tinycolor({
+                    h: this.hue,
+                    s: 0,
+                    l: this.lightness
+                });
 
                 el.css({
                     'background-color': center.toRgbString()
                 });
             } else {
-                var hsv = color.toHsv();
-
-                hsv.s = 100;
-                hsv.v = 1;
-                hsv.a = 1;
-                var background = tinycolor(hsv);
+                var background = tinycolor({
+                    h: this.hue,
+                    s: 1,
+                    v: 1,
+                    a: 1
+                });
 
                 el.css({
                     'background-color': background.toRgbString()
@@ -874,105 +875,75 @@ var AngularColorPickerController = function () {
         key: 'updateHueBackground',
         value: function updateHueBackground(color) {
             var el = this.find('.color-picker-hue .color-picker-overlay');
-            var hsl = color.toHsl();
 
-            hsl.h = 0;
-            var zero_sixths = tinycolor(hsl);
+            var zero_sixths = this.getCurrentColorValue();
+            var one_sixths = this.getCurrentColorValue();
+            var two_sixths = this.getCurrentColorValue();
+            var three_sixths = this.getCurrentColorValue();
+            var four_sixths = this.getCurrentColorValue();
+            var five_sixths = this.getCurrentColorValue();
+            var six_sixths = this.getCurrentColorValue();
 
-            hsl.h = 60;
-            var one_sixths = tinycolor(hsl);
-
-            hsl.h = 120;
-            var two_sixths = tinycolor(hsl);
-
-            hsl.h = 180;
-            var three_sixths = tinycolor(hsl);
-
-            hsl.h = 240;
-            var four_sixths = tinycolor(hsl);
-
-            hsl.h = 300;
-            var five_sixths = tinycolor(hsl);
-
-            hsl.h = 359;
-            var six_sixths = tinycolor(hsl);
+            zero_sixths.h = 0;
+            one_sixths.h = 60;
+            two_sixths.h = 120;
+            three_sixths.h = 180;
+            four_sixths.h = 240;
+            five_sixths.h = 300;
+            six_sixths.h = 359;
 
             el.css({
-                'background': 'linear-gradient(to top, ' + zero_sixths.toRgbString() + ' 0%, ' + one_sixths.toRgbString() + ' 17%, ' + two_sixths.toRgbString() + ' 33%, ' + three_sixths.toRgbString() + ' 50%, ' + four_sixths.toRgbString() + ' 67%, ' + five_sixths.toRgbString() + ' 83%, ' + six_sixths.toRgbString() + ' 100%)'
+                'background': 'linear-gradient(to top, ' + tinycolor(zero_sixths).toRgbString() + ' 0%, ' + tinycolor(one_sixths).toRgbString() + ' 17%, ' + tinycolor(two_sixths).toRgbString() + ' 33%, ' + tinycolor(three_sixths).toRgbString() + ' 50%, ' + tinycolor(four_sixths).toRgbString() + ' 67%, ' + tinycolor(five_sixths).toRgbString() + ' 83%, ' + tinycolor(six_sixths).toRgbString() + ' 100%)'
             });
         }
     }, {
         key: 'updateSaturationBackground',
         value: function updateSaturationBackground(color) {
             var el = this.find('.color-picker-saturation .color-picker-overlay');
-            var high;
-            var low;
+            var high = this.getCurrentColorValue();
+            var low = this.getCurrentColorValue();
 
-            if (this.options.round) {
-                var hsl = color.toHsl();
-
-                hsl.s = 100;
-                high = tinycolor(hsl);
-
-                hsl.s = 0;
-                low = tinycolor(hsl);
-            } else {
-                var hsv = color.toHsv();
-
-                hsv.s = 100;
-                high = tinycolor(hsv);
-
-                hsv.s = 0;
-                low = tinycolor(hsv);
-            }
+            high.s = 100;
+            low.s = 0;
 
             el.css({
-                'background': 'linear-gradient(to bottom, ' + high.toRgbString() + ' 0%, ' + low.toRgbString() + ' 100%)'
+                'background': 'linear-gradient(to bottom, ' + tinycolor(high).toRgbString() + ' 0%, ' + tinycolor(low).toRgbString() + ' 100%)'
             });
         }
     }, {
         key: 'updateLightnessBackground',
         value: function updateLightnessBackground(color) {
             var el = this.find('.color-picker-lightness .color-picker-overlay');
+            var bright = this.getCurrentColorValue();
+            var middle = this.getCurrentColorValue();
+            var dark = this.getCurrentColorValue();
 
             if (this.options.round) {
-                var hsl = color.toHsl();
-
-                hsl.l = 100;
-                var bright = tinycolor(hsl);
-
-                hsl.l = 50;
-                var middle = tinycolor(hsl);
-
-                hsl.l = 0;
-                var dark = tinycolor(hsl);
-
-                el.css({
-                    'background': 'linear-gradient(to bottom, ' + bright.toRgbString() + ' 0%, ' + middle.toRgbString() + ' 50%, ' + dark.toRgbString() + ' 100%)'
-                });
+                bright.l = 100;
+                middle.l = 50;
+                dark.l = 0;
             } else {
-                var hsv = color.toHsv();
-
-                hsv.v = 100;
-                var high = tinycolor(hsv);
-
-                hsv.v = 0;
-                var low = tinycolor(hsv);
-
-                el.css({
-                    'background': 'linear-gradient(to bottom, ' + high.toRgbString() + ' 0%, ' + low.toRgbString() + ' 100%)'
-                });
+                bright.v = 100;
+                middle.v = 50;
+                dark.v = 0;
             }
+
+            el.css({
+                'background': 'linear-gradient(to bottom, ' + tinycolor(bright).toRgbString() + ' 0%, ' + tinycolor(middle).toRgbString() + ' 50%, ' + tinycolor(dark).toRgbString() + ' 100%)'
+            });
         }
     }, {
         key: 'updateAlphaBackground',
         value: function updateAlphaBackground(color) {
             var el = this.find('.color-picker-opacity .color-picker-overlay');
-            var opaque = color.clone().setAlpha(1);
-            var transparent = color.clone().setAlpha(0);
+            var opaque = this.getCurrentColorValue();
+            var transparent = this.getCurrentColorValue();
+
+            opaque.a = 1;
+            transparent.a = 0;
 
             el.css({
-                'background': 'linear-gradient(to bottom, ' + opaque.toRgbString() + ' 0%, ' + transparent.toRgbString() + ' 100%)'
+                'background': 'linear-gradient(to bottom, ' + tinycolor(opaque).toRgbString() + ' 0%, ' + tinycolor(transparent).toRgbString() + ' 100%)'
             });
         }
 
@@ -1160,6 +1131,42 @@ var AngularColorPickerController = function () {
         // helper functions
         //---------------------------
 
+    }, {
+        key: 'isColorValid',
+        value: function isColorValid(color) {
+            var isValid = color.isValid();
+
+            if (isValid && this.options.restrictToFormat) {
+                isValid = color.getFormat() === this.options.format;
+            }
+
+            if (!isValid && this.options.allowEmpty) {
+                var input = color.getOriginalInput();
+
+                if (input === undefined || input === null || input === '') {
+                    isValid = true;
+                }
+            }
+
+            return isValid;
+        }
+    }, {
+        key: 'getCurrentColorValue',
+        value: function getCurrentColorValue() {
+            if (this.options.round) {
+                return {
+                    h: this.hue,
+                    s: this.saturation,
+                    l: this.lightness
+                };
+            }
+
+            return {
+                h: this.hue,
+                s: this.saturation,
+                v: this.lightness
+            };
+        }
     }, {
         key: 'getRoundPos',
         value: function getRoundPos() {
@@ -1352,9 +1359,11 @@ var AngularColorPickerOptions = function AngularColorPickerOptions() {
         disabled: false,
         placeholder: '',
         inputClass: '',
+        // validation
+        restrictToFormat: false,
+        allowEmpty: false,
         // color
         format: 'hsl',
-        restrictToFormat: false,
         case: 'upper',
         hue: true,
         saturation: false,

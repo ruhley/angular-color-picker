@@ -1,15 +1,28 @@
 # Changelog
 
+## v3.2.0
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * Feature #149 New `allowEmpty` option for validation
+
+#### Bug Fixes
+  * Bug #150 Field wasn't always being set to dirty
+  * Bug #152 Improve slider background colors to be more accurate
+  * Bug #149 Fix validation field being set to `undefined`
+
 ## v3.1.2
 
 #### Breaking Changes
   * None
 
 #### New Features
-  *  None
+  * None
 
 #### Bug Fixes
-  *  Bug #148 Color picker hue looks empty on IE
+  * Bug #148 Color picker hue looks empty on IE
 
 ## v3.1.1
 
@@ -17,10 +30,10 @@
   * None
 
 #### New Features
-  *  None
+  * None
 
 #### Bug Fixes
-  *  Bug #147 Switching from focus/blur to focusin/focusout for IE compatibility - https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/101237/
+  * Bug #147 Switching from focus/blur to focusin/focusout for IE compatibility - https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/101237/
 
 ## v3.1.0
 
@@ -28,10 +41,10 @@
   * Changing `input_class` to camel case `inputClass` to match the other options
 
 #### New Features
-  *  Feature #145 New `restrictToFormat` option
+  * Feature #145 New `restrictToFormat` option
 
 #### Bug Fixes
-  *  Bug #144 remove color string limit of 4 characters
+  * Bug #144 remove color string limit of 4 characters
 
 ## v3.0.1
 
