@@ -2,6 +2,9 @@
 
 Vanilla AngularJS Color Picker Directive with no requirement on jQuery
 
+[![Build Status](https://travis-ci.org/ruhley/angular-color-picker.svg?branch=master)](https://travis-ci.org/ruhley/angular-color-picker)
+[![Code Climate](https://lima.codeclimate.com/github/ruhley/angular-color-picker/badges/gpa.svg)](https://lima.codeclimate.com/github/ruhley/angular-color-picker)
+
 ## Installation
 
 #### Bower
