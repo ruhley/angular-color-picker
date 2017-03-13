@@ -25,6 +25,7 @@ var _config = {
     seleniumServerJar: "." + selenium_dir + selenium_server_jar,
     chromeDriver: "." + selenium_dir + chrome_driver,
     specs: ["**/*.protractor.js"],
+     directConnect: true,
 
     // options to be passed to jasmine
     jasmineNodeOpts: {
