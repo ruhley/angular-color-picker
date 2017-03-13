@@ -14,7 +14,7 @@ before_install:
   - sudo dpkg -i google-chrome*.deb
 
 before_script:
-  - grunt connect:test:keepalive&
+  - grunt connect:test:keepalive &
 
 script:
   - npm test
