@@ -182,10 +182,17 @@ export default class AngularColorPickerController {
         // needed variables
         this.updateModel = true;
 
-        //---------------------------
         // watchers
-        //---------------------------
+        this.initWatchers();
 
+        // set default config settings
+        this.initConfig();
+
+        // mouse events
+        this.initMouseEvents();
+    }
+
+    initWatchers() {
         // ngModel
 
         this.$scope.$watch('AngularColorPickerController.ngModel', this.watchNgModel.bind(this));
@@ -234,30 +241,9 @@ export default class AngularColorPickerController {
         this.$scope.$watch('AngularColorPickerController.lightness', this.lightnessUpdate.bind(this));
 
         this.$scope.$watch('AngularColorPickerController.opacity', this.opacityUpdate.bind(this));
+    }
 
-        //---------------------------
-        // destroy
-        //---------------------------
-
-        this.$scope.$on('$destroy', () => {
-            // remove mouse events
-            this.$document.off('mousedown', eventHandlers.mouseDown);
-            this.$document.off('mouseup', eventHandlers.mouseUp);
-            this.$document.off('mousemove', eventHandlers.mouseMove);
-
-            // remove touch events
-            this.$document.off('touchstart', eventHandlers.mouseDown);
-            this.$document.off('touchend', eventHandlers.mouseUp);
-            this.$document.off('touchmove', eventHandlers.mouseMove);
-
-            // remove key events
-            this.$document.off('keyup', eventHandlers.keyUp);
-
-            this.eventApiDispatch('onDestroy');
-        });
-
-        // set default config settings
-        this.initConfig();
+    initMouseEvents() {
 
         // setup mouse events
         this.$document.on('mousedown', eventHandlers.mouseDown);
@@ -294,34 +280,57 @@ export default class AngularColorPickerController {
 
         this.find('.color-picker-input').on('focusin', this.onFocus.bind(this));
         this.find('.color-picker-input').on('focusout', this.onBlur.bind(this));
+
+        //---------------------------
+        // destroy
+        //---------------------------
+
+        this.$scope.$on('$destroy', () => {
+            // remove mouse events
+            this.$document.off('mousedown', eventHandlers.mouseDown);
+            this.$document.off('mouseup', eventHandlers.mouseUp);
+            this.$document.off('mousemove', eventHandlers.mouseMove);
+
+            // remove touch events
+            this.$document.off('touchstart', eventHandlers.mouseDown);
+            this.$document.off('touchend', eventHandlers.mouseUp);
+            this.$document.off('touchmove', eventHandlers.mouseMove);
+
+            // remove key events
+            this.$document.off('keyup', eventHandlers.keyUp);
+
+            this.eventApiDispatch('onDestroy');
+        });
     }
 
     onMouseDown (event) {
         this.has_moused_moved = false;
 
-        // an element in this picker
-        if (!this.options.disabled && this.find(event.target).length > 0) {
-            // mouse event on color grid
-            if (event.target.classList.contains('color-picker-grid-inner') || event.target.classList.contains('color-picker-picker') || event.target.parentNode.classList.contains('color-picker-picker')) {
-                this.colorDown(event);
-                this.$scope.$apply();
-            // mouse event on hue slider
-            } else if (event.target.classList.contains('color-picker-hue') || event.target.parentNode.classList.contains('color-picker-hue')) {
-                this.hueDown(event);
-                this.$scope.$apply();
-            // mouse event on saturation slider
-            } else if (event.target.classList.contains('color-picker-saturation') || event.target.parentNode.classList.contains('color-picker-saturation')) {
-                this.saturationDown(event);
-                this.$scope.$apply();
-            // mouse event on lightness slider
-            } else if (event.target.classList.contains('color-picker-lightness') || event.target.parentNode.classList.contains('color-picker-lightness')) {
-                this.lightnessDown(event);
-                this.$scope.$apply();
-            // mouse event on opacity slider
-            } else if (event.target.classList.contains('color-picker-opacity') || event.target.parentNode.classList.contains('color-picker-opacity')) {
-                this.opacityDown(event);
-                this.$scope.$apply();
-            }
+        // if disabled or not an element in this picker then do nothing
+        if (this.options.disabled || this.find(event.target).length === 0) {
+            return false;
+        }
+
+        // mouse event on color grid
+        if (event.target.classList.contains('color-picker-grid-inner') || event.target.classList.contains('color-picker-picker') || event.target.parentNode.classList.contains('color-picker-picker')) {
+            this.colorDown(event);
+            this.$scope.$apply();
+        // mouse event on hue slider
+        } else if (event.target.classList.contains('color-picker-hue') || event.target.parentNode.classList.contains('color-picker-hue')) {
+            this.hueDown(event);
+            this.$scope.$apply();
+        // mouse event on saturation slider
+        } else if (event.target.classList.contains('color-picker-saturation') || event.target.parentNode.classList.contains('color-picker-saturation')) {
+            this.saturationDown(event);
+            this.$scope.$apply();
+        // mouse event on lightness slider
+        } else if (event.target.classList.contains('color-picker-lightness') || event.target.parentNode.classList.contains('color-picker-lightness')) {
+            this.lightnessDown(event);
+            this.$scope.$apply();
+        // mouse event on opacity slider
+        } else if (event.target.classList.contains('color-picker-opacity') || event.target.parentNode.classList.contains('color-picker-opacity')) {
+            this.opacityDown(event);
+            this.$scope.$apply();
         }
     }
 
