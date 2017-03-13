@@ -15,6 +15,16 @@ export default class AngularColorPickerController {
         this.saturation = undefined;
         this.lightness = undefined;
         this.opacity = undefined;
+
+        this.pickerDimensions = {
+            width: 150,
+            height: 150,
+        };
+
+        this.sliderDimensions = {
+            width: 20,
+            height: 150,
+        };
     }
 
     watchNgModel(newValue, oldValue) {
@@ -97,14 +107,12 @@ export default class AngularColorPickerController {
             this.colorMouse = false;
 
             // force the sliders to re-caculate their position
-            this.$timeout(() => {
-                this.hueUpdate();
-                this.saturationUpdate();
-                this.lightnessUpdate();
-                this.opacityUpdate();
+            this.hueUpdate();
+            this.saturationUpdate();
+            this.lightnessUpdate();
+            this.opacityUpdate();
 
-                this.eventApiDispatch('onOpen', [event]);
-            });
+            this.eventApiDispatch('onOpen', [event]);
         };
 
         this.api.close = (event) => {
@@ -569,72 +577,54 @@ export default class AngularColorPickerController {
 
 
     huePosUpdate () {
-        this.$timeout(() => {
-            var container = this.$element[0].querySelector('.color-picker-hue');
-            var el = angular.element(this.$element[0].querySelector('.color-picker-hue .color-picker-slider'));
-            var bounding = container.getBoundingClientRect();
+        var el = angular.element(this.$element[0].querySelector('.color-picker-hue .color-picker-slider'));
 
-            el.css({
-                'top': (bounding.height * this.huePos / 100) + 'px',
-            });
+        el.css({
+            'top': (this.sliderDimensions.height * this.huePos / 100) + 'px',
         });
     }
 
     saturationPosUpdate () {
-        this.$timeout(() => {
-            var container, el, bounding;
+        var container, el;
 
-            if (!this.options.round) {
-                el = angular.element(this.$element[0].querySelector('.color-picker-grid .color-picker-picker'));
-                bounding = this.getGridBounding();
-
-                el.css({
-                    'left': (bounding.width * this.saturationPos / 100) + 'px',
-                });
-            }
-
-            container = this.$element[0].querySelector('.color-picker-saturation');
-            el = angular.element(this.$element[0].querySelector('.color-picker-saturation .color-picker-slider'));
-            bounding = container.getBoundingClientRect();
+        if (!this.options.round) {
+            el = angular.element(this.$element[0].querySelector('.color-picker-grid .color-picker-picker'));
 
             el.css({
-                'top': (bounding.height * (100 - this.saturationPos) / 100) + 'px',
+                'left': (this.pickerDimensions.width * this.saturationPos / 100) + 'px',
             });
+        }
+
+        el = angular.element(this.$element[0].querySelector('.color-picker-saturation .color-picker-slider'));
+
+        el.css({
+            'top': (this.sliderDimensions.height * (100 - this.saturationPos) / 100) + 'px',
         });
     }
 
     lightnessPosUpdate () {
-        this.$timeout(() => {
-            var container, el, bounding;
+        var container, el;
 
-            if (!this.options.round) {
-                el = angular.element(this.$element[0].querySelector('.color-picker-grid .color-picker-picker'));
-                bounding = this.getGridBounding();
-
-                el.css({
-                    'top': (bounding.height * this.lightnessPos / 100) + 'px',
-                });
-            }
-
-            container = this.$element[0].querySelector('.color-picker-lightness');
-            el = angular.element(this.$element[0].querySelector('.color-picker-lightness .color-picker-slider'));
-            bounding = container.getBoundingClientRect();
+        if (!this.options.round) {
+            el = angular.element(this.$element[0].querySelector('.color-picker-grid .color-picker-picker'));
 
             el.css({
-                'top': (bounding.height * this.lightnessPos / 100) + 'px',
+                'top': (this.pickerDimensions.height * this.lightnessPos / 100) + 'px',
             });
+        }
+
+        el = angular.element(this.$element[0].querySelector('.color-picker-lightness .color-picker-slider'));
+
+        el.css({
+            'top': (this.sliderDimensions.height * this.lightnessPos / 100) + 'px',
         });
     }
 
     opacityPosUpdate () {
-        this.$timeout(() => {
-            var container = this.$element[0].querySelector('.color-picker-opacity');
-            var el = angular.element(this.$element[0].querySelector('.color-picker-opacity .color-picker-slider'));
-            var bounding = container.getBoundingClientRect();
+        var el = angular.element(this.$element[0].querySelector('.color-picker-opacity .color-picker-slider'));
 
-            el.css({
-                'top': (bounding.height * this.opacityPos / 100) + 'px',
-            });
+        el.css({
+            'top': (this.sliderDimensions.height * this.opacityPos / 100) + 'px',
         });
     }
 
@@ -1038,7 +1028,6 @@ export default class AngularColorPickerController {
                 h: this.hue,
                 s: this.saturation,
                 l: this.lightness,
-                // a: this.opacity / 100,
             };
         }
 
@@ -1046,7 +1035,6 @@ export default class AngularColorPickerController {
             h: this.hue,
             s: this.saturation,
             v: this.lightness,
-            // a: this.opacity / 100,
         };
     }
 
@@ -1068,11 +1056,6 @@ export default class AngularColorPickerController {
     stopEvent(event) {
         event.stopPropagation();
         event.preventDefault();
-    }
-
-    getGridBounding() {
-        let container = this.$element[0].querySelector('.color-picker-grid');
-        return container.getBoundingClientRect();
     }
 
     getRoundPos() {
@@ -1099,14 +1082,11 @@ export default class AngularColorPickerController {
     }
 
     updateRoundPos() {
-        this.$timeout(() => {
-            var bounding = this.getGridBounding();
-            var el = angular.element(this.$element[0].querySelector('.color-picker-grid .color-picker-picker'));
+        var el = angular.element(this.$element[0].querySelector('.color-picker-grid .color-picker-picker'));
 
-            el.css({
-                left: (bounding.width * this.xPos / 100) + 'px',
-                top: (bounding.height * this.yPos / 100) + 'px',
-            });
+        el.css({
+            left: (this.pickerDimensions.width * this.xPos / 100) + 'px',
+            top: (this.pickerDimensions.height * this.yPos / 100) + 'px',
         });
     }
 

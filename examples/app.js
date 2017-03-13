@@ -1,9 +1,9 @@
 angular
-    .module('app', ['color.picker'])
+    .module('app', ['color.picker', 'ngAnimate'])
     .config(function($provide) {
         $provide.decorator('ColorPickerOptions', function($delegate) {
             var options = angular.copy($delegate);
-            options.round = true;
+            // options.round = true;
             options.hue = true;
             options.saturation = true;
             options.lightness = true;
