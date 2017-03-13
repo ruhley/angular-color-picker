@@ -22,18 +22,7 @@ export default class AngularColorPickerController {
             this.initialNgModel = newValue;
         }
 
-        // check dirty/pristine state
-        if (this.hasOwnProperty('initialNgModel')) {
-            if (newValue === this.initialNgModel) {
-                if (typeof this.$scope.control[0].$setPristine === 'function') {
-                    this.$scope.control[0].$setPristine();
-                }
-            } else {
-                if (typeof this.$scope.control[0].$setDirty === 'function') {
-                    this.$scope.control[0].$setDirty();
-                }
-            }
-        }
+        this.checkDirty(newValue);
 
         if (this.colorMouse) {
             return;
@@ -1057,6 +1046,21 @@ export default class AngularColorPickerController {
             v: this.lightness,
             // a: this.opacity / 100,
         };
+    }
+
+    checkDirty(color) {
+        // check dirty/pristine state
+        if (this.hasOwnProperty('initialNgModel')) {
+            if (color === this.initialNgModel) {
+                if (typeof this.$scope.control[0].$setPristine === 'function') {
+                    this.$scope.control[0].$setPristine();
+                }
+            } else {
+                if (typeof this.$scope.control[0].$setDirty === 'function') {
+                    this.$scope.control[0].$setDirty();
+                }
+            }
+        }
     }
 
     stopEvent(event) {
