@@ -97,12 +97,14 @@ export default class AngularColorPickerController {
             this.colorMouse = false;
 
             // force the sliders to re-caculate their position
-            this.hueUpdate();
-            this.saturationUpdate();
-            this.lightnessUpdate();
-            this.opacityUpdate();
+            this.$timeout(() => {
+                this.hueUpdate();
+                this.saturationUpdate();
+                this.lightnessUpdate();
+                this.opacityUpdate();
 
-            this.eventApiDispatch('onOpen', [event]);
+                this.eventApiDispatch('onOpen', [event]);
+            });
         };
 
         this.api.close = (event) => {
