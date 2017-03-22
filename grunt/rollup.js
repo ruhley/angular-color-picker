@@ -1,28 +1,14 @@
 var rollup = require('rollup');
-var uglify = require('rollup-plugin-uglify');
 
-var options = require('./options/rollup');
-
+var rollup_options = require('./options/rollup');
 
 
-rollup.rollup(options.options).then(function(writer) {
-    options.writeFile(writer, options.writeOptions);
-}, options.reject);
 
-options.options.plugins.push(uglify({
-    output: {
-        comments: function(node, comment) {
-            var text = comment.value;
-            var type = comment.type;
-            if (type === 'comment2') {
-                // multiline comment
-                return /!/i.test(text);
-            }
-        }
-    }
-}));
+rollup.rollup(rollup_options.options).then(function(writer) {
+    rollup_options.writeFile(writer, rollup_options.writeOptions);
+}, rollup_options.reject);
 
-rollup.rollup(options.options).then(function(writer) {
-    options.writeOptions.dest = options.writeOptions.dest.replace('.js', '.min.js');
-    options.writeFile(writer, options.writeOptions);
-}, options.reject);
+rollup.rollup(rollup_options.options_min).then(function(writer) {
+    rollup_options.writeOptions.dest = rollup_options.writeOptions.dest.replace('.js', '.min.js');
+    rollup_options.writeFile(writer, rollup_options.writeOptions);
+}, rollup_options.reject);

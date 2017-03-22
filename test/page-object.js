@@ -2,6 +2,7 @@
 class Page {
     constructor() {
         this.url = 'http://localhost:8000/test/test.html';
+        // this.url = 'http://localhost/angular-color-picker/test/test.html';
         this.body = element(by.css('body'));
 
         // attribute fields

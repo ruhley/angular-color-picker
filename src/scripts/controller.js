@@ -106,6 +106,8 @@ export default class AngularColorPickerController {
             this.opacityMouse = false;
             this.colorMouse = false;
 
+            this.$scope.$applyAsync();
+
             // force the sliders to re-caculate their position
             this.hueUpdate();
             this.saturationUpdate();
@@ -172,13 +174,6 @@ export default class AngularColorPickerController {
         let _android_version = window.navigator.userAgent.match(/Android\s([0-9\.]*)/i);
         this.android_version = _android_version && _android_version.length > 1 ? parseFloat(_android_version[1]) : NaN;
 
-        const eventHandlers = {
-            mouseDown: this.onMouseDown.bind(this),
-            mouseUp: this.onMouseUp.bind(this),
-            mouseMove: this.onMouseMove.bind(this),
-            keyUp: this.onKeyUp.bind(this),
-        };
-
         // needed variables
         this.updateModel = true;
 
@@ -244,6 +239,12 @@ export default class AngularColorPickerController {
     }
 
     initMouseEvents() {
+        const eventHandlers = {
+            mouseDown: this.onMouseDown.bind(this),
+            mouseUp: this.onMouseUp.bind(this),
+            mouseMove: this.onMouseMove.bind(this),
+            keyUp: this.onKeyUp.bind(this),
+        };
 
         // setup mouse events
         this.$document.on('mousedown', eventHandlers.mouseDown);
@@ -308,7 +309,7 @@ export default class AngularColorPickerController {
 
         // if disabled or not an element in this picker then do nothing
         if (this.options.disabled || this.find(event.target).length === 0) {
-            return false;
+            return true;
         }
 
         // mouse event on color grid

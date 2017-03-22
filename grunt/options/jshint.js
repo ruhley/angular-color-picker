@@ -9,7 +9,7 @@ module.exports = {
             // grunt globals
             module: true,
             require: true,
-            process: true,
+            process: true
         }
     },
     src: ['<%= config.src %>/**/*.js'],

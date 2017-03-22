@@ -10,5 +10,5 @@ module.exports = {
             title: 'Grunt Build Task',
             message: 'Task completed successfully'
         }
-    },
+    }
 };

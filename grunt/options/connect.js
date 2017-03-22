@@ -1,6 +1,6 @@
 module.exports = {
     test: {
         hostname: '*',
-        keepalive: true,
+        keepalive: true
     }
 };

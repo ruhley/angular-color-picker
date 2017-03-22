@@ -1,4 +1,5 @@
 var babel = require('rollup-plugin-babel');
+var uglify = require('rollup-plugin-uglify');
 var es2015Rollup = require('babel-preset-es2015-rollup');
 var moment = require('moment');
 
@@ -13,6 +14,27 @@ module.exports = {
             babel({
                 exclude: 'node_modules/**',
                 presets: [ es2015Rollup ]
+            })
+        ]
+    },
+    options_min: {
+        entry: 'src/scripts/module.js',
+        plugins: [
+            babel({
+                exclude: 'node_modules/**',
+                presets: [ es2015Rollup ]
+            }),
+            uglify({
+                output: {
+                    comments: function(node, comment) {
+                        var text = comment.value;
+                        var type = comment.type;
+                        if (type === 'comment2') {
+                            // multiline comment
+                            return /!/i.test(text);
+                        }
+                    }
+                }
             })
         ]
     },
@@ -36,5 +58,5 @@ module.exports = {
     },
     reject: function(response) {
         console.log(response);
-    },
+    }
 };

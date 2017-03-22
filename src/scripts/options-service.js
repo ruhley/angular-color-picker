@@ -30,29 +30,29 @@ export default class AngularColorPickerOptions {
             // show/hide events
             show: {
                 swatch: true,
-                focus: true,
+                focus: true
             },
             hide: {
                 blur: true,
                 escape: true,
-                click: true,
+                click: true
             },
             // buttons
             close: {
                 show: false,
                 label: 'Close',
-                class: '',
+                class: ''
             },
             clear: {
                 show: false,
                 label: 'Clear',
-                class: '',
+                class: ''
             },
             reset: {
                 show: false,
                 label: 'Reset',
-                class: '',
-            },
+                class: ''
+            }
         };
     }
 }

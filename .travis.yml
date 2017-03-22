@@ -1,6 +1,8 @@
 sudo: required
 dist: trusty
 language: node_js
+notifications:
+  email: false
 node_js:
   - "7"
 

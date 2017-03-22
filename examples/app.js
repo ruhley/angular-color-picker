@@ -25,7 +25,7 @@ angular
             close: {show: true},
             clear: {show: true},
             reset: {show: true},
-            placeholder: $scope.color,
+            placeholder: $scope.color
         };
         $scope.api = {};
         $scope.eventApi = {

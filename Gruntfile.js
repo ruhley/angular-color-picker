@@ -19,7 +19,7 @@
                 styles: 'styles',
                 // misc
                 filename: 'angularjs-color-picker',
-                pkg: grunt.file.readJSON('package.json'),
+                pkg: grunt.file.readJSON('package.json')
             }};
 
             // loads tasks in the 'grunt' folder
