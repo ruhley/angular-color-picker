@@ -1,5 +1,17 @@
 # Changelog
 
+## v3.2.1
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * None
+
+#### Bug Fixes
+  * Bug #153 Hue selector reset to 0 after closing picker and reopening
+  * Bug #154 Conflict with angular animate
+
 ## v3.2.0
 
 #### Breaking Changes
