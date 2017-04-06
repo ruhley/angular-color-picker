@@ -8,13 +8,8 @@
     "angular": "^1.4.0",
     "tinycolor2": "^1.3.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/ruhley/angular-color-picker.git"
-  },
-  "authors": [
-    "ruhley <timothy.ruhle@gmail.com>"
-  ],
+  "repository": "git://github.com/ruhley/angular-color-picker.git",
+  "author": "Timothy Ruhle <timothy.ruhle@gmail.com>",
   "contributors": [
     "Benjamin Orozco <benoror@gmail.com>"
   ],
