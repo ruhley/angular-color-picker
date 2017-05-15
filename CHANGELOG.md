@@ -1,5 +1,16 @@
 # Changelog
 
+## v3.3.0
+
+#### Breaking Changes
+  * `hex` and `hex8` formats are now returning the hex value without the hash `#` character.
+
+#### New Features
+  * Now supporting values with and without the `#` for both hex and hex8 formats.
+
+#### Bug Fixes
+  * None
+
 ## v3.2.1
 
 #### Breaking Changes
