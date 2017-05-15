@@ -548,13 +548,29 @@ export default class AngularColorPickerController {
 
                 case 'hex':
                     if (this.options.case === 'lower') {
+                        this.ngModel = color.toHex().toLowerCase();
+                    } else {
+                        this.ngModel = color.toHex().toUpperCase();
+                    }
+                    break;
+
+                case 'hex8':
+                    if (this.options.case === 'lower') {
+                        this.ngModel = color.toHex8().toLowerCase();
+                    } else {
+                        this.ngModel = color.toHex8().toUpperCase();
+                    }
+                    break;
+
+                case 'hexstring':
+                    if (this.options.case === 'lower') {
                         this.ngModel = color.toHexString().toLowerCase();
                     } else {
                         this.ngModel = color.toHexString().toUpperCase();
                     }
                     break;
 
-                case 'hex8':
+                case 'hex8string':
                     if (this.options.case === 'lower') {
                         this.ngModel = color.toHex8String().toLowerCase();
                     } else {

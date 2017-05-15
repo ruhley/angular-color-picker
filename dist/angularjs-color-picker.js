@@ -4,7 +4,7 @@
  *
  * Copyright 2017 ruhley
  *
- * 2017-03-23 08:33:55
+ * 2017-05-15 02:14:55
  *
  */
 
@@ -19,8 +19,14 @@ tinycolor = 'default' in tinycolor ? tinycolor['default'] : tinycolor;
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
 } : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
+
+
+
+
+
+
 
 
 
@@ -608,13 +614,29 @@ var AngularColorPickerController = function () {
 
                     case 'hex':
                         if (this.options.case === 'lower') {
+                            this.ngModel = color.toHex().toLowerCase();
+                        } else {
+                            this.ngModel = color.toHex().toUpperCase();
+                        }
+                        break;
+
+                    case 'hex8':
+                        if (this.options.case === 'lower') {
+                            this.ngModel = color.toHex8().toLowerCase();
+                        } else {
+                            this.ngModel = color.toHex8().toUpperCase();
+                        }
+                        break;
+
+                    case 'hexString':
+                        if (this.options.case === 'lower') {
                             this.ngModel = color.toHexString().toLowerCase();
                         } else {
                             this.ngModel = color.toHexString().toUpperCase();
                         }
                         break;
 
-                    case 'hex8':
+                    case 'hex8String':
                         if (this.options.case === 'lower') {
                             this.ngModel = color.toHex8String().toLowerCase();
                         } else {
