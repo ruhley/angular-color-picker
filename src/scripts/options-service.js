@@ -22,6 +22,7 @@ export default class AngularColorPickerOptions {
             round: false,
             pos: 'bottom left',
             inline: false,
+            horizontal: false,
             // swatch
             swatch: true,
             swatchOnly: false,

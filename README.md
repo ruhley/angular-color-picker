@@ -100,6 +100,7 @@ $scope.options = {
     round: [false, true],
     pos: ['bottom left', 'bottom right', 'top left', 'top right'],
     inline: [false, true],
+    horizontal: [false, true],
     // show/hide
     show: {
         swatch: [true, false],

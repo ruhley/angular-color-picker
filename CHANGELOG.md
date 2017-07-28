@@ -1,5 +1,16 @@
 # Changelog
 
+## v3.4.0
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * Feature #158 - New option for `horizontal` sliders
+
+#### Bug Fixes
+  * None
+
 ## v3.3.0
 
 #### Breaking Changes

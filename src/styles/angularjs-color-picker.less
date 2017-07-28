@@ -1,3 +1,9 @@
+@grid-height: 150px;
+@grid-width: 150px;
+@overlay-width: 20px;
+@slider-width: 18px;
+@slider-height: 2px;
+
 .color-picker-wrapper {
     position: relative;
 
@@ -85,7 +91,7 @@
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         z-index: 99999;
         box-sizing: content-box;
-        width: 150px;
+        width: @grid-height;
         table-layout: fixed;
         border: 1px solid #FFFFFF;
         padding-right: 1px;
@@ -101,7 +107,7 @@
                 .color-picker-overlay {
                     position: absolute;
                     width: 100%;
-                    height: 150px;
+                    height: @grid-height;
                     top: 0;
                     left: 0;
                     z-index: 2;
@@ -124,7 +130,7 @@
                     display: table-cell;
                     position: relative;
                     left: 1px;
-                    width: 20px;
+                    width: @overlay-width;
                     background-color: white;
                     cursor: row-resize;
                 }
@@ -133,8 +139,8 @@
 	                position: absolute;
 	                top: 0;
 	                left: 0;
-	                width: 18px;
-	                height: 2px;
+	                width: @slider-width;
+	                height: @slider-height;
 	                background: white;
 	                border: solid 1px black;
 	                box-sizing: content-box;
@@ -145,13 +151,13 @@
                 .color-picker-grid {
 	                display: table-cell;
 	                position: relative;
-	                width: 150px;
-	                height: 150px;
+	                width: @grid-height;
+	                height: @grid-height;
 	                cursor: crosshair;
 
 	                .color-picker-grid-inner {
-		                width: 150px;
-		                height: 150px;
+		                width: @grid-height;
+		                height: @grid-height;
                         z-index: 9;
 	                }
 
@@ -357,5 +363,46 @@
         .color-picker-panel {
             display: none;
         }
+    }
+
+    &.color-picker-horizontal {
+      .color-picker-panel {
+        width: @grid-width !important;
+
+        .color-picker-grid-wrapper {
+          // display: block;
+
+          .color-picker-row {
+            display: block;
+
+            .color-picker-grid {
+              display: block;
+            }
+
+            .color-picker-hue,
+            .color-picker-saturation,
+            .color-picker-lightness,
+            .color-picker-opacity {
+              cursor: col-resize;
+              display: block;
+              left: 0;
+              width: @grid-height;
+              height: @overlay-width;
+
+              .color-picker-overlay {
+                height: @overlay-width;
+              }
+
+              .color-picker-slider {
+                width: @slider-height;
+                height: @slider-width;
+                height: 18px;
+                margin-top: 0;
+              }
+            }
+          }
+        }
+      }
+
     }
 }
