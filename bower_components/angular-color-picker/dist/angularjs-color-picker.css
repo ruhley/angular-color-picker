@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v3.2.1
+ * angularjs-color-picker v3.4.0
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2017 ruhley
  *
- * 2017-05-15 02:14:57
+ * 2017-07-28 15:13:53
  *
  */
 .color-picker-wrapper {
@@ -281,4 +281,37 @@
 }
 .color-picker-wrapper.color-picker-closed .color-picker-panel {
   display: none;
+}
+.color-picker-wrapper.color-picker-horizontal .color-picker-panel {
+  width: 150px !important;
+}
+.color-picker-wrapper.color-picker-horizontal .color-picker-panel .color-picker-grid-wrapper .color-picker-row {
+  display: block;
+}
+.color-picker-wrapper.color-picker-horizontal .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-grid {
+  display: block;
+}
+.color-picker-wrapper.color-picker-horizontal .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-hue,
+.color-picker-wrapper.color-picker-horizontal .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-saturation,
+.color-picker-wrapper.color-picker-horizontal .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-lightness,
+.color-picker-wrapper.color-picker-horizontal .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-opacity {
+  cursor: col-resize;
+  display: block;
+  left: 0;
+  width: 150px;
+  height: 20px;
+}
+.color-picker-wrapper.color-picker-horizontal .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-hue .color-picker-overlay,
+.color-picker-wrapper.color-picker-horizontal .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-saturation .color-picker-overlay,
+.color-picker-wrapper.color-picker-horizontal .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-lightness .color-picker-overlay,
+.color-picker-wrapper.color-picker-horizontal .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-opacity .color-picker-overlay {
+  height: 20px;
+}
+.color-picker-wrapper.color-picker-horizontal .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-hue .color-picker-slider,
+.color-picker-wrapper.color-picker-horizontal .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-saturation .color-picker-slider,
+.color-picker-wrapper.color-picker-horizontal .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-lightness .color-picker-slider,
+.color-picker-wrapper.color-picker-horizontal .color-picker-panel .color-picker-grid-wrapper .color-picker-row .color-picker-opacity .color-picker-slider {
+  width: 2px;
+  height: 18px;
+  margin-top: 0;
 }

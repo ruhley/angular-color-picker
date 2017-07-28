@@ -38,11 +38,11 @@
     "tinycolor": "^1.3.0",
     "angular": "^1.3.0"
   },
-  "_release": "abe9ee2af3",
+  "_release": "71ba66cdf6",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "abe9ee2af3a9959b3dd5ab5029694c0e6eafa1d0"
+    "commit": "71ba66cdf66f2036f1dece97c31bfb34a9f03d7d"
   },
   "_source": "https://github.com/ruhley/angular-color-picker.git",
   "_target": "master",
