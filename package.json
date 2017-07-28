@@ -1,7 +1,7 @@
 {
   "name": "angularjs-color-picker",
   "description": "Color Picker Directive For AngularJS",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "license": "MIT",
   "main": "dist/angularjs-color-picker.min.js",
   "dependencies": {
@@ -23,13 +23,13 @@
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-less": "^1.3.0",
     "grunt-notify": "^0.4.1",
-    "grunt-run": "^0.6.0",
+    "grunt-run": "^0.7.0",
     "load-grunt-tasks": "^3.5.0",
     "moment": "^2.14.1",
     "protractor": "^5.0.0",
-    "rollup": "^0.41.0",
+    "rollup": "^0.45.0",
     "rollup-plugin-babel": "^2.6.1",
-    "rollup-plugin-uglify": "^1.0.1",
+    "rollup-plugin-uglify": "^2.0.0",
     "time-grunt": "^1.3.0"
   },
   "engines": {
