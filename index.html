@@ -131,6 +131,11 @@
   <label class="control-label">Inline (inline)</label>
   <select ng-model="options.inline" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
 </div>
+  
+<div class="row">
+  <label class="control-label">Horizontal (horizontal)</label>
+  <select ng-model="options.horizontal" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+</div>
 
 <div class="row">
   <label class="control-label">Placeholder (placeholder)</label>
@@ -244,6 +249,7 @@
     round<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
     pos<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>bottom left<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>bottom right<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>top left<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>top right<span class="pl-pds">'</span></span>],
     inline<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
+    horizontal<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
     <span class="pl-c">// show/hide</span>
     show<span class="pl-k">:</span> {
         swatch<span class="pl-k">:</span> [<span class="pl-c1">true</span>, <span class="pl-c1">false</span>],
