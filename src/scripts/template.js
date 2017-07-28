@@ -5,6 +5,7 @@ export default function template($templateCache) {
             '\'color-picker-swatch-only\': AngularColorPickerController.options.swatchOnly,' +
             '\'color-picker-open\': AngularColorPickerController.is_open,' +
             '\'color-picker-closed\': !AngularColorPickerController.is_open,' +
+            '\'color-picker-horizontal\': AngularColorPickerController.options.horizontal,' +
         '}">' +
            '<div class="color-picker-input-wrapper" ng-class="{\'input-group\': AngularColorPickerController.options.swatchBootstrap && AngularColorPickerController.options.swatch}">' +
                '<span ng-if="AngularColorPickerController.options.swatchPos === \'left\'" class="color-picker-swatch" ng-click="AngularColorPickerController.onSwatchClick($event)" ng-show="AngularColorPickerController.options.swatch" ng-class="{\'color-picker-swatch-left\': AngularColorPickerController.options.swatchPos !== \'right\', \'color-picker-swatch-right\': AngularColorPickerController.options.swatchPos === \'right\', \'input-group-addon\': AngularColorPickerController.options.swatchBootstrap}"></span>' +
