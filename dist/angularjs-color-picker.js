@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v3.4.0
+ * angularjs-color-picker v3.4.1
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2017 ruhley
  *
- * 2017-07-28 15:13:49
+ * 2017-07-31 08:38:19
  *
  */
 
@@ -695,17 +695,9 @@ var AngularColorPickerController = function () {
             if (!this.options.round) {
                 el = angular.element(this.$element[0].querySelector('.color-picker-grid .color-picker-picker'));
 
-                if (this.options.horizontal) {
-                    el.css({
-                        'left': 0,
-                        'top': this.pickerDimensions.height * this.saturationPos / 100 + 'px'
-                    });
-                } else {
-                    el.css({
-                        'left': this.pickerDimensions.width * this.saturationPos / 100 + 'px',
-                        'top': 0
-                    });
-                }
+                el.css({
+                    'left': this.pickerDimensions.height * this.saturationPos / 100 + 'px'
+                });
             }
 
             el = angular.element(this.$element[0].querySelector('.color-picker-saturation .color-picker-slider'));
@@ -730,17 +722,9 @@ var AngularColorPickerController = function () {
             if (!this.options.round) {
                 el = angular.element(this.$element[0].querySelector('.color-picker-grid .color-picker-picker'));
 
-                if (this.options.horizontal) {
-                    el.css({
-                        'left': this.pickerDimensions.width * this.lightnessPos / 100 + 'px',
-                        'top': 0
-                    });
-                } else {
-                    el.css({
-                        'left': 0,
-                        'top': this.pickerDimensions.height * this.lightnessPos / 100 + 'px'
-                    });
-                }
+                el.css({
+                    'top': this.pickerDimensions.width * this.lightnessPos / 100 + 'px'
+                });
             }
 
             el = angular.element(this.$element[0].querySelector('.color-picker-lightness .color-picker-slider'));

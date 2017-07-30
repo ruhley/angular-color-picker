@@ -1,5 +1,16 @@
 # Changelog
 
+## v3.4.1
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * None
+
+#### Bug Fixes
+  * Bug #159 - Fixing slider positioning in grid
+
 ## v3.4.0
 
 #### Breaking Changes
