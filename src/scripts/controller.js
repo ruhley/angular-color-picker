@@ -629,17 +629,9 @@ export default class AngularColorPickerController {
         if (!this.options.round) {
             el = angular.element(this.$element[0].querySelector('.color-picker-grid .color-picker-picker'));
 
-            if (this.options.horizontal) {
-              el.css({
-                  'left': 0,
-                  'top': (this.pickerDimensions.height * this.saturationPos / 100) + 'px'
-              });
-            } else {
-              el.css({
-                  'left': (this.pickerDimensions.width * this.saturationPos / 100) + 'px',
-                  'top': 0
-              });
-            }
+            el.css({
+                'left': (this.pickerDimensions.height * this.saturationPos / 100) + 'px'
+            });
         }
 
         el = angular.element(this.$element[0].querySelector('.color-picker-saturation .color-picker-slider'));
@@ -663,17 +655,9 @@ export default class AngularColorPickerController {
         if (!this.options.round) {
             el = angular.element(this.$element[0].querySelector('.color-picker-grid .color-picker-picker'));
 
-            if (this.options.horizontal) {
-              el.css({
-                'left': (this.pickerDimensions.width * this.lightnessPos / 100) + 'px',
-                'top': 0
-              });
-            } else {
-              el.css({
-                'left': 0,
-                'top': (this.pickerDimensions.height * this.lightnessPos / 100) + 'px'
-              });
-            }
+            el.css({
+              'top': (this.pickerDimensions.width * this.lightnessPos / 100) + 'px'
+            });
         }
 
         el = angular.element(this.$element[0].querySelector('.color-picker-lightness .color-picker-slider'));
