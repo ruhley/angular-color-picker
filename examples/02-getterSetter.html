@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Example 2 - Getter Setter</title>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+        <link rel="stylesheet" href="../dist/angularjs-color-picker.min.css" />
+
+        <script src="../bower_components/angular/angular.min.js"></script>
+        <script src="../bower_components/tinycolor/dist/tinycolor-min.js"></script>
+
+        <script src="../dist/angularjs-color-picker.js"></script>
+
+        <script src="02-app.js"></script>
+    </head>
+    <body ng-app="app" ng-controller="AppCtrl">
+        <div class="col-sm-12">
+            <h1>AngularJS Color Picker</h1>
+            <p>An AngularJS directive for a color picker. No requirement on jQuery.</p>
+            {{color}}
+            <color-picker
+                ng-model="color"
+                ng-model-options="{ getterSetter: true }"
+                event-api="eventApi"
+            ></color-picker>
+        </div>
+    </body>
+</html>
