@@ -546,7 +546,7 @@ export default class AngularColorPickerController {
         this.opacityPosUpdate();
 
         if (this.updateModel) {
-            switch (this.options.format) {
+            switch (this.options.format.toLowerCase()) {
                 case 'rgb':
                     this.ngModel = color.toRgbString();
                     break;
