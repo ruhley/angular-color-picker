@@ -143,6 +143,11 @@
 </div>
 
 <div class="row">
+  <label class="control-label">Allow Empty</label>
+  <select ng-model="options.allowEmpty" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+</div>
+
+<div class="row">
   <label class="control-label">api</label> -
   Exposes open, close, getElement, and getScope methods. Must be unique per color picker.
 </div>
@@ -235,6 +240,7 @@
     <span class="pl-c">// color</span>
     format<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>hsl<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hsv<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>rgb<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hex<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hexString<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hex8<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hex8String<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>raw<span class="pl-pds">'</span></span>],
     restrictToFormat<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
+    allowEmpty<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
     hue<span class="pl-k">:</span> [<span class="pl-c1">true</span>, <span class="pl-c1">false</span>],
     saturation<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
     lightness<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>], <span class="pl-c">// Note: In the square mode this is HSV and in round mode this is HSL</span>

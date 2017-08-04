@@ -423,3 +423,8 @@ Small Device Styles
   }
 
 }
+
+.ng-invalid .color-picker-input-wrapper .color-picker-input {
+  border-color: red;
+  border: solid 1px;
+}
