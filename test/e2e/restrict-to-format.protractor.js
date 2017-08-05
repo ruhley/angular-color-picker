@@ -8,7 +8,7 @@ describe('Options: ', () => {
         });
 
         it('Should allow any format by default', () => {
-            Page.format_field.$('[label="HEX"]').click();
+            Page.format_field.$('[label="HEXString"]').click();
             Page.input_field.clear().sendKeys('red');
             Page.blurColorPicker();
             Page.openColorPicker();
@@ -18,7 +18,7 @@ describe('Options: ', () => {
         it('Should only allow selected format', () => {
             Page.restrict_to_format_field.$('[label="Yes"]').click();
 
-            Page.format_field.$('[label="HEX"]').click();
+            Page.format_field.$('[label="HEXString"]').click();
             Page.input_field.clear().sendKeys('green');
             Page.blurColorPicker();
             Page.openColorPicker();
@@ -29,7 +29,7 @@ describe('Options: ', () => {
         it('Should allow any format again', () => {
             Page.restrict_to_format_field.$('[label="No"]').click();
 
-            Page.format_field.$('[label="HEX"]').click();
+            Page.format_field.$('[label="HEXString"]').click();
             Page.input_field.clear().sendKeys('blue');
             Page.blurColorPicker();
             Page.openColorPicker();
