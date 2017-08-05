@@ -193,6 +193,7 @@ export default class AngularColorPickerController {
                 'AngularColorPickerController.options.case',
                 'AngularColorPickerController.options.round',
                 'AngularColorPickerController.options.restrictToFormat',
+                'AngularColorPickerController.options.preserveInputFormat',
                 'AngularColorPickerController.options.allowEmpty',
                 'AngularColorPickerController.options.horizontal'
             ],
@@ -545,7 +546,14 @@ export default class AngularColorPickerController {
         this.updateAlphaBackground(color);
         this.opacityPosUpdate();
 
-        if (this.updateModel) {
+        function inputColorEquals() {
+            var tcOfModel = tinycolor(this.ngModel);
+            return tcOfModel.toHsvString() === color.toHsvString();
+        }
+
+        var skipUpdate = this.options.preserveInputFormat && inputColorEquals();
+
+        if (this.updateModel && !skipUpdate) {
             switch (this.options.format.toLowerCase()) {
                 case 'rgb':
                     this.ngModel = color.toRgbString();

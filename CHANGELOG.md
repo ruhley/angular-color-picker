@@ -1,5 +1,13 @@
 # Changelog
 
+## v3.4.2
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * Add preserveInputFormat option to control whether or not a valid input color of a different format should change to the configured format. For a visual explanation see https://github.com/ruhley/angular-color-picker/pull/164
+
 ## v3.4.1
 
 #### Breaking Changes
