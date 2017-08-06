@@ -4,7 +4,7 @@ language: node_js
 notifications:
   email: false
 node_js:
-  - "7"
+  - "6"
 
 before_install:
   - export CHROME_BIN=/usr/bin/google-chrome
@@ -17,6 +17,8 @@ before_install:
 
 before_script:
   - grunt connect:test:keepalive &
+  - npm install -g bower
+  - bower install
 
 script:
   - npm test
