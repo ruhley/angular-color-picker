@@ -50,7 +50,7 @@ class Page {
 
         // color picker elements
         this.color_picker = element(by.model('color'));
-        this.input_field = element(by.model('AngularColorPickerController.ngModel'));
+        this.input_field = element(by.model('AngularColorPickerController.internalNgModel'));
         this.color_picker_panel = element(by.css('.color-picker-panel'));
         this.swatch = element(by.css('.color-picker-swatch'));
         this.swatch_left = element(by.css('.color-picker-swatch-left'));

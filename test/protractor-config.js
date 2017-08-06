@@ -12,7 +12,9 @@ var chrome_driver = null;
 for (var i = 0; i < files.length; i++) {
     if (/^selenium-server-standalone-[\d\.]+\.jar$/i.test(files[i])) {
         selenium_server_jar = files[i];
-    } else if (/^chromedriver_[\d\.]+$/i.test(files[i])) {
+    } else if (/^chromedriver_[\d\.]+$/i.test(files[i])) { // linux
+        chrome_driver = files[i];
+    } else if (/^chromedriver_[\d\.]+.exe$/i.test(files[i])) { // windows
         chrome_driver = files[i];
     }
 }
