@@ -96,6 +96,11 @@
                 </div>
 
                 <div class="row">
+                    <label class="control-label">Preserve Input Format (preserveInputFormat) - whether or not a valid input color of a different format should change to the configured format</label>
+                    <select ng-model="options.preserveInputFormat" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
                     <label class="control-label">Allow Empty (allowEmpty) - whether or not to allow empty values as valid</label>
                     <select ng-model="options.allowEmpty" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
                 </div>

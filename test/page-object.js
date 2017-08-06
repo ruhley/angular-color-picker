@@ -13,6 +13,7 @@ class Page {
 
         // validation fields
         this.restrict_to_format_field = element(by.model('options.restrictToFormat'));
+        this.preserve_input_format_field = element(by.model('options.preserveInputFormat'));
         this.allow_empty_field = element(by.model('options.allowEmpty'));
 
         // color fields

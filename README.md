@@ -82,6 +82,7 @@ $scope.options = {
     name: undefined,
     // validation
     restrictToFormat: [false, true],
+    preserveInputFormat: [false, true],
     allowEmpty: [false, true],
     // color
     format: ['hsl', 'hsv', 'rgb', 'hex', 'hexString', 'hex8', 'hex8String', 'raw'],
