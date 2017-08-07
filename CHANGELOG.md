@@ -1,5 +1,17 @@
 # Changelog
 
+## v3.4.3
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * None
+
+#### Bug Fixes
+    * Bug #167 - Cannot read property 'updateOn' of undefined `ngModelOptions`
+    * Fixing up getterSetter = true setting internal ngModel to a function
+
 ## v3.4.2
 
 #### Breaking Changes

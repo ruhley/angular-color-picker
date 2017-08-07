@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v3.4.2
+ * angularjs-color-picker v3.4.3
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2017 ruhley
  *
- * 2017-08-07 10:05:04
+ * 2017-08-07 13:27:55
  *
  */
 
@@ -71,6 +71,7 @@ var AngularColorPickerController = function () {
         this.$scope.init = this.init.bind(this);
 
         // set default values
+        this.ngModelOptions = {};
         this.hue = 0;
         this.saturation = undefined;
         this.lightness = undefined;
@@ -242,10 +243,13 @@ var AngularColorPickerController = function () {
     }, {
         key: 'init',
         value: function init() {
-            this.internalNgModel = this.ngModel;
 
             // ng model options
-            this.ngModelOptions = this.$scope.control[0].$options.$$options;
+            if (this.$scope.control[0].$options && this.$scope.control[0].$options.$$options) {
+                this.ngModelOptions = this.$scope.control[0].$options.$$options;
+            }
+
+            this.internalNgModel = this.ngModelOptions.getterSetter ? this.ngModel() : this.ngModel;
 
             // browser variables
             this.chrome = Boolean(window.chrome);
