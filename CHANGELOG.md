@@ -6,7 +6,11 @@
   * None
 
 #### New Features
-  * Add preserveInputFormat option to control whether or not a valid input color of a different format should change to the configured format. For a visual explanation see https://github.com/ruhley/angular-color-picker/pull/164
+  * Feature #160 - Support `ng-model-options="{getterSetter:true}"`
+  * Feature #164 - Add `preserveInputFormat` option to control whether or not a valid input color of a different format should change to the configured format. For a visual explanation see https://github.com/ruhley/angular-color-picker/pull/164
+
+#### Bug Fixes
+    * Bug #161 - Format option is now case insensitive
 
 ## v3.4.1
 

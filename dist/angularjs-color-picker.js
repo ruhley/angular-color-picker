@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v3.4.1
+ * angularjs-color-picker v3.4.2
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2017 ruhley
  *
- * 2017-07-31 08:38:19
+ * 2017-08-07 10:05:04
  *
  */
 
@@ -67,8 +67,10 @@ var AngularColorPickerController = function () {
         this.$timeout = _$timeout;
         this.ColorPickerOptions = _ColorPickerOptions;
 
+        // make the init function available from the $scope (for the directive link function)
         this.$scope.init = this.init.bind(this);
 
+        // set default values
         this.hue = 0;
         this.saturation = undefined;
         this.lightness = undefined;
@@ -84,8 +86,10 @@ var AngularColorPickerController = function () {
                 this.initialNgModel = newValue;
             }
 
+            // sets the field to pristine or dirty for angular
             this.checkDirty(newValue);
 
+            // the mouse is still moving so don't do anything yet
             if (this.colorMouse) {
                 return;
             }
@@ -132,6 +136,17 @@ var AngularColorPickerController = function () {
             }
         }
     }, {
+        key: 'setNgModel',
+        value: function setNgModel(value) {
+            this.internalNgModel = value;
+
+            if (this.ngModelOptions.getterSetter) {
+                this.ngModel(value);
+            } else {
+                this.ngModel = value;
+            }
+        }
+    }, {
         key: 'watchSwatchPos',
         value: function watchSwatchPos(newValue) {
             var _this2 = this;
@@ -164,6 +179,7 @@ var AngularColorPickerController = function () {
                 _this3.opacityMouse = false;
                 _this3.colorMouse = false;
 
+                // force redraw
                 _this3.$scope.$applyAsync();
 
                 // force the sliders to re-caculate their position
@@ -185,16 +201,16 @@ var AngularColorPickerController = function () {
             };
 
             this.api.clear = function (event) {
-                if (_this3.ngModel !== '') {
-                    _this3.ngModel = '';
+                if (_this3.internalNgModel !== '') {
+                    _this3.setNgModel('');
 
                     _this3.eventApiDispatch('onClear', [event]);
                 }
             };
 
             this.api.reset = function (event) {
-                if (_this3.ngModel !== _this3.initialNgModel) {
-                    _this3.ngModel = _this3.initialNgModel;
+                if (_this3.internalNgModel !== _this3.initialNgModel) {
+                    _this3.setNgModel(_this3.initialNgModel);
 
                     _this3.eventApiDispatch('onReset', [event]);
                 }
@@ -226,6 +242,11 @@ var AngularColorPickerController = function () {
     }, {
         key: 'init',
         value: function init() {
+            this.internalNgModel = this.ngModel;
+
+            // ng model options
+            this.ngModelOptions = this.$scope.control[0].$options.$$options;
+
             // browser variables
             this.chrome = Boolean(window.chrome);
             var _android_version = window.navigator.userAgent.match(/Android\s([0-9\.]*)/i);
@@ -246,15 +267,17 @@ var AngularColorPickerController = function () {
     }, {
         key: 'initWatchers',
         value: function initWatchers() {
+
             // ngModel
 
             this.$scope.$watch('AngularColorPickerController.ngModel', this.watchNgModel.bind(this));
+            this.$scope.$watch('AngularColorPickerController.internalNgModel', this.watchNgModel.bind(this));
 
             // options
 
             this.$scope.$watch('AngularColorPickerController.options.swatchPos', this.watchSwatchPos.bind(this));
 
-            this.$scope.$watchGroup(['AngularColorPickerController.options.format', 'AngularColorPickerController.options.alpha', 'AngularColorPickerController.options.case', 'AngularColorPickerController.options.round', 'AngularColorPickerController.options.restrictToFormat', 'AngularColorPickerController.options.allowEmpty', 'AngularColorPickerController.options.horizontal'], this.reInitAndUpdate.bind(this));
+            this.$scope.$watchGroup(['AngularColorPickerController.options.format', 'AngularColorPickerController.options.alpha', 'AngularColorPickerController.options.case', 'AngularColorPickerController.options.round', 'AngularColorPickerController.options.restrictToFormat', 'AngularColorPickerController.options.preserveInputFormat', 'AngularColorPickerController.options.allowEmpty', 'AngularColorPickerController.options.horizontal'], this.reInitAndUpdate.bind(this));
 
             this.$scope.$watchGroup(['AngularColorPickerController.options.disabled', 'AngularColorPickerController.options.swatchBootstrap', 'AngularColorPickerController.options.swatchOnly', 'AngularColorPickerController.options.swatch', 'AngularColorPickerController.options.pos', 'AngularColorPickerController.options.inline', 'AngularColorPickerController.options.placeholder'], this.reInit.bind(this));
 
@@ -504,8 +527,8 @@ var AngularColorPickerController = function () {
         key: 'onChange',
         value: function onChange(event) {
             // don't fire if it hasn't actually changed
-            if (this.ngModel !== this.onChangeValue) {
-                this.onChangeValue = this.ngModel;
+            if (this.internalNgModel !== this.onChangeValue) {
+                this.onChangeValue = this.internalNgModel;
 
                 this.eventApiDispatch('onChange', [event]);
             }
@@ -513,7 +536,7 @@ var AngularColorPickerController = function () {
     }, {
         key: 'onBlur',
         value: function onBlur(event) {
-            if (this.ngModel !== this.onChangeValue) {
+            if (this.internalNgModel !== this.onChangeValue) {
                 this.updateModel = true;
                 this.update();
             }
@@ -589,9 +612,17 @@ var AngularColorPickerController = function () {
             var color;
 
             if (this.options.round) {
-                color = tinycolor({ h: this.hue, s: this.saturation + '%', l: this.lightness + '%' });
+                color = tinycolor({
+                    h: this.hue,
+                    s: this.saturation + '%',
+                    l: this.lightness + '%'
+                });
             } else {
-                color = tinycolor({ h: this.hue, s: this.saturation + '%', v: this.lightness + '%' });
+                color = tinycolor({
+                    h: this.hue,
+                    s: this.saturation + '%',
+                    v: this.lightness + '%'
+                });
             }
 
             if (this.options.alpha) {
@@ -610,54 +641,56 @@ var AngularColorPickerController = function () {
             this.updateAlphaBackground(color);
             this.opacityPosUpdate();
 
-            if (this.updateModel) {
-                switch (this.options.format) {
+            var skipUpdate = this.options.preserveInputFormat && tinycolor(this.internalNgModel).toHsvString() === color.toHsvString();
+
+            if (this.updateModel && !skipUpdate) {
+                switch (this.options.format.toLowerCase()) {
                     case 'rgb':
-                        this.ngModel = color.toRgbString();
+                        this.setNgModel(color.toRgbString());
                         break;
 
                     case 'hex':
                         if (this.options.case === 'lower') {
-                            this.ngModel = color.toHex().toLowerCase();
+                            this.setNgModel(color.toHex().toLowerCase());
                         } else {
-                            this.ngModel = color.toHex().toUpperCase();
+                            this.setNgModel(color.toHex().toUpperCase());
                         }
                         break;
 
                     case 'hex8':
                         if (this.options.case === 'lower') {
-                            this.ngModel = color.toHex8().toLowerCase();
+                            this.setNgModel(color.toHex8().toLowerCase());
                         } else {
-                            this.ngModel = color.toHex8().toUpperCase();
+                            this.setNgModel(color.toHex8().toUpperCase());
                         }
                         break;
 
                     case 'hexstring':
                         if (this.options.case === 'lower') {
-                            this.ngModel = color.toHexString().toLowerCase();
+                            this.setNgModel(color.toHexString().toLowerCase());
                         } else {
-                            this.ngModel = color.toHexString().toUpperCase();
+                            this.setNgModel(color.toHexString().toUpperCase());
                         }
                         break;
 
                     case 'hex8string':
                         if (this.options.case === 'lower') {
-                            this.ngModel = color.toHex8String().toLowerCase();
+                            this.setNgModel(color.toHex8String().toLowerCase());
                         } else {
-                            this.ngModel = color.toHex8String().toUpperCase();
+                            this.setNgModel(color.toHex8String().toUpperCase());
                         }
                         break;
 
                     case 'hsv':
-                        this.ngModel = color.toHsvString();
+                        this.setNgModel(color.toHsvString());
                         break;
 
                     case 'raw':
-                        this.ngModel = color.clone();
+                        this.setNgModel(color.clone());
                         break;
 
                     default:
-                        this.ngModel = color.toHslString();
+                        this.setNgModel(color.toHslString());
                         break;
                 }
             }
@@ -1287,7 +1320,7 @@ var AngularColorPickerController = function () {
                     args = [];
                 }
 
-                args.unshift(this.ngModel);
+                args.unshift(this.internalNgModel);
                 args.unshift(this.api);
 
                 this.eventApi[name].apply(this, args);
@@ -1343,7 +1376,10 @@ var AngularColorPickerController = function () {
             // Running getBoundingClientRect on a
             // disconnected node in IE throws an error
             if (!elem.getClientRects().length) {
-                return { top: 0, left: 0 };
+                return {
+                    top: 0,
+                    left: 0
+                };
             }
 
             rect = elem.getBoundingClientRect();
@@ -1398,7 +1434,7 @@ function colorPickerDirective() {
 }
 
 function template($templateCache) {
-    $templateCache.put('template/color-picker/directive.html', '<div class="color-picker-wrapper" ng-class="{' + '\'color-picker-disabled\': AngularColorPickerController.options.disabled,' + '\'color-picker-swatch-only\': AngularColorPickerController.options.swatchOnly,' + '\'color-picker-open\': AngularColorPickerController.is_open,' + '\'color-picker-closed\': !AngularColorPickerController.is_open,' + '\'color-picker-horizontal\': AngularColorPickerController.options.horizontal,' + '}">' + '<div class="color-picker-input-wrapper" ng-class="{\'input-group\': AngularColorPickerController.options.swatchBootstrap && AngularColorPickerController.options.swatch}">' + '<span ng-if="AngularColorPickerController.options.swatchPos === \'left\'" class="color-picker-swatch" ng-click="AngularColorPickerController.onSwatchClick($event)" ng-show="AngularColorPickerController.options.swatch" ng-class="{\'color-picker-swatch-left\': AngularColorPickerController.options.swatchPos !== \'right\', \'color-picker-swatch-right\': AngularColorPickerController.options.swatchPos === \'right\', \'input-group-addon\': AngularColorPickerController.options.swatchBootstrap}"></span>' + '<input ng-attr-id="{{AngularColorPickerController.options.id}}" ng-attr-name="{{AngularColorPickerController.options.name}}" class="color-picker-input {{AngularColorPickerController.options.inputClass}}" type="text" ng-model="AngularColorPickerController.ngModel" ng-readonly="AngularColorPickerController.options.swatchOnly" ng-disabled="AngularColorPickerController.options.disabled" ng-change="AngularColorPickerController.onChange($event)" size="7" ng-class="{\'color-picker-input-swatch\': AngularColorPickerController.options.swatch && !AngularColorPickerController.options.swatchOnly && AngularColorPickerController.options.swatchPos === \'left\'}" placeholder="{{AngularColorPickerController.options.placeholder}}" ng-required="AngularColorPickerController.options.required">' + '<span ng-if="AngularColorPickerController.options.swatchPos === \'right\'" class="color-picker-swatch" ng-click="AngularColorPickerController.onSwatchClick($event)" ng-show="AngularColorPickerController.options.swatch" ng-class="{\'color-picker-swatch-left\': AngularColorPickerController.options.swatchPos !== \'right\', \'color-picker-swatch-right\': AngularColorPickerController.options.swatchPos === \'right\', \'input-group-addon\': AngularColorPickerController.options.swatchBootstrap}"></span>' + '</div>' + '<div class="color-picker-panel" ng-class="{' + '\'color-picker-panel-top color-picker-panel-right\': AngularColorPickerController.options.pos === \'top right\',' + '\'color-picker-panel-top color-picker-panel-left\': AngularColorPickerController.options.pos === \'top left\',' + '\'color-picker-panel-bottom color-picker-panel-right\': AngularColorPickerController.options.pos === \'bottom right\',' + '\'color-picker-panel-bottom color-picker-panel-left\': AngularColorPickerController.options.pos === \'bottom left\',' + '\'color-picker-panel-round\': AngularColorPickerController.options.round,' + '\'color-picker-show-hue\': AngularColorPickerController.options.hue,' + '\'color-picker-show-saturation\': AngularColorPickerController.options.saturation,' + '\'color-picker-show-lightness\': AngularColorPickerController.options.lightness,' + '\'color-picker-show-alpha\': AngularColorPickerController.options.alpha && AngularColorPickerController.options.format !== \'hex\',' + '\'color-picker-show-inline\': AngularColorPickerController.options.inline,' + '}">' + '<div class="color-picker-grid-wrapper">' + '<div class="color-picker-row">' + '<div class="color-picker-grid">' + '<div class="color-picker-overlay"></div>' + '<div class="color-picker-grid-inner"></div>' + '<div class="color-picker-picker">' + '<div></div>' + '</div>' + '</div>' + '<div class="color-picker-hue" ng-show="AngularColorPickerController.options.hue">' + '<div class="color-picker-overlay"></div>' + '<div class="color-picker-slider"></div>' + '</div>' + '<div class="color-picker-saturation" ng-show="AngularColorPickerController.options.saturation">' + '<div class="color-picker-overlay"></div>' + '<div class="color-picker-slider"></div>' + '</div>' + '<div class="color-picker-lightness" ng-show="AngularColorPickerController.options.lightness">' + '<div class="color-picker-overlay"></div>' + '<div class="color-picker-slider"></div>' + '</div>' + '<div class="color-picker-opacity" ng-show="AngularColorPickerController.options.alpha && AngularColorPickerController.options.format !== \'hex\'">' + '<div class="color-picker-overlay"></div>' + '<div class="color-picker-slider"></div>' + '</div>' + '</div>' + '</div>' + '<div class="color-picker-actions">' + '<button ' + 'type="button"' + 'class="color-picker-action color-picker-action-clear"' + 'tabindex="-1"' + 'ng-class="AngularColorPickerController.options.clear.class"' + 'ng-show="AngularColorPickerController.options.clear.show"' + 'ng-click="AngularColorPickerController.api.clear($event)"' + '>' + '{{AngularColorPickerController.options.clear.label}}' + '</button>' + '<button ' + 'type="button"' + 'class="color-picker-action color-picker-action-reset"' + 'tabindex="-1"' + 'ng-class="AngularColorPickerController.options.reset.class"' + 'ng-show="AngularColorPickerController.options.reset.show"' + 'ng-click="AngularColorPickerController.api.reset($event)"' + '>' + '{{AngularColorPickerController.options.reset.label}}' + '</button>' + '<button ' + 'type="button"' + 'class="color-picker-action color-picker-action-close"' + 'tabindex="-1"' + 'ng-class="AngularColorPickerController.options.close.class"' + 'ng-show="AngularColorPickerController.options.close.show"' + 'ng-click="AngularColorPickerController.api.close($event)"' + '>' + '{{AngularColorPickerController.options.close.label}}' + '</button>' + '</div>' + '</div>' + '</div>');
+    $templateCache.put('template/color-picker/directive.html', '<div class="color-picker-wrapper" ng-class="{' + '\'color-picker-disabled\': AngularColorPickerController.options.disabled,' + '\'color-picker-swatch-only\': AngularColorPickerController.options.swatchOnly,' + '\'color-picker-open\': AngularColorPickerController.is_open,' + '\'color-picker-closed\': !AngularColorPickerController.is_open,' + '\'color-picker-horizontal\': AngularColorPickerController.options.horizontal,' + '}">' + '<div class="color-picker-input-wrapper" ng-class="{\'input-group\': AngularColorPickerController.options.swatchBootstrap && AngularColorPickerController.options.swatch}">' + '<span ng-if="AngularColorPickerController.options.swatchPos === \'left\'" class="color-picker-swatch" ng-click="AngularColorPickerController.onSwatchClick($event)" ng-show="AngularColorPickerController.options.swatch" ng-class="{\'color-picker-swatch-left\': AngularColorPickerController.options.swatchPos !== \'right\', \'color-picker-swatch-right\': AngularColorPickerController.options.swatchPos === \'right\', \'input-group-addon\': AngularColorPickerController.options.swatchBootstrap}"></span>' + '<input ng-attr-id="{{AngularColorPickerController.options.id}}" ng-attr-name="{{AngularColorPickerController.options.name}}" class="color-picker-input {{AngularColorPickerController.options.inputClass}}" type="text" ng-model="AngularColorPickerController.internalNgModel" ng-model-options="AngularColorPickerController.ngModelOptions" ng-readonly="AngularColorPickerController.options.swatchOnly" ng-disabled="AngularColorPickerController.options.disabled" ng-change="AngularColorPickerController.onChange($event)" size="7" ng-class="{\'color-picker-input-swatch\': AngularColorPickerController.options.swatch && !AngularColorPickerController.options.swatchOnly && AngularColorPickerController.options.swatchPos === \'left\'}" placeholder="{{AngularColorPickerController.options.placeholder}}" ng-required="AngularColorPickerController.options.required">' + '<span ng-if="AngularColorPickerController.options.swatchPos === \'right\'" class="color-picker-swatch" ng-click="AngularColorPickerController.onSwatchClick($event)" ng-show="AngularColorPickerController.options.swatch" ng-class="{\'color-picker-swatch-left\': AngularColorPickerController.options.swatchPos !== \'right\', \'color-picker-swatch-right\': AngularColorPickerController.options.swatchPos === \'right\', \'input-group-addon\': AngularColorPickerController.options.swatchBootstrap}"></span>' + '</div>' + '<div class="color-picker-panel" ng-class="{' + '\'color-picker-panel-top color-picker-panel-right\': AngularColorPickerController.options.pos === \'top right\',' + '\'color-picker-panel-top color-picker-panel-left\': AngularColorPickerController.options.pos === \'top left\',' + '\'color-picker-panel-bottom color-picker-panel-right\': AngularColorPickerController.options.pos === \'bottom right\',' + '\'color-picker-panel-bottom color-picker-panel-left\': AngularColorPickerController.options.pos === \'bottom left\',' + '\'color-picker-panel-round\': AngularColorPickerController.options.round,' + '\'color-picker-show-hue\': AngularColorPickerController.options.hue,' + '\'color-picker-show-saturation\': AngularColorPickerController.options.saturation,' + '\'color-picker-show-lightness\': AngularColorPickerController.options.lightness,' + '\'color-picker-show-alpha\': AngularColorPickerController.options.alpha && AngularColorPickerController.options.format !== \'hex\',' + '\'color-picker-show-inline\': AngularColorPickerController.options.inline,' + '}">' + '<div class="color-picker-grid-wrapper">' + '<div class="color-picker-row">' + '<div class="color-picker-grid">' + '<div class="color-picker-overlay"></div>' + '<div class="color-picker-grid-inner"></div>' + '<div class="color-picker-picker">' + '<div></div>' + '</div>' + '</div>' + '<div class="color-picker-hue" ng-show="AngularColorPickerController.options.hue">' + '<div class="color-picker-overlay"></div>' + '<div class="color-picker-slider"></div>' + '</div>' + '<div class="color-picker-saturation" ng-show="AngularColorPickerController.options.saturation">' + '<div class="color-picker-overlay"></div>' + '<div class="color-picker-slider"></div>' + '</div>' + '<div class="color-picker-lightness" ng-show="AngularColorPickerController.options.lightness">' + '<div class="color-picker-overlay"></div>' + '<div class="color-picker-slider"></div>' + '</div>' + '<div class="color-picker-opacity" ng-show="AngularColorPickerController.options.alpha && AngularColorPickerController.options.format !== \'hex\'">' + '<div class="color-picker-overlay"></div>' + '<div class="color-picker-slider"></div>' + '</div>' + '</div>' + '</div>' + '<div class="color-picker-actions">' + '<button ' + 'type="button"' + 'class="color-picker-action color-picker-action-clear"' + 'tabindex="-1"' + 'ng-class="AngularColorPickerController.options.clear.class"' + 'ng-show="AngularColorPickerController.options.clear.show"' + 'ng-click="AngularColorPickerController.api.clear($event)"' + '>' + '{{AngularColorPickerController.options.clear.label}}' + '</button>' + '<button ' + 'type="button"' + 'class="color-picker-action color-picker-action-reset"' + 'tabindex="-1"' + 'ng-class="AngularColorPickerController.options.reset.class"' + 'ng-show="AngularColorPickerController.options.reset.show"' + 'ng-click="AngularColorPickerController.api.reset($event)"' + '>' + '{{AngularColorPickerController.options.reset.label}}' + '</button>' + '<button ' + 'type="button"' + 'class="color-picker-action color-picker-action-close"' + 'tabindex="-1"' + 'ng-class="AngularColorPickerController.options.close.class"' + 'ng-show="AngularColorPickerController.options.close.show"' + 'ng-click="AngularColorPickerController.api.close($event)"' + '>' + '{{AngularColorPickerController.options.close.label}}' + '</button>' + '</div>' + '</div>' + '</div>');
 }
 
 template.$inject = ['$templateCache'];
@@ -1416,6 +1452,7 @@ var AngularColorPickerOptions = function AngularColorPickerOptions() {
         inputClass: '',
         // validation
         restrictToFormat: false,
+        preserveInputFormat: false,
         allowEmpty: false,
         // color
         format: 'hsl',
