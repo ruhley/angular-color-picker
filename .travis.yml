@@ -6,6 +6,10 @@ notifications:
 node_js:
   - "6"
 
+env:
+  - ANGULAR_VERSION=1.5.11
+  - ANGULAR_VERSION=1.6.5
+
 before_install:
   - export CHROME_BIN=/usr/bin/google-chrome
   - export DISPLAY=:99.0
@@ -14,6 +18,9 @@ before_install:
   - sudo apt-get install -y libappindicator1 fonts-liberation
   - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   - sudo dpkg -i google-chrome*.deb
+  - npm install -g json
+  - json -I -f package.json -e 'this.dependencies.angular="'$ANGULAR_VERSION'"'
+  - json -I -f bower.json -e 'this.dependencies.angular="'$ANGULAR_VERSION'"'
 
 before_script:
   - grunt connect:test:keepalive &
