@@ -5,7 +5,7 @@ engines:
     config:
       languages:
         javascript:
-          mass_threshold: 80
+          mass_threshold: 155
   eslint:
     enabled: true
   fixme:
