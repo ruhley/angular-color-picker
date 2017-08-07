@@ -161,7 +161,7 @@ rules:
   brace-style: off
   camelcase: off
   capitalized-comments: off
-  comma-dangle: only-multiline
+  comma-dangle: off
   comma-spacing: off
   comma-style: off
   computed-property-spacing: off
