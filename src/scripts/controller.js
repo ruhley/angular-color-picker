@@ -13,6 +13,7 @@ export default class AngularColorPickerController {
         this.$scope.init = this.init.bind(this);
 
         // set default values
+        this.ngModelOptions = {};
         this.hue = 0;
         this.saturation = undefined;
         this.lightness = undefined;
@@ -173,7 +174,9 @@ export default class AngularColorPickerController {
         this.internalNgModel = this.ngModel;
 
         // ng model options
-        this.ngModelOptions = this.$scope.control[0].$options.$$options;
+        if (this.$scope.control[0].$options && this.$scope.control[0].$options.$$options) {
+            this.ngModelOptions = this.$scope.control[0].$options.$$options;
+        }
 
         // browser variables
         this.chrome = Boolean(window.chrome);

@@ -1,5 +1,5 @@
 angular
-    .module('app', ['color.picker', 'ngAnimate'])
+    .module('app', ['color.picker'])
     .config(function($provide) {
         $provide.decorator('ColorPickerOptions', function($delegate) {
             var options = angular.copy($delegate);
