@@ -13,7 +13,6 @@ env:
 
 # http://eslint.org/docs/rules/
 rules:
-  comma-dangle: only-multiline
   # Possible Errors
   no-await-in-loop: off
   no-cond-assign: error
@@ -162,9 +161,7 @@ rules:
   brace-style: off
   camelcase: off
   capitalized-comments: off
-  comma-dangle:
-    - error
-    - never
+  comma-dangle: only-multiline
   comma-spacing: off
   comma-style: off
   computed-property-spacing: off
