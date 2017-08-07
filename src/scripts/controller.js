@@ -171,12 +171,13 @@ export default class AngularColorPickerController {
     }
 
     init() {
-        this.internalNgModel = this.ngModel;
 
         // ng model options
         if (this.$scope.control[0].$options && this.$scope.control[0].$options.$$options) {
             this.ngModelOptions = this.$scope.control[0].$options.$$options;
         }
+
+        this.internalNgModel = this.ngModelOptions.getterSetter ? this.ngModel() : this.ngModel;
 
         // browser variables
         this.chrome = Boolean(window.chrome);
