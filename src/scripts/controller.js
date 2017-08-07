@@ -170,6 +170,8 @@ export default class AngularColorPickerController {
     }
 
     init() {
+        this.internalNgModel = this.ngModel;
+
         // ng model options
         this.ngModelOptions = this.$scope.control[0].$options.$$options;
 
@@ -192,9 +194,11 @@ export default class AngularColorPickerController {
     }
 
     initWatchers() {
+
         // ngModel
 
         this.$scope.$watch('AngularColorPickerController.ngModel', this.watchNgModel.bind(this));
+        this.$scope.$watch('AngularColorPickerController.internalNgModel', this.watchNgModel.bind(this));
 
         // options
 
