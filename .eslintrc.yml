@@ -13,7 +13,7 @@ env:
 
 # http://eslint.org/docs/rules/
 rules:
-  trailing-comma: multiline
+  comma-dangle: only-multiline
   # Possible Errors
   no-await-in-loop: off
   no-cond-assign: error
