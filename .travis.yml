@@ -7,6 +7,8 @@ node_js:
   - "6"
 
 env:
+  - ANGULAR_VERSION=1.3.20
+  - ANGULAR_VERSION=1.4.14
   - ANGULAR_VERSION=1.5.11
   - ANGULAR_VERSION=1.6.5
 
