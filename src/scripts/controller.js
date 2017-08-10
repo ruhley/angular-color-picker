@@ -201,8 +201,8 @@ export default class AngularColorPickerController {
 
         // ngModel
 
-        this.$scope.$watch('AngularColorPickerController.ngModel', this.watchNgModel.bind(this));
         this.$scope.$watch('AngularColorPickerController.internalNgModel', this.watchNgModel.bind(this));
+        this.$scope.$watch('AngularColorPickerController.ngModel', this.watchNgModel.bind(this));
 
         // options
 
