@@ -1,5 +1,7 @@
 # Changelog
 
+This is a summary of the changes. For a full list of changes see https://github.com/ruhley/angular-color-picker/releases.
+
 ## v3.4.4
 
 #### Breaking Changes
