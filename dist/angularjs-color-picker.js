@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v3.4.3
+ * angularjs-color-picker v3.4.4
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2017 ruhley
  *
- * 2017-08-07 13:27:55
+ * 2017-08-14 10:42:13
  *
  */
 
@@ -274,8 +274,8 @@ var AngularColorPickerController = function () {
 
             // ngModel
 
-            this.$scope.$watch('AngularColorPickerController.ngModel', this.watchNgModel.bind(this));
             this.$scope.$watch('AngularColorPickerController.internalNgModel', this.watchNgModel.bind(this));
+            this.$scope.$watch('AngularColorPickerController.ngModel', this.watchNgModel.bind(this));
 
             // options
 

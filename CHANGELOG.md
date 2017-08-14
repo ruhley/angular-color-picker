@@ -1,5 +1,16 @@
 # Changelog
 
+## v3.4.4
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * None
+
+#### Bug Fixes
+    * Bug #169 - Initial colors could be wrong
+
 ## v3.4.3
 
 #### Breaking Changes
