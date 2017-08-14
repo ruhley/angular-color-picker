@@ -10,6 +10,7 @@ angular
             options.alpha = true;
             options.inline = false;
             options.format = 'hsl';
+            options.inputClass = 'form-control';
             return options;
         });
     })

@@ -1,5 +1,12 @@
 angular
     .module('app', ['color.picker'])
+    .config(function($provide) {
+        $provide.decorator('ColorPickerOptions', function($delegate) {
+            var options = angular.copy($delegate);
+            options.inputClass = 'form-control';
+            return options;
+        });
+    })
     .controller('AppCtrl', function($scope) {
         $scope.eventApi = {
             onChange: function() {
