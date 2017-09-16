@@ -464,6 +464,7 @@ export default class AngularColorPickerController {
                 this.is_open = false;
                 this.$scope.$applyAsync();
 
+                this.update();
                 this.eventApiDispatch('onClose', [event]);
             }
         };
