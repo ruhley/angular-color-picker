@@ -887,7 +887,8 @@ export default class AngularColorPickerController {
         let isValid = color.isValid();
 
         if (isValid && this.options.restrictToFormat) {
-            isValid = color.getFormat() === this.options.format;
+            let format = this.options.format;
+            isValid = color.getFormat() === this.getTinyColorFormat();
         }
 
         if (!isValid && this.options.allowEmpty) {
@@ -899,6 +900,16 @@ export default class AngularColorPickerController {
         }
 
         return isValid;
+    }
+
+    getTinyColorFormat() {
+        if (this.options.format === 'hexString') {
+            return 'hex';
+        } else if (this.options.format === 'hex8String') {
+            return 'hex8';
+        }
+
+        return this.options.format;
     }
 
     areAllValuesSet() {
