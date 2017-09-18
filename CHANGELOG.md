@@ -2,6 +2,20 @@
 
 This is a summary of the changes. For a full list of changes see https://github.com/ruhley/angular-color-picker/releases.
 
+## v3.4.5
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * Call update function when closing popup
+  * Rewrote some sections to reduce code duplication and file size by over 10%
+
+#### Bug Fixes
+    * Bug #146 - Sliders no longer lose position when going to black or white
+    * Bug #173 - Unable to Use hexString Format with restrictToFormat
+    * Bug #174 - Clicking on swatch when disabled still opens popup
+
 ## v3.4.4
 
 #### Breaking Changes
