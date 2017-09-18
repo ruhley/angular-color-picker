@@ -415,7 +415,7 @@ export default class AngularColorPickerController {
     }
 
     onSwatchClick($event) {
-        if (this.options.show.swatch) {
+        if (this.options.show.swatch && !this.options.disabled) {
             this.api.open($event);
         }
     }
