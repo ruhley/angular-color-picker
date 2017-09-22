@@ -2,7 +2,6 @@
 class Page {
     constructor() {
         this.url = 'http://localhost:8000/test/test.html';
-        // this.url = 'http://localhost/angular-color-picker/test/test.html';
         this.body = element(by.css('body'));
 
         // attribute fields
@@ -88,6 +87,14 @@ class Page {
 
     blurColorPicker() {
         browser.driver.executeScript('document.activeElement.blur()');
+    }
+
+    getNgModel() {
+        return this.color_picker.evaluate('color');
+    }
+
+    setNgModel(value) {
+        return this.color_picker.evaluate(`color = '${value}'`);
     }
 }
 

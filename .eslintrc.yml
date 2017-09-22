@@ -188,7 +188,7 @@ rules:
   max-statements-per-line: off
   max-statements:
     - error
-    - 30
+    - 50
   multiline-ternary: off
   new-cap: off
   new-parens: off

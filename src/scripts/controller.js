@@ -34,8 +34,6 @@ export default class AngularColorPickerController {
             this.ngModelOptions = this.$scope.control[0].$options.$$options;
         }
 
-        this.internalNgModel = this.ngModelOptions.getterSetter ? this.ngModel() : this.ngModel;
-
         // browser variables
         this.chrome = Boolean(window.chrome);
         let _android_version = window.navigator.userAgent.match(/Android\s([0-9\.]*)/i);
@@ -98,7 +96,7 @@ export default class AngularColorPickerController {
 
         // ngModel
 
-        this.$scope.$watch('AngularColorPickerController.internalNgModel', this.watchNgModel.bind(this));
+        this.$scope.$watch('AngularColorPickerController.internalNgModel', this.watchInternalNgModel.bind(this));
         this.$scope.$watch('AngularColorPickerController.ngModel', this.watchNgModel.bind(this));
 
         // options
@@ -174,6 +172,16 @@ export default class AngularColorPickerController {
         });
     }
 
+    watchInternalNgModel(newValue, oldValue) {
+        // the mouse is still moving so don't do anything yet
+        if (this.colorMouse) {
+            return;
+        }
+
+        // calculate and set color values
+        this.watchNgModelSet(newValue);
+    }
+
     /** Triggered on change to internal or external ngModel value */
     watchNgModel(newValue, oldValue) {
         // set initial value if not already set
@@ -183,6 +191,9 @@ export default class AngularColorPickerController {
 
         // sets the field to pristine or dirty for angular
         this.checkDirty(newValue);
+
+        // update the internal model from external model
+        this.internalNgModel = this.ngModelOptions.getterSetter ? this.ngModel() : this.ngModel;
 
         // the mouse is still moving so don't do anything yet
         if (this.colorMouse) {

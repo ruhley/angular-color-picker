@@ -60,4 +60,8 @@ angular
         $scope.close = function() {
             $scope.api.close();
         };
+
+        $scope.setValue = function(value) {
+            $scope.color = value;
+        };
     });
