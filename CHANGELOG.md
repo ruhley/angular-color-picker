@@ -2,6 +2,17 @@
 
 This is a summary of the changes. For a full list of changes see https://github.com/ruhley/angular-color-picker/releases.
 
+## v3.4.6
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * None
+
+#### Bug Fixes
+    * Bug #170 - Internal model not updating when changed programmatically
+
 ## v3.4.5
 
 #### Breaking Changes

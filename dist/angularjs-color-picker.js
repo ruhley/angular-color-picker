@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v3.4.5
+ * angularjs-color-picker v3.4.6
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2017 ruhley
  *
- * 2017-09-19 08:53:31
+ * 2017-09-22 11:38:10
  *
  */
 
@@ -26,7 +26,118 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 
 
+var asyncGenerator = function () {
+  function AwaitValue(value) {
+    this.value = value;
+  }
 
+  function AsyncGenerator(gen) {
+    var front, back;
+
+    function send(key, arg) {
+      return new Promise(function (resolve, reject) {
+        var request = {
+          key: key,
+          arg: arg,
+          resolve: resolve,
+          reject: reject,
+          next: null
+        };
+
+        if (back) {
+          back = back.next = request;
+        } else {
+          front = back = request;
+          resume(key, arg);
+        }
+      });
+    }
+
+    function resume(key, arg) {
+      try {
+        var result = gen[key](arg);
+        var value = result.value;
+
+        if (value instanceof AwaitValue) {
+          Promise.resolve(value.value).then(function (arg) {
+            resume("next", arg);
+          }, function (arg) {
+            resume("throw", arg);
+          });
+        } else {
+          settle(result.done ? "return" : "normal", result.value);
+        }
+      } catch (err) {
+        settle("throw", err);
+      }
+    }
+
+    function settle(type, value) {
+      switch (type) {
+        case "return":
+          front.resolve({
+            value: value,
+            done: true
+          });
+          break;
+
+        case "throw":
+          front.reject(value);
+          break;
+
+        default:
+          front.resolve({
+            value: value,
+            done: false
+          });
+          break;
+      }
+
+      front = front.next;
+
+      if (front) {
+        resume(front.key, front.arg);
+      } else {
+        back = null;
+      }
+    }
+
+    this._invoke = send;
+
+    if (typeof gen.return !== "function") {
+      this.return = undefined;
+    }
+  }
+
+  if (typeof Symbol === "function" && Symbol.asyncIterator) {
+    AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
+      return this;
+    };
+  }
+
+  AsyncGenerator.prototype.next = function (arg) {
+    return this._invoke("next", arg);
+  };
+
+  AsyncGenerator.prototype.throw = function (arg) {
+    return this._invoke("throw", arg);
+  };
+
+  AsyncGenerator.prototype.return = function (arg) {
+    return this._invoke("return", arg);
+  };
+
+  return {
+    wrap: function (fn) {
+      return function () {
+        return new AsyncGenerator(fn.apply(this, arguments));
+      };
+    },
+    await: function (value) {
+      return new AwaitValue(value);
+    }
+  };
+}();
 
 
 
@@ -93,8 +204,6 @@ var AngularColorPickerController = function () {
             if (this.$scope.control[0].$options && this.$scope.control[0].$options.$$options) {
                 this.ngModelOptions = this.$scope.control[0].$options.$$options;
             }
-
-            this.internalNgModel = this.ngModelOptions.getterSetter ? this.ngModel() : this.ngModel;
 
             // browser variables
             this.chrome = Boolean(window.chrome);
@@ -163,7 +272,7 @@ var AngularColorPickerController = function () {
 
             // ngModel
 
-            this.$scope.$watch('AngularColorPickerController.internalNgModel', this.watchNgModel.bind(this));
+            this.$scope.$watch('AngularColorPickerController.internalNgModel', this.watchInternalNgModel.bind(this));
             this.$scope.$watch('AngularColorPickerController.ngModel', this.watchNgModel.bind(this));
 
             // options
@@ -215,6 +324,17 @@ var AngularColorPickerController = function () {
                 _this.valueUpdate('opacity');
             });
         }
+    }, {
+        key: 'watchInternalNgModel',
+        value: function watchInternalNgModel(newValue, oldValue) {
+            // the mouse is still moving so don't do anything yet
+            if (this.colorMouse) {
+                return;
+            }
+
+            // calculate and set color values
+            this.watchNgModelSet(newValue);
+        }
 
         /** Triggered on change to internal or external ngModel value */
 
@@ -228,6 +348,9 @@ var AngularColorPickerController = function () {
 
             // sets the field to pristine or dirty for angular
             this.checkDirty(newValue);
+
+            // update the internal model from external model
+            this.internalNgModel = this.ngModelOptions.getterSetter ? this.ngModel() : this.ngModel;
 
             // the mouse is still moving so don't do anything yet
             if (this.colorMouse) {
@@ -974,7 +1097,6 @@ var AngularColorPickerController = function () {
             var isValid = color.isValid();
 
             if (isValid && this.options.restrictToFormat) {
-                var format = this.options.format;
                 isValid = color.getFormat() === this.getTinyColorFormat();
             }
 

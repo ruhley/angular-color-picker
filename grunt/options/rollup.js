@@ -9,7 +9,7 @@ var today = moment();
 
 module.exports = {
     options: {
-        entry: 'src/scripts/module.js',
+        input: 'src/scripts/module.js',
         plugins: [
             babel({
                 exclude: 'node_modules/**',
@@ -18,7 +18,7 @@ module.exports = {
         ]
     },
     options_min: {
-        entry: 'src/scripts/module.js',
+        input: 'src/scripts/module.js',
         plugins: [
             babel({
                 exclude: 'node_modules/**',
@@ -39,11 +39,14 @@ module.exports = {
         ]
     },
     writeOptions: {
-        dest: 'dist/angularjs-color-picker.js',
+        file: 'dist/angularjs-color-picker.js',
         format: 'umd',
-        moduleName: 'AngularjsColorPicker',
-        sourceMap: false,
-        banner: '/*!\n * ' + pjson.name + ' v' + pjson.version + '\n * https://github.com/ruhley/angular-color-picker/\n *\n * Copyright ' + today.format('YYYY') + ' ruhley\n *\n * ' + today.format('YYYY-MM-DD HH:mm:ss') + '\n *\n */\n'
+        name: 'AngularjsColorPicker',
+        sourcemap: false,
+        banner: '/*!\n * ' + pjson.name + ' v' + pjson.version + '\n * https://github.com/ruhley/angular-color-picker/\n *\n * Copyright ' + today.format('YYYY') + ' ruhley\n *\n * ' + today.format('YYYY-MM-DD HH:mm:ss') + '\n *\n */\n',
+        globals: {
+            tinycolor2: 'tinycolor',
+        },
     },
     writeFile: function(writer, writeOptions) {
         try {
