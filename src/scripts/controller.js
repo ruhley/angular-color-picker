@@ -185,7 +185,7 @@ export default class AngularColorPickerController {
     /** Triggered on change to internal or external ngModel value */
     watchNgModel(newValue, oldValue) {
         // set initial value if not already set
-        if (newValue !== undefined && oldValue !== undefined && !this.hasOwnProperty('initialNgModel')) {
+        if (newValue !== undefined && !this.hasOwnProperty('initialNgModel')) {
             this.initialNgModel = newValue;
         }
 
@@ -481,11 +481,9 @@ export default class AngularColorPickerController {
         };
 
         this.api.clear = (event) => {
-            if (this.internalNgModel !== '') {
-                this.setNgModel('');
+            this.setNgModel(null);
 
-                this.eventApiDispatch('onClear', [event]);
-            }
+            this.eventApiDispatch('onClear', [event]);
         };
 
         this.api.reset = (event) => {

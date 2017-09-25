@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>Example 4 - Delayed Initial Value</title>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+        <link rel="stylesheet" href="../dist/angularjs-color-picker.min.css" />
+        <link rel="stylesheet" href="../dist/themes/angularjs-color-picker-bootstrap.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+
+        <script src="../bower_components/angular/angular.min.js"></script>
+        <script src="../bower_components/tinycolor/dist/tinycolor-min.js"></script>
+
+        <script src="../src/scripts/module.js" type="module"></script>
+
+        <script src="04-app.js"></script>
+    </head>
+    <body ng-app="app" ng-controller="AppCtrl">
+        <div class="col-sm-12">
+            <h1>AngularJS Color Picker</h1>
+            <p>An AngularJS directive for a color picker. No requirement on jQuery.</p>
+            <form class="col-sm-12">
+
+                <h3>Examples</h3>
+
+                <div class="row">
+                    <label class="control-label">Color</label>
+                    <button ng-click="setValue('#FF0000')">Set value to #FF0000</button>
+                    <color-picker
+                        ng-model="color"
+                        options="options"
+                        api="api"
+                        event-api="eventApi"
+                    ></color-picker>
+                </div>
+
+                <div class="row">
+                    Two Way Binding
+                    {{color}}
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
