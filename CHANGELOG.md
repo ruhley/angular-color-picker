@@ -2,6 +2,17 @@
 
 This is a summary of the changes. For a full list of changes see https://github.com/ruhley/angular-color-picker/releases.
 
+## v3.4.7
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * None
+
+#### Bug Fixes
+    * Fixing up clear and reset buttons for initial values that are not set when color picker is initialised
+
 ## v3.4.6
 
 #### Breaking Changes

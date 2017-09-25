@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v3.4.6
+ * angularjs-color-picker v3.4.7
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2017 ruhley
  *
- * 2017-09-22 11:38:10
+ * 2017-09-25 18:00:22
  *
  */
 
@@ -342,7 +342,7 @@ var AngularColorPickerController = function () {
         key: 'watchNgModel',
         value: function watchNgModel(newValue, oldValue) {
             // set initial value if not already set
-            if (newValue !== undefined && oldValue !== undefined && !this.hasOwnProperty('initialNgModel')) {
+            if (newValue !== undefined && !this.hasOwnProperty('initialNgModel')) {
                 this.initialNgModel = newValue;
             }
 
@@ -659,11 +659,9 @@ var AngularColorPickerController = function () {
             };
 
             this.api.clear = function (event) {
-                if (_this4.internalNgModel !== '') {
-                    _this4.setNgModel('');
+                _this4.setNgModel(null);
 
-                    _this4.eventApiDispatch('onClear', [event]);
-                }
+                _this4.eventApiDispatch('onClear', [event]);
             };
 
             this.api.reset = function (event) {
