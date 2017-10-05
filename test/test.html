@@ -60,6 +60,11 @@
                     <select ng-model="options.case" class="form-control" ng-options="option.value as option.label for option in caseOptions"></select>
                 </div>
 
+                <div class="row">
+                    <label class="control-label"Dynamic Hue (dynamicHue) - whether or not to allow hue control to change based on color selection</label>
+                    <select ng-model="options.dynamicHue" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
                 <h3>Swatch</h3>
 
                 <div class="row">

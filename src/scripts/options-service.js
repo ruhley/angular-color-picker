@@ -19,6 +19,7 @@ export default class AngularColorPickerOptions {
             saturation: false,
             lightness: false,
             alpha: true,
+            dynamicHue: true,
             // picker
             round: false,
             pos: 'bottom left',

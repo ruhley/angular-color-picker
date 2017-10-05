@@ -21,6 +21,7 @@ class Page {
         this.saturation_field = element(by.model('options.saturation'));
         this.lightness_field = element(by.model('options.lightness'));
         this.alpha_field = element(by.model('options.alpha'));
+        this.dynamicHue_field = element(by.model('options.dynamicHue'));
 
         // swatch fields
         this.swatch_field = element(by.model('options.swatch'));

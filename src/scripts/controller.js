@@ -656,6 +656,16 @@ export default class AngularColorPickerController {
         five_sixths.h = 300;
         six_sixths.h = 359;
 
+        if (!this.options.dynamicHue) {
+            zero_sixths.s = zero_sixths.v = '100%';
+            one_sixths.s = one_sixths.v = '100%';
+            two_sixths.s = two_sixths.v = '100%';
+            three_sixths.s = three_sixths.v = '100%';
+            four_sixths.s = four_sixths.v = '100%';
+            five_sixths.s = five_sixths.v = '100%';
+            six_sixths.s = six_sixths.v = '100%';
+        }
+
         el.css({
             'background': 'linear-gradient(to ' + direction + ', ' +
                 tinycolor(zero_sixths).toRgbString() + ' 0%, ' +
