@@ -15,11 +15,15 @@ export default class AngularColorPickerOptions {
             // color
             format: 'hsl',
             case: 'upper',
+            // sliders
             hue: true,
             saturation: false,
             lightness: false,
             alpha: true,
             dynamicHue: true,
+            dynamicSaturation: true,
+            dynamicLightness: true,
+            dynamicAlpha: true,
             // picker
             round: false,
             pos: 'bottom left',

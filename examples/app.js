@@ -8,9 +8,14 @@ angular
             options.saturation = true;
             options.lightness = true;
             options.alpha = true;
-            options.inline = false;
+            options.inline = true;
             options.format = 'hsl';
             options.inputClass = 'form-control';
+
+            options.dynamicHue = false;
+            options.dynamicLightness = false;
+            options.dynamicSaturation = false;
+            options.dynamicAlpha = false;
             return options;
         });
     })

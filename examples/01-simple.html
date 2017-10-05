@@ -11,7 +11,8 @@
         <script src="../bower_components/angular/angular.min.js"></script>
         <script src="../bower_components/tinycolor/dist/tinycolor-min.js"></script>
 
-        <script src="../src/scripts/module.js" type="module"></script>
+        <!-- <script src="../src/scripts/module.js" type="module"></script> -->
+        <script src="../dist/angularjs-color-picker.js"></script>
 
         <script src="app.js"></script>
     </head>
@@ -29,8 +30,20 @@
                 </div>
 
                 <div class="row">
+                    <label class="control-label">Case (case) - The case of hex colors - 'upper', 'lower'</label>
+                    <select ng-model="options.case" class="form-control" ng-options="option.value as option.label for option in caseOptions"></select>
+                </div>
+
+                <h3>Sliders</h3>
+
+                <div class="row">
                     <label class="control-label">Hue (hue) - whether or not to display the hue control</label>
                     <select ng-model="options.hue" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Dynamic Hue (dynamicHue) - whether or not to allow hue control to change based on color selection</label>
+                    <select ng-model="options.dynamicHue" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
                 </div>
 
                 <div class="row">
@@ -39,8 +52,18 @@
                 </div>
 
                 <div class="row">
+                    <label class="control-label">Dynamic Saturation (dynamicSaturation) - whether or not to allow saturation control to change based on color selection</label>
+                    <select ng-model="options.dynamicSaturation" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
                     <label class="control-label">Lightness (lightness) - whether or not to display the lightness control</label>
                     <select ng-model="options.lightness" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
+                </div>
+
+                <div class="row">
+                    <label class="control-label">Dynamic Lightness (dynamicLightness) - whether or not to allow lightness control to change based on color selection</label>
+                    <select ng-model="options.dynamicLightness" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
                 </div>
 
                 <div class="row">
@@ -49,8 +72,8 @@
                 </div>
 
                 <div class="row">
-                    <label class="control-label">Case (case) - The case of hex colors - 'upper', 'lower'</label>
-                    <select ng-model="options.case" class="form-control" ng-options="option.value as option.label for option in caseOptions"></select>
+                    <label class="control-label">Dynamic Alpha (dynamicAlpha) - whether or not to allow alpha control to change based on color selection</label>
+                    <select ng-model="options.dynamicAlpha" class="form-control" ng-options="option.value as option.label for option in boolOptions"></select>
                 </div>
 
                 <h3>Swatch</h3>

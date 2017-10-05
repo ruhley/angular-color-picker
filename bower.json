@@ -1,7 +1,7 @@
 {
   "name": "angular-color-picker",
   "description": "Color Picker Directive For AngularJS",
-  "version": "3.4.7-dynamicHue",
+  "version": "3.4.7",
   "homepage": "https://github.com/ruhley/angular-color-picker",
   "repository": {
     "type": "git",

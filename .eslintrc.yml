@@ -56,7 +56,7 @@ rules:
   class-methods-use-this: off
   complexity:
     - error
-    - 6
+    - 8
   consistent-return: off
   curly: off
   default-case: off
