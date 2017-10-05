@@ -87,11 +87,16 @@ $scope.options = {
     allowEmpty: [false, true],
     // color
     format: ['hsl', 'hsv', 'rgb', 'hex', 'hexString', 'hex8', 'hex8String', 'raw'],
+    case: ['upper', 'lower'],
+    // sliders
     hue: [true, false],
     saturation: [false, true],
     lightness: [false, true], // Note: In the square mode this is HSV and in round mode this is HSL
     alpha: [true, false],
-    case: ['upper', 'lower'],
+    dynamicHue: [true, false],
+    dynamicSaturation: [true, false],
+    dynamicLightness: [true, false],
+    dynamicAlpha: [true, false],
     // swatch
     swatch: [true, false],
     swatchPos: ['left', 'right'],

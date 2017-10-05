@@ -1,10 +1,10 @@
 /*!
- * angularjs-color-picker v3.4.7
+ * angularjs-color-picker v3.4.8
  * https://github.com/ruhley/angular-color-picker/
  *
  * Copyright 2017 ruhley
  *
- * 2017-09-25 18:00:22
+ * 2017-10-06 09:51:57
  *
  */
 
@@ -287,7 +287,7 @@ var AngularColorPickerController = function () {
                 }
             });
 
-            this.$scope.$watchGroup(['AngularColorPickerController.options.format', 'AngularColorPickerController.options.alpha', 'AngularColorPickerController.options.case', 'AngularColorPickerController.options.round', 'AngularColorPickerController.options.restrictToFormat', 'AngularColorPickerController.options.preserveInputFormat', 'AngularColorPickerController.options.allowEmpty', 'AngularColorPickerController.options.horizontal'], function (newValue) {
+            this.$scope.$watchGroup(['AngularColorPickerController.options.format', 'AngularColorPickerController.options.alpha', 'AngularColorPickerController.options.case', 'AngularColorPickerController.options.round', 'AngularColorPickerController.options.restrictToFormat', 'AngularColorPickerController.options.preserveInputFormat', 'AngularColorPickerController.options.allowEmpty', 'AngularColorPickerController.options.horizontal', 'AngularColorPickerController.options.dynamicHue', 'AngularColorPickerController.options.dynamicSaturation', 'AngularColorPickerController.options.dynamicLightness', 'AngularColorPickerController.options.dynamicAlpha'], function (newValue) {
                 if (newValue !== undefined) {
                     _this.initConfig();
                     _this.update();
@@ -829,13 +829,13 @@ var AngularColorPickerController = function () {
             var el = this.find('.color-picker-hue .color-picker-overlay');
             var direction = this.options.horizontal ? 'left' : 'top';
 
-            var zero_sixths = this.getColorValue();
-            var one_sixths = this.getColorValue();
-            var two_sixths = this.getColorValue();
-            var three_sixths = this.getColorValue();
-            var four_sixths = this.getColorValue();
-            var five_sixths = this.getColorValue();
-            var six_sixths = this.getColorValue();
+            var zero_sixths = this.getColorValue(this.options.dynamicHue);
+            var one_sixths = this.getColorValue(this.options.dynamicHue);
+            var two_sixths = this.getColorValue(this.options.dynamicHue);
+            var three_sixths = this.getColorValue(this.options.dynamicHue);
+            var four_sixths = this.getColorValue(this.options.dynamicHue);
+            var five_sixths = this.getColorValue(this.options.dynamicHue);
+            var six_sixths = this.getColorValue(this.options.dynamicHue);
 
             zero_sixths.h = 0;
             one_sixths.h = 60;
@@ -886,11 +886,11 @@ var AngularColorPickerController = function () {
         value: function updateSaturationBackground(color) {
             var el = this.find('.color-picker-saturation .color-picker-overlay');
             var direction = this.options.horizontal ? 'right' : 'bottom';
-            var high = this.getColorValue();
-            var low = this.getColorValue();
+            var high = this.getColorValue(this.options.dynamicSaturation);
+            var low = this.getColorValue(this.options.dynamicSaturation);
 
-            high.s = 100;
-            low.s = 0;
+            high.s = '100%';
+            low.s = '0%';
 
             el.css({
                 'background': 'linear-gradient(to ' + direction + ', ' + tinycolor(high).toRgbString() + ' 0%, ' + tinycolor(low).toRgbString() + ' 100%)'
@@ -933,9 +933,9 @@ var AngularColorPickerController = function () {
         value: function updateLightnessBackground(color) {
             var el = this.find('.color-picker-lightness .color-picker-overlay');
             var direction = this.options.horizontal ? 'right' : 'bottom';
-            var bright = this.getColorValue();
-            var middle = this.getColorValue();
-            var dark = this.getColorValue();
+            var bright = this.getColorValue(this.options.dynamicLightness);
+            var middle = this.getColorValue(this.options.dynamicLightness);
+            var dark = this.getColorValue(this.options.dynamicLightness);
 
             if (this.options.round) {
                 bright.l = 100;
@@ -978,8 +978,8 @@ var AngularColorPickerController = function () {
         value: function updateOpacityBackground(color) {
             var el = this.find('.color-picker-opacity .color-picker-overlay');
             var direction = this.options.horizontal ? 'right' : 'bottom';
-            var opaque = this.getColorValue();
-            var transparent = this.getColorValue();
+            var opaque = this.getColorValue(this.options.dynamicAlpha);
+            var transparent = this.getColorValue(this.options.dynamicAlpha);
 
             opaque.a = 1;
             transparent.a = 0;
@@ -1060,10 +1060,10 @@ var AngularColorPickerController = function () {
             var background = this.getColorValue();
 
             if (this.options.round) {
-                background.s = 0;
+                background.s = '0%';
             } else {
-                background.s = 1;
-                background.v = 1;
+                background.s = '100%';
+                background.v = '100%';
                 background.a = 1;
             }
 
@@ -1131,24 +1131,25 @@ var AngularColorPickerController = function () {
     }, {
         key: 'getColorValue',
         value: function getColorValue() {
-            var includeOpacity = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+            var dynamicValues = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+            var includeOpacity = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
             var value = {
                 h: this.hue,
-                s: this.saturation + '%',
-                v: this.lightness + '%'
+                s: dynamicValues ? this.saturation + '%' : '100%',
+                v: dynamicValues ? this.lightness + '%' : '100%'
             };
 
             if (this.options.round) {
                 value = {
                     h: this.hue,
-                    s: this.saturation + '%',
-                    l: this.lightness + '%'
+                    s: dynamicValues ? this.saturation + '%' : '100%',
+                    l: dynamicValues ? this.lightness + '%' : '50%'
                 };
             }
 
             if (includeOpacity) {
-                value.a = this.opacity / 100;
+                value.a = dynamicValues ? this.opacity / 100 : 1;
             }
 
             return value;
@@ -1422,10 +1423,15 @@ var AngularColorPickerOptions = function AngularColorPickerOptions() {
         // color
         format: 'hsl',
         case: 'upper',
+        // sliders
         hue: true,
         saturation: false,
         lightness: false,
         alpha: true,
+        dynamicHue: true,
+        dynamicSaturation: true,
+        dynamicLightness: true,
+        dynamicAlpha: true,
         // picker
         round: false,
         pos: 'bottom left',

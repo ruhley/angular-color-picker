@@ -2,6 +2,17 @@
 
 This is a summary of the changes. For a full list of changes see https://github.com/ruhley/angular-color-picker/releases.
 
+## v3.4.8
+
+#### Breaking Changes
+  * None
+
+#### New Features
+  * Feature #176 - Adding `dynamicHue`, `dynamicSaturation`, `dynamicLightness`, and `dynamicAlpha` options for the sliders
+
+#### Bug Fixes
+  * None
+
 ## v3.4.7
 
 #### Breaking Changes
@@ -11,7 +22,7 @@ This is a summary of the changes. For a full list of changes see https://github.
   * None
 
 #### Bug Fixes
-    * Fixing up clear and reset buttons for initial values that are not set when color picker is initialised
+  * Fixing up clear and reset buttons for initial values that are not set when color picker is initialised
 
 ## v3.4.6
 
@@ -22,7 +33,7 @@ This is a summary of the changes. For a full list of changes see https://github.
   * None
 
 #### Bug Fixes
-    * Bug #170 - Internal model not updating when changed programmatically
+  * Bug #170 - Internal model not updating when changed programmatically
 
 ## v3.4.5
 
@@ -34,9 +45,9 @@ This is a summary of the changes. For a full list of changes see https://github.
   * Rewrote some sections to reduce code duplication and file size by over 10%
 
 #### Bug Fixes
-    * Bug #146 - Sliders no longer lose position when going to black or white
-    * Bug #173 - Unable to Use hexString Format with restrictToFormat
-    * Bug #174 - Clicking on swatch when disabled still opens popup
+  * Bug #146 - Sliders no longer lose position when going to black or white
+  * Bug #173 - Unable to Use hexString Format with restrictToFormat
+  * Bug #174 - Clicking on swatch when disabled still opens popup
 
 ## v3.4.4
 
@@ -58,8 +69,8 @@ This is a summary of the changes. For a full list of changes see https://github.
   * None
 
 #### Bug Fixes
-    * Bug #167 - Cannot read property 'updateOn' of undefined `ngModelOptions`
-    * Fixing up getterSetter = true setting internal ngModel to a function
+  * Bug #167 - Cannot read property 'updateOn' of undefined `ngModelOptions`
+  * Fixing up getterSetter = true setting internal ngModel to a function
 
 ## v3.4.2
 
@@ -71,7 +82,7 @@ This is a summary of the changes. For a full list of changes see https://github.
   * Feature #164 - Add `preserveInputFormat` option to control whether or not a valid input color of a different format should change to the configured format. For a visual explanation see https://github.com/ruhley/angular-color-picker/pull/164
 
 #### Bug Fixes
-    * Bug #161 - Format option is now case insensitive
+  * Bug #161 - Format option is now case insensitive
 
 ## v3.4.1
 
