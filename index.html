@@ -242,16 +242,22 @@
     inputClass<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>,
     id<span class="pl-k">:</span> <span class="pl-c1">undefined</span>,
     name<span class="pl-k">:</span> <span class="pl-c1">undefined</span>,
-    <span class="pl-c">// color</span>
-    format<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>hsl<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hsv<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>rgb<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hex<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hexString<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hex8<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hex8String<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>raw<span class="pl-pds">'</span></span>],
+    <span class="pl-c">// validation</span>
     restrictToFormat<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
     preserveInputFormat<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
     allowEmpty<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
+    <span class="pl-c">// color</span>
+    format<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>hsl<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hsv<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>rgb<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hex<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hexString<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hex8<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hex8String<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>raw<span class="pl-pds">'</span></span>],
+    case<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>upper<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>lower<span class="pl-pds">'</span></span>],
+    <span class="pl-c">// sliders</span>
     hue<span class="pl-k">:</span> [<span class="pl-c1">true</span>, <span class="pl-c1">false</span>],
     saturation<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>],
     lightness<span class="pl-k">:</span> [<span class="pl-c1">false</span>, <span class="pl-c1">true</span>], <span class="pl-c">// Note: In the square mode this is HSV and in round mode this is HSL</span>
     alpha<span class="pl-k">:</span> [<span class="pl-c1">true</span>, <span class="pl-c1">false</span>],
-    case<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>upper<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>lower<span class="pl-pds">'</span></span>],
+    dynamicHue<span class="pl-k">:</span> [<span class="pl-c1">true</span>, <span class="pl-c1">false</span>],
+    dynamicSaturation<span class="pl-k">:</span> [<span class="pl-c1">true</span>, <span class="pl-c1">false</span>],
+    dynamicLightness<span class="pl-k">:</span> [<span class="pl-c1">true</span>, <span class="pl-c1">false</span>],
+    dynamicAlpha<span class="pl-k">:</span> [<span class="pl-c1">true</span>, <span class="pl-c1">false</span>],
     <span class="pl-c">// swatch</span>
     swatch<span class="pl-k">:</span> [<span class="pl-c1">true</span>, <span class="pl-c1">false</span>],
     swatchPos<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>left<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>right<span class="pl-pds">'</span></span>],
