@@ -414,7 +414,7 @@ export default class AngularColorPickerController {
     }
 
     onBlur(event) {
-        if (this.internalNgModel !== this.onChangeValue) {
+        if (this.internalNgModel !== this.onChangeValue || this.internalNgModel !== this.ngModel) {
             this.updateModel = true;
             this.update();
         }
